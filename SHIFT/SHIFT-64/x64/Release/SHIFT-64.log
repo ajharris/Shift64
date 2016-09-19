@@ -1,0 +1,383 @@
+﻿Build started 2016-09-19 1:09:43 PM.
+     1>Project "E:\1-Projects_2013\0-SHIFT Workstation Projects\SHIFT-64\SHIFT\SHIFT-64\SHIFT-64.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\CL.exe /c /I..\..\RRI_Libs\RRI_Slicer\ /IC:\Libs\VTK\Source\VTK5.10.1_13\vtk5.10.1_13\Rendering /IC:\Libs\VTK\Source\VTK5.10.1_13\vtk5.10.1_13\IO /IC:\Libs\VTK\Source\VTK5.10.1_13\vtk5.10.1_13\Filtering /IC:\Libs\VTK\Source\VTK5.10.1_13\vtk5.10.1_13\Common /IC:\Libs\VTK\Source\VTK5.10.1_13\vtk5.10.1_13\Utilities /IC:\Libs\VTK\Source\VTK5.10.1_13\vtk5.10.1_13\Utilities\DICOMParser /IC:\Libs\VTK\Source\VTK5.10.1_13\vtk5.10.1_13\DICOMParser /IC:\Libs\VTK\Source\VTK5.10.1_13\vtk5.10.1_13\Imaging /IC:\Libs\VTK\Source\VTK5.10.1_13\vtk5.10.1_13\Graphics /IC:\Libs\VTK\Source\VTK5.10.1_13\vtk5.10.1_13\Hybrid /IC:\Libs\VTK\Source\VTK5.10.1_13\vtk5.10.1_13\Widgets /IC:\Libs\VTK\Source\VTK5.10.1_13\vtk5.10.1_13\VolumeRendering /IC:\Libs\VTK\Bin\VTK5.10.1\VTK5101_64_13 /IC:\Libs\VTK\Bin\VTK5.10.1\VTK5101_64_13\Common /IC:\Libs\VTK\Bin\VTK5.10.1\VTK5101_64_13\Rendering /IC:\Libs\VTK\Bin\VTK5.10.1\VTK5101_64_13\Utilities /IC:\Libs\GDCM\GDCM_VS1013\Source\Common /IC:\Libs\GDCM\GDCM_VS1013\Source\DataStructureAndEncodingDefinition /IC:\Libs\GDCM\GDCM_VS1013\Source\MediaStorageAndFileFormat /IC:\Libs\GDCM\GDCM_VS1013\Utilities\VTK /IC:\Libs\GDCM\GDCM_VS1013\Source\DataDictionary /IC:\Libs\GDCM\Binary_13\Source\Common /AI"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\\" /AI"C:\Program Files (x86)\Windows Kits\8.1\References\CommonConfiguration\Neutral" /AI"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\Facades\\" /Zi /clr /nologo /W3 /WX- /O2 /D WIN32 /D NDEBUG /D _MBCS /EHa /MD /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"x64\Release\\" /Fd"x64\Release\vc120.pdb" /TP /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\mscorlib.dll" /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Data.dll" /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.dll" /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Drawing.dll" /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Windows.Forms.dll" /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Xml.dll" /errorReport:prompt /clr:nostdlib ..\..\RRI_Libs\RRI_Slicer\doubledouble.cc ..\..\RRI_Libs\RRI_Slicer\Fixed.cpp ..\..\RRI_Libs\RRI_Slicer\geometry.cpp ..\..\RRI_Libs\RRI_Slicer\LISBufferCompress.cpp ..\..\RRI_Libs\RRI_Slicer\LISCrc32.cpp ..\..\RRI_Libs\RRI_Slicer\math.cc ..\..\RRI_Libs\RRI_Slicer\Measure.cpp ..\..\RRI_Libs\RRI_Slicer\model.cpp ..\..\RRI_Libs\RRI_Slicer\Observable.cpp ..\..\RRI_Libs\RRI_Slicer\Observer.cpp ..\..\RRI_Libs\RRI_Slicer\RRIEvent.cpp ..\..\RRI_Libs\RRI_Slicer\RRIObservable.cpp ..\..\RRI_Libs\RRI_Slicer\RRIObserver.cpp ..\..\RRI_Libs\RRI_Slicer\RRI_Graphics.cpp ..\..\RRI_Libs\RRI_Slicer\RRI_SlicerInterface.cpp ..\..\RRI_Libs\RRI_Slicer\texture.cpp ..\..\RRI_Libs\RRI_Slicer\TextureColour24.cpp ..\..\RRI_Libs\RRI_Slicer\Texture_MIP.cpp ..\..\RRI_Libs\RRI_Slicer\Visualizer.cpp ..\..\RRI_Libs\RRI_Slicer\VolumeClass.cpp ..\..\RRI_Libs\RRI_Slicer\Voxel.cpp ..\..\RRI_Libs\RRI_Slicer\Voxel16.cpp ..\..\RRI_Libs\RRI_Slicer\Voxel24.cpp ..\..\RRI_Libs\RRI_Slicer\VoxelAXIAL.cpp ..\..\RRI_Libs\RRI_Slicer\VoxelAXIAL24.cpp ..\..\RRI_Libs\RRI_Slicer\VoxelFAN.cpp ..\..\RRI_Libs\RRI_Slicer\VoxelFAN24.cpp ..\..\RRI_Libs\RRI_Slicer\VoxelHybrid.cpp ..\..\RRI_Libs\RRI_Slicer\VoxelHybrid24.cpp MainForm.cpp SlicerForm.cpp
+         doubledouble.cc
+     1>..\..\RRI_Libs\RRI_Slicer\doubledouble.cc(571): warning C4244: 'return' : conversion from '__int64' to 'int', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\doubledouble.cc(592): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\string.h(112) : see declaration of 'strcpy'
+         Fixed.cpp
+     1>..\..\RRI_Libs\RRI_Slicer\Fixed.cpp(11): warning C4244: 'argument' : conversion from 'float' to 'Fixed', possible loss of data
+         geometry.cpp
+     1>..\..\RRI_Libs\RRI_Slicer\geometry.cpp(112): warning C4267: 'initializing' : conversion from 'size_t' to 'int', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\geometry.cpp(126): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\geometry.cpp(255): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\geometry.cpp(256): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\geometry.cpp(282): warning C4305: '=' : truncation from 'double' to 'float'
+         LISBufferCompress.cpp
+         LISCrc32.cpp
+         math.cc
+         Measure.cpp
+     1>e:\1-projects_2013\0-shift workstation projects\shift-64\rri_libs\rri_slicer\measure.h(224): warning C4267: 'return' : conversion from 'size_t' to 'long', possible loss of data
+     1>e:\1-projects_2013\0-shift workstation projects\shift-64\rri_libs\rri_slicer\measure.h(230): warning C4267: 'argument' : conversion from 'size_t' to 'long', possible loss of data
+     1>e:\1-projects_2013\0-shift workstation projects\shift-64\rri_libs\rri_slicer\measure.h(249): warning C4267: 'argument' : conversion from 'size_t' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\Measure.cpp(821): warning C4244: '=' : conversion from '__int64' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\Measure.cpp(982): warning C4244: '=' : conversion from 'long' to 'unsigned short', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\Measure.cpp(1002): warning C4244: '=' : conversion from 'long' to 'unsigned short', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\Measure.cpp(1022): warning C4244: '=' : conversion from 'long' to 'unsigned short', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\Measure.cpp(1063): warning C4244: '=' : conversion from 'long' to 'unsigned short', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\Measure.cpp(1114): warning C4244: '=' : conversion from 'long' to 'unsigned short', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\Measure.cpp(1117): warning C4267: '=' : conversion from 'size_t' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\Measure.cpp(1355): warning C4244: '=' : conversion from 'double' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\Measure.cpp(1361): warning C4267: 'initializing' : conversion from 'size_t' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\Measure.cpp(1375): warning C4267: 'initializing' : conversion from 'size_t' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\Measure.cpp(1384): warning C4244: '=' : conversion from 'float' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\Measure.cpp(1385): warning C4244: '=' : conversion from 'float' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\Measure.cpp(1386): warning C4244: '=' : conversion from 'float' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\Measure.cpp(1421): warning C4267: '=' : conversion from 'size_t' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\Measure.cpp(1457): warning C4244: '=' : conversion from 'double' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\Measure.cpp(1463): warning C4267: 'initializing' : conversion from 'size_t' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\Measure.cpp(1477): warning C4267: 'initializing' : conversion from 'size_t' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\Measure.cpp(1486): warning C4244: '=' : conversion from 'float' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\Measure.cpp(1487): warning C4244: '=' : conversion from 'float' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\Measure.cpp(1488): warning C4244: '=' : conversion from 'float' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\Measure.cpp(1615): warning C4267: 'initializing' : conversion from 'size_t' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\Measure.cpp(1629): warning C4267: 'initializing' : conversion from 'size_t' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\Measure.cpp(1638): warning C4244: '=' : conversion from 'float' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\Measure.cpp(1639): warning C4244: '=' : conversion from 'float' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\Measure.cpp(1640): warning C4244: '=' : conversion from 'float' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\Measure.cpp(1688): warning C4267: 'initializing' : conversion from 'size_t' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\Measure.cpp(2554): warning C4267: 'initializing' : conversion from 'size_t' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\Measure.cpp(2752): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\Measure.cpp(2826): warning C4267: 'initializing' : conversion from 'size_t' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\Measure.cpp(2841): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\Measure.cpp(2843): warning C4244: 'argument' : conversion from 'unsigned __int64' to 'float', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\Measure.cpp(2893): warning C4244: '=' : conversion from 'long' to 'unsigned short', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\Measure.cpp(2943): warning C4267: 'initializing' : conversion from 'size_t' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\Measure.cpp(3472): warning C4244: '=' : conversion from 'long' to 'unsigned short', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\Measure.cpp(3481): warning C4244: '=' : conversion from 'long' to 'unsigned short', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\Measure.cpp(3490): warning C4244: '=' : conversion from 'long' to 'unsigned short', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\Measure.cpp(3499): warning C4244: '=' : conversion from 'long' to 'unsigned short', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\Measure.cpp(3508): warning C4244: '=' : conversion from 'long' to 'unsigned short', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\Measure.cpp(3520): warning C4267: 'argument' : conversion from 'size_t' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\Measure.cpp(3523): warning C4267: 'argument' : conversion from 'size_t' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\Measure.cpp(3834): warning C4267: 'initializing' : conversion from 'size_t' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\Measure.cpp(4183): warning C4267: 'initializing' : conversion from 'size_t' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\Measure.cpp(4198): warning C4244: '=' : conversion from 'float' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\Measure.cpp(4199): warning C4244: '=' : conversion from 'float' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\Measure.cpp(4200): warning C4244: '=' : conversion from 'float' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\Measure.cpp(4490): warning C4267: 'argument' : conversion from 'size_t' to 'const long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\Measure.cpp(4495): warning C4267: 'argument' : conversion from 'size_t' to 'const long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\Measure.cpp(4659): warning C4267: 'return' : conversion from 'size_t' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\Measure.cpp(4767): warning C4244: 'argument' : conversion from 'long' to 'float', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\Measure.cpp(4767): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\Measure.cpp(4767): warning C4244: '=' : conversion from 'float' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\Measure.cpp(4776): warning C4244: 'argument' : conversion from 'long' to 'float', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\Measure.cpp(4776): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\Measure.cpp(4776): warning C4244: '=' : conversion from 'float' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\Measure.cpp(4785): warning C4244: 'argument' : conversion from 'long' to 'float', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\Measure.cpp(4785): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\Measure.cpp(4785): warning C4244: '=' : conversion from 'float' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\Measure.cpp(4795): warning C4244: 'argument' : conversion from 'long' to 'float', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\Measure.cpp(4795): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\Measure.cpp(4795): warning C4244: '=' : conversion from 'float' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\Measure.cpp(4800): warning C4244: 'argument' : conversion from 'long' to 'float', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\Measure.cpp(4800): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\Measure.cpp(4800): warning C4244: '=' : conversion from 'float' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\Measure.cpp(4936): warning C4267: 'return' : conversion from 'size_t' to 'long', possible loss of data
+         model.cpp
+     1>..\..\RRI_Libs\RRI_Slicer\model.cpp(34): warning C4244: 'argument' : conversion from 'long' to 'float', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\model.cpp(191): warning C4267: 'initializing' : conversion from 'size_t' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\model.cpp(226): warning C4244: 'argument' : conversion from 'long' to 'float', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\model.cpp(264): warning C4244: 'argument' : conversion from 'long' to 'float', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\model.cpp(416): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\model.cpp(417): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\model.cpp(490): warning C4244: 'argument' : conversion from 'long' to 'float', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\model.cpp(495): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\model.cpp(536): warning C4244: 'argument' : conversion from 'long' to 'float', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\model.cpp(536): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\model.cpp(545): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\model.cpp(550): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\model.cpp(679): warning C4244: 'argument' : conversion from 'long' to 'float', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\model.cpp(679): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\model.cpp(689): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\model.cpp(694): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\model.cpp(828): warning C4244: 'initializing' : conversion from 'float' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\model.cpp(829): warning C4244: 'initializing' : conversion from 'float' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\model.cpp(998): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\model.cpp(999): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\model.cpp(1071): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\model.cpp(1072): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\model.cpp(1115): warning C4244: 'argument' : conversion from 'long' to 'float', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\model.cpp(1136): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\model.cpp(1140): warning C4244: 'argument' : conversion from 'long' to 'float', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\model.cpp(1140): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\model.cpp(1143): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\model.cpp(1177): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\model.cpp(1290): warning C4267: 'initializing' : conversion from 'size_t' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\model.cpp(1556): warning C4244: 'argument' : conversion from 'unsigned __int64' to 'float', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\model.cpp(1606): warning C4244: 'argument' : conversion from 'long' to 'float', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\model.cpp(1739): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\model.cpp(1778): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\model.cpp(1814): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\model.cpp(1818): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\model.cpp(1820): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\model.cpp(1840): warning C4267: 'initializing' : conversion from 'size_t' to 'int', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\model.cpp(1879): warning C4267: 'initializing' : conversion from 'size_t' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\model.cpp(1902): warning C4267: 'initializing' : conversion from 'size_t' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\model.cpp(2095): warning C4267: 'initializing' : conversion from 'size_t' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\model.cpp(2133): warning C4244: 'argument' : conversion from 'unsigned __int64' to 'float', possible loss of data
+         Observable.cpp
+         Observer.cpp
+         RRIEvent.cpp
+         RRIObservable.cpp
+         RRIObserver.cpp
+         RRI_Graphics.cpp
+     1>..\..\RRI_Libs\RRI_Slicer\RRI_Graphics.cpp(191): warning C4244: 'initializing' : conversion from 'float' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\RRI_Graphics.cpp(192): warning C4244: 'initializing' : conversion from 'float' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\RRI_Graphics.cpp(194): warning C4244: 'initializing' : conversion from 'float' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\RRI_Graphics.cpp(195): warning C4244: 'initializing' : conversion from 'float' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\RRI_Graphics.cpp(199): warning C4244: 'initializing' : conversion from 'float' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\RRI_Graphics.cpp(200): warning C4244: 'initializing' : conversion from 'float' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\RRI_Graphics.cpp(208): warning C4244: '=' : conversion from 'float' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\RRI_Graphics.cpp(209): warning C4244: '=' : conversion from 'float' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\RRI_Graphics.cpp(214): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(356) : see declaration of 'sprintf'
+     1>..\..\RRI_Libs\RRI_Slicer\RRI_Graphics.cpp(232): warning C4267: 'initializing' : conversion from 'size_t' to 'int', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\RRI_Graphics.cpp(257): warning C4267: 'initializing' : conversion from 'size_t' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\RRI_Graphics.cpp(279): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\RRI_Graphics.cpp(280): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\RRI_Graphics.cpp(501): warning C4101: 'colorID' : unreferenced local variable
+         RRI_SlicerInterface.cpp
+     1>e:\1-projects_2013\0-shift workstation projects\shift-64\rri_libs\rri_slicer\Measure.h(224): warning C4267: 'return' : conversion from 'size_t' to 'long', possible loss of data
+     1>e:\1-projects_2013\0-shift workstation projects\shift-64\rri_libs\rri_slicer\Measure.h(230): warning C4267: 'argument' : conversion from 'size_t' to 'long', possible loss of data
+     1>e:\1-projects_2013\0-shift workstation projects\shift-64\rri_libs\rri_slicer\Measure.h(249): warning C4267: 'argument' : conversion from 'size_t' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\RRI_SlicerInterface.cpp(624): warning C4267: 'initializing' : conversion from 'size_t' to 'int', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\RRI_SlicerInterface.cpp(778): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(356) : see declaration of 'sprintf'
+     1>..\..\RRI_Libs\RRI_Slicer\RRI_SlicerInterface.cpp(781): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(356) : see declaration of 'sprintf'
+     1>..\..\RRI_Libs\RRI_Slicer\RRI_SlicerInterface.cpp(784): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(356) : see declaration of 'sprintf'
+     1>..\..\RRI_Libs\RRI_Slicer\RRI_SlicerInterface.cpp(787): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(356) : see declaration of 'sprintf'
+     1>..\..\RRI_Libs\RRI_Slicer\RRI_SlicerInterface.cpp(790): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(356) : see declaration of 'sprintf'
+     1>..\..\RRI_Libs\RRI_Slicer\RRI_SlicerInterface.cpp(793): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(356) : see declaration of 'sprintf'
+     1>..\..\RRI_Libs\RRI_Slicer\RRI_SlicerInterface.cpp(801): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(356) : see declaration of 'sprintf'
+     1>..\..\RRI_Libs\RRI_Slicer\RRI_SlicerInterface.cpp(816): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(356) : see declaration of 'sprintf'
+     1>..\..\RRI_Libs\RRI_Slicer\RRI_SlicerInterface.cpp(831): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(356) : see declaration of 'sprintf'
+     1>..\..\RRI_Libs\RRI_Slicer\RRI_SlicerInterface.cpp(846): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(356) : see declaration of 'sprintf'
+     1>..\..\RRI_Libs\RRI_Slicer\RRI_SlicerInterface.cpp(850): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(356) : see declaration of 'sprintf'
+     1>..\..\RRI_Libs\RRI_Slicer\RRI_SlicerInterface.cpp(854): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(356) : see declaration of 'sprintf'
+     1>..\..\RRI_Libs\RRI_Slicer\RRI_SlicerInterface.cpp(858): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(356) : see declaration of 'sprintf'
+     1>..\..\RRI_Libs\RRI_Slicer\RRI_SlicerInterface.cpp(883): warning C4267: 'initializing' : conversion from 'size_t' to 'int', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\RRI_SlicerInterface.cpp(928): warning C4267: 'initializing' : conversion from 'size_t' to 'int', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\RRI_SlicerInterface.cpp(1026): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(356) : see declaration of 'sprintf'
+     1>..\..\RRI_Libs\RRI_Slicer\RRI_SlicerInterface.cpp(1029): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(356) : see declaration of 'sprintf'
+     1>..\..\RRI_Libs\RRI_Slicer\RRI_SlicerInterface.cpp(1032): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(356) : see declaration of 'sprintf'
+     1>..\..\RRI_Libs\RRI_Slicer\RRI_SlicerInterface.cpp(1035): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(356) : see declaration of 'sprintf'
+     1>..\..\RRI_Libs\RRI_Slicer\RRI_SlicerInterface.cpp(1038): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(356) : see declaration of 'sprintf'
+     1>..\..\RRI_Libs\RRI_Slicer\RRI_SlicerInterface.cpp(1041): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(356) : see declaration of 'sprintf'
+     1>..\..\RRI_Libs\RRI_Slicer\RRI_SlicerInterface.cpp(1047): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(356) : see declaration of 'sprintf'
+     1>..\..\RRI_Libs\RRI_Slicer\RRI_SlicerInterface.cpp(1260): warning C4267: 'initializing' : conversion from 'size_t' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\RRI_SlicerInterface.cpp(1280): warning C4267: 'initializing' : conversion from 'size_t' to 'int', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\RRI_SlicerInterface.cpp(1928): warning C4267: 'initializing' : conversion from 'size_t' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\RRI_SlicerInterface.cpp(2180): warning C4267: 'initializing' : conversion from 'size_t' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\RRI_SlicerInterface.cpp(2238): warning C4267: 'initializing' : conversion from 'size_t' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\RRI_SlicerInterface.cpp(2264): warning C4267: 'initializing' : conversion from 'size_t' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\RRI_SlicerInterface.cpp(2618): warning C4267: 'initializing' : conversion from 'size_t' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\RRI_SlicerInterface.cpp(2818): warning C4267: 'initializing' : conversion from 'size_t' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\RRI_SlicerInterface.cpp(4742): warning C4267: 'initializing' : conversion from 'size_t' to 'int', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\RRI_SlicerInterface.cpp(4941): warning C4267: '=' : conversion from 'size_t' to 'unsigned int', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\RRI_SlicerInterface.cpp(4997): warning C4267: 'initializing' : conversion from 'size_t' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\RRI_SlicerInterface.cpp(5053): warning C4267: 'initializing' : conversion from 'size_t' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\RRI_SlicerInterface.cpp(5330): warning C4267: 'initializing' : conversion from 'size_t' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\RRI_SlicerInterface.cpp(5541): warning C4267: 'initializing' : conversion from 'size_t' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\RRI_SlicerInterface.cpp(5624): warning C4267: '=' : conversion from 'size_t' to 'unsigned int', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\RRI_SlicerInterface.cpp(5684): warning C4267: 'initializing' : conversion from 'size_t' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\RRI_SlicerInterface.cpp(5792): warning C4267: 'initializing' : conversion from 'size_t' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\RRI_SlicerInterface.cpp(5913): warning C4267: 'initializing' : conversion from 'size_t' to 'int', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\RRI_SlicerInterface.cpp(5984): warning C4996: 'localtime': This function or variable may be unsafe. Consider using localtime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\time.inl(112) : see declaration of 'localtime'
+     1>..\..\RRI_Libs\RRI_Slicer\RRI_SlicerInterface.cpp(5986): warning C4996: 'localtime': This function or variable may be unsafe. Consider using localtime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\time.inl(112) : see declaration of 'localtime'
+     1>..\..\RRI_Libs\RRI_Slicer\RRI_SlicerInterface.cpp(6246): warning C4267: 'argument' : conversion from 'size_t' to 'uint32_t', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\RRI_SlicerInterface.cpp(6253): warning C4267: 'argument' : conversion from 'size_t' to 'uint32_t', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\RRI_SlicerInterface.cpp(6264): warning C4267: 'initializing' : conversion from 'size_t' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\RRI_SlicerInterface.cpp(6305): warning C4267: '=' : conversion from 'size_t' to 'unsigned int', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\RRI_SlicerInterface.cpp(6469): warning C4267: 'initializing' : conversion from 'size_t' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\RRI_SlicerInterface.cpp(6602): warning C4267: 'initializing' : conversion from 'size_t' to 'int', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\RRI_SlicerInterface.cpp(6613): warning C4267: 'initializing' : conversion from 'size_t' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\RRI_SlicerInterface.cpp(6874): warning C4267: 'initializing' : conversion from 'size_t' to 'int', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\RRI_SlicerInterface.cpp(8752): warning C4267: '=' : conversion from 'size_t' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\RRI_SlicerInterface.cpp(10248): warning C4267: 'initializing' : conversion from 'size_t' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\RRI_SlicerInterface.cpp(10317): warning C4267: 'initializing' : conversion from 'size_t' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\RRI_SlicerInterface.cpp(10491): warning C4267: 'initializing' : conversion from 'size_t' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\RRI_SlicerInterface.cpp(10771): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(356) : see declaration of 'sprintf'
+     1>..\..\RRI_Libs\RRI_Slicer\RRI_SlicerInterface.cpp(10774): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(356) : see declaration of 'sprintf'
+     1>..\..\RRI_Libs\RRI_Slicer\RRI_SlicerInterface.cpp(10777): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(356) : see declaration of 'sprintf'
+     1>..\..\RRI_Libs\RRI_Slicer\RRI_SlicerInterface.cpp(10780): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(356) : see declaration of 'sprintf'
+     1>..\..\RRI_Libs\RRI_Slicer\RRI_SlicerInterface.cpp(10784): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(356) : see declaration of 'sprintf'
+     1>..\..\RRI_Libs\RRI_Slicer\RRI_SlicerInterface.cpp(10797): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(356) : see declaration of 'sprintf'
+     1>..\..\RRI_Libs\RRI_Slicer\RRI_SlicerInterface.cpp(10714): warning C4101: 'pts' : unreferenced local variable
+         texture.cpp
+     1>..\..\RRI_Libs\RRI_Slicer\texture.cpp(125): warning C4244: 'argument' : conversion from 'float' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\texture.cpp(127): warning C4244: 'argument' : conversion from 'float' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\texture.cpp(137): warning C4244: 'argument' : conversion from 'float' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\texture.cpp(139): warning C4244: 'argument' : conversion from 'float' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\texture.cpp(150): warning C4244: 'argument' : conversion from 'float' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\texture.cpp(152): warning C4244: 'argument' : conversion from 'float' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\texture.cpp(163): warning C4244: 'argument' : conversion from 'float' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\texture.cpp(165): warning C4244: 'argument' : conversion from 'float' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\texture.cpp(390): warning C4244: 'return' : conversion from 'long' to 'float', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\texture.cpp(407): warning C4244: 'return' : conversion from 'long' to 'float', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\texture.cpp(424): warning C4244: 'return' : conversion from 'long' to 'float', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\texture.cpp(477): warning C4267: 'initializing' : conversion from 'size_t' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\texture.cpp(485): warning C4267: 'argument' : conversion from 'size_t' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\texture.cpp(770): warning C4244: '=' : conversion from 'long' to 'short', possible loss of data
+         TextureColour24.cpp
+     1>..\..\RRI_Libs\RRI_Slicer\TextureColour24.cpp(147): warning C4267: 'initializing' : conversion from 'size_t' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\TextureColour24.cpp(155): warning C4267: 'argument' : conversion from 'size_t' to 'long', possible loss of data
+         Texture_MIP.cpp
+     1>..\..\RRI_Libs\RRI_Slicer\Texture_MIP.cpp(171): warning C4267: 'initializing' : conversion from 'size_t' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\Texture_MIP.cpp(179): warning C4267: 'argument' : conversion from 'size_t' to 'long', possible loss of data
+         Visualizer.cpp
+     1>..\..\RRI_Libs\RRI_Slicer\Visualizer.cpp(620): warning C4244: 'argument' : conversion from 'long' to 'float', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\Visualizer.cpp(635): warning C4244: 'argument' : conversion from 'long' to 'float', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\Visualizer.cpp(640): warning C4244: 'argument' : conversion from 'long' to 'float', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\Visualizer.cpp(645): warning C4244: 'argument' : conversion from 'long' to 'float', possible loss of data
+         VolumeClass.cpp
+         Generating Code...
+     1>e:\1-projects_2013\0-shift workstation projects\shift-64\rri_libs\rri_slicer\math.cc(335): warning C4715: 'asin' : not all control paths return a value
+     1>e:\1-projects_2013\0-shift workstation projects\shift-64\rri_libs\rri_slicer\doubledouble.cc(146): warning C4715: 'floor' : not all control paths return a value
+         Compiling...
+         Voxel.cpp
+     1>..\..\RRI_Libs\RRI_Slicer\Voxel.cpp(318): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\Voxel.cpp(338): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+         Voxel16.cpp
+     1>..\..\RRI_Libs\RRI_Slicer\Voxel16.cpp(24): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\Voxel16.cpp(156): warning C4244: '=' : conversion from 'float' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\Voxel16.cpp(162): warning C4244: '=' : conversion from 'float' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\Voxel16.cpp(168): warning C4244: '=' : conversion from 'float' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\Voxel16.cpp(174): warning C4244: '=' : conversion from 'float' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\Voxel16.cpp(180): warning C4244: '=' : conversion from 'float' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\Voxel16.cpp(186): warning C4244: '=' : conversion from 'float' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\Voxel16.cpp(192): warning C4244: '=' : conversion from 'float' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\Voxel16.cpp(198): warning C4244: '=' : conversion from 'float' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\Voxel16.cpp(212): warning C4244: 'initializing' : conversion from 'long' to 'tVoxel', possible loss of data
+         Voxel24.cpp
+         VoxelAXIAL.cpp
+     1>..\..\RRI_Libs\RRI_Slicer\VoxelAXIAL.cpp(128): warning C4804: '<' : unsafe use of type 'bool' in operation
+     1>..\..\RRI_Libs\RRI_Slicer\VoxelAXIAL.cpp(133): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\VoxelAXIAL.cpp(240): warning C4804: '<' : unsafe use of type 'bool' in operation
+     1>..\..\RRI_Libs\RRI_Slicer\VoxelAXIAL.cpp(245): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\VoxelAXIAL.cpp(308): warning C4244: 'initializing' : conversion from 'long' to 'float', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\VoxelAXIAL.cpp(310): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\VoxelAXIAL.cpp(311): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\VoxelAXIAL.cpp(336): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\VoxelAXIAL.cpp(345): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\VoxelAXIAL.cpp(363): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\VoxelAXIAL.cpp(368): warning C4244: 'initializing' : conversion from 'float' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\VoxelAXIAL.cpp(369): warning C4244: 'initializing' : conversion from 'float' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\VoxelAXIAL.cpp(377): warning C4244: '=' : conversion from 'float' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\VoxelAXIAL.cpp(388): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+         VoxelAXIAL24.cpp
+     1>..\..\RRI_Libs\RRI_Slicer\VoxelAXIAL24.cpp(101): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\VoxelAXIAL24.cpp(185): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\VoxelAXIAL24.cpp(269): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+         VoxelFAN.cpp
+     1>..\..\RRI_Libs\RRI_Slicer\VoxelFAN.cpp(25): warning C4244: 'initializing' : conversion from 'long' to 'float', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\VoxelFAN.cpp(26): warning C4244: 'initializing' : conversion from 'long' to 'float', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\VoxelFAN.cpp(27): warning C4244: 'initializing' : conversion from 'long' to 'float', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\VoxelFAN.cpp(28): warning C4244: '=' : conversion from 'float' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\VoxelFAN.cpp(29): warning C4244: '=' : conversion from 'float' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\VoxelFAN.cpp(30): warning C4244: '=' : conversion from 'float' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\VoxelFAN.cpp(190): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\VoxelFAN.cpp(216): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\VoxelFAN.cpp(239): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\VoxelFAN.cpp(246): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\VoxelFAN.cpp(251): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+         VoxelFAN24.cpp
+         VoxelHybrid.cpp
+     1>..\..\RRI_Libs\RRI_Slicer\VoxelHybrid.cpp(65): warning C4244: 'initializing' : conversion from 'float' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\VoxelHybrid.cpp(66): warning C4244: 'initializing' : conversion from 'float' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\VoxelHybrid.cpp(67): warning C4244: 'initializing' : conversion from 'float' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\VoxelHybrid.cpp(175): warning C4244: '=' : conversion from 'double' to 'long', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\VoxelHybrid.cpp(197): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\RRI_Libs\RRI_Slicer\VoxelHybrid.cpp(198): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+         VoxelHybrid24.cpp
+         MainForm.cpp
+     1>e:\1-projects_2013\0-shift workstation projects\shift-64\rri_libs\rri_slicer\Measure.h(224): warning C4267: 'return' : conversion from 'size_t' to 'long', possible loss of data
+     1>e:\1-projects_2013\0-shift workstation projects\shift-64\rri_libs\rri_slicer\Measure.h(230): warning C4267: 'argument' : conversion from 'size_t' to 'long', possible loss of data
+     1>e:\1-projects_2013\0-shift workstation projects\shift-64\rri_libs\rri_slicer\Measure.h(249): warning C4267: 'argument' : conversion from 'size_t' to 'long', possible loss of data
+         SlicerForm.cpp
+     1>e:\1-projects_2013\0-shift workstation projects\shift-64\rri_libs\rri_slicer\Measure.h(224): warning C4267: 'return' : conversion from 'size_t' to 'long', possible loss of data
+     1>e:\1-projects_2013\0-shift workstation projects\shift-64\rri_libs\rri_slicer\Measure.h(230): warning C4267: 'argument' : conversion from 'size_t' to 'long', possible loss of data
+     1>e:\1-projects_2013\0-shift workstation projects\shift-64\rri_libs\rri_slicer\Measure.h(249): warning C4267: 'argument' : conversion from 'size_t' to 'long', possible loss of data
+         Generating Code...
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"E:\1-Projects_2013\0-SHIFT Workstation Projects\SHIFT-64\SHIFT\x64\Release\SHIFT64.exe" /INCREMENTAL:NO /NOLOGO /LIBPATH:C:\Libs\VTK\Bin\VTK5.10.1\VTK5101_64_13\bin\Release /LIBPATH:C:\Libs\VTK\Bin\VTK5.10.1\VTK5101_64_08\bin\Release /LIBPATH:C:\Libs\GDCM\GDCM_bin_64\bin\Release kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib opengl32.lib glu32.lib Winmm.lib msimg32.lib vtkmetaio.lib vtkCommon.lib vtkIO.lib vtkDICOMParser.lib vtkImaging.lib vtkfreetype.lib vtkFiltering.lib vtkHybrid.lib vtkWidgets.lib vtkVolumeRendering.lib vtksys.lib vtkGraphics.lib vtkRendering.lib vtkjpeg.lib vtktiff.lib vtkpng.lib vtkzlib.lib vtkexpat.lib vtkftgl.lib gdcmexpat.lib gdcmcharls.lib gdcmMSFF.lib gdcmjpeg8.lib gdcmjpeg12.lib gdcmjpeg16.lib gdcmgetopt.lib gdcmIOD.lib gdcmMEXD.lib gdcmDICT.lib gdcmDSED.lib gdcmopenjpeg.lib gdcmzlib.lib socketxx.lib vtkgdcm.lib gdcmCommon.lib wsock32.lib Msimg32.lib Rpcrt4.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /ASSEMBLYRESOURCE:x64\Release\SHIFT64.MainForm.resources /ASSEMBLYRESOURCE:x64\Release\SHIFT64.SlicerForm.resources /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"E:\1-Projects_2013\0-SHIFT Workstation Projects\SHIFT-64\SHIFT\x64\Release\SHIFT64.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /ENTRY:"Main" /DYNAMICBASE /FIXED:NO /NXCOMPAT /MACHINE:X64 x64\Release\doubledouble.obj
+         x64\Release\Fixed.obj
+         x64\Release\geometry.obj
+         x64\Release\LISBufferCompress.obj
+         x64\Release\LISCrc32.obj
+         x64\Release\math.obj
+         x64\Release\Measure.obj
+         x64\Release\model.obj
+         x64\Release\Observable.obj
+         x64\Release\Observer.obj
+         x64\Release\RRIEvent.obj
+         x64\Release\RRIObservable.obj
+         x64\Release\RRIObserver.obj
+         x64\Release\RRI_Graphics.obj
+         x64\Release\RRI_SlicerInterface.obj
+         x64\Release\texture.obj
+         x64\Release\TextureColour24.obj
+         x64\Release\Texture_MIP.obj
+         x64\Release\Visualizer.obj
+         x64\Release\VolumeClass.obj
+         x64\Release\Voxel.obj
+         x64\Release\Voxel16.obj
+         x64\Release\Voxel24.obj
+         x64\Release\VoxelAXIAL.obj
+         x64\Release\VoxelAXIAL24.obj
+         x64\Release\VoxelFAN.obj
+         x64\Release\VoxelFAN24.obj
+         x64\Release\VoxelHybrid.obj
+         x64\Release\VoxelHybrid24.obj
+         x64\Release\MainForm.obj
+         x64\Release\SlicerForm.obj
+         "x64\Release\.NETFramework,Version=v4.5.AssemblyAttributes.obj"
+         ..\..\RRI_Libs\RRI_Slicer\zlib.lib
+         ..\..\RRI_Libs\RRI_Slicer\zlib_debug.lib
+         ..\..\RRI_Libs\RRI_Slicer\zlib_release.lib
+     1>RRI_SlicerInterface.obj : warning LNK4248: unresolved typeref token (01000016) for 'vtkSource'; image may not run
+     1>.NETFramework,Version=v4.5.AssemblyAttributes.obj : warning LNK4099: PDB 'vc120.pdb' was not found with '.NETFramework,Version=v4.5.AssemblyAttributes.obj' or at 'E:\1-Projects_2013\0-SHIFT Workstation Projects\SHIFT-64\SHIFT\x64\Release\vc120.pdb'; linking object as if no debug info
+         SHIFT-64.vcxproj -> E:\1-Projects_2013\0-SHIFT Workstation Projects\SHIFT-64\SHIFT\x64\Release\SHIFT64.exe
+     1>Done Building Project "E:\1-Projects_2013\0-SHIFT Workstation Projects\SHIFT-64\SHIFT\SHIFT-64\SHIFT-64.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:39.60

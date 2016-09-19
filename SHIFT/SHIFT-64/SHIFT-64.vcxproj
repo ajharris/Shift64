@@ -1,0 +1,241 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{73441010-ADEB-435F-97FC-51684611AECF}</ProjectGuid>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <Keyword>ManagedCProj</Keyword>
+    <RootNamespace>SHIFT64</RootNamespace>
+    <ProjectName>SHIFT64</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CLRSupport>true</CLRSupport>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CLRSupport>true</CLRSupport>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CLRSupport>true</CLRSupport>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CLRSupport>true</CLRSupport>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies />
+      <SubSystem>Windows</SubSystem>
+      <EntryPointSymbol>Main</EntryPointSymbol>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>
+      </AdditionalDependencies>
+      <SubSystem>Windows</SubSystem>
+      <EntryPointSymbol>Main</EntryPointSymbol>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies />
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\RRI_Libs\RRI_Slicer\;C:\Libs\VTK\Source\VTK5.10.1_13\vtk5.10.1_13\Rendering;C:\Libs\VTK\Source\VTK5.10.1_13\vtk5.10.1_13\IO;C:\Libs\VTK\Source\VTK5.10.1_13\vtk5.10.1_13\Filtering;C:\Libs\VTK\Source\VTK5.10.1_13\vtk5.10.1_13\Common;C:\Libs\VTK\Source\VTK5.10.1_13\vtk5.10.1_13\Utilities;C:\Libs\VTK\Source\VTK5.10.1_13\vtk5.10.1_13\Utilities\DICOMParser;C:\Libs\VTK\Source\VTK5.10.1_13\vtk5.10.1_13\DICOMParser;C:\Libs\VTK\Source\VTK5.10.1_13\vtk5.10.1_13\Imaging;C:\Libs\VTK\Source\VTK5.10.1_13\vtk5.10.1_13\Graphics;C:\Libs\VTK\Source\VTK5.10.1_13\vtk5.10.1_13\Hybrid;C:\Libs\VTK\Source\VTK5.10.1_13\vtk5.10.1_13\Widgets;C:\Libs\VTK\Source\VTK5.10.1_13\vtk5.10.1_13\VolumeRendering;C:\Libs\VTK\Bin\VTK5.10.1\VTK5101_64_13;C:\Libs\VTK\Bin\VTK5.10.1\VTK5101_64_13\Common;C:\Libs\VTK\Bin\VTK5.10.1\VTK5101_64_13\Rendering;C:\Libs\VTK\Bin\VTK5.10.1\VTK5101_64_13\Utilities;C:\Libs\GDCM\GDCM_VS1013\Source\Common;C:\Libs\GDCM\GDCM_VS1013\Source\DataStructureAndEncodingDefinition;C:\Libs\GDCM\GDCM_VS1013\Source\MediaStorageAndFileFormat;C:\Libs\GDCM\GDCM_VS1013\Utilities\VTK;C:\Libs\GDCM\GDCM_VS1013\Source\DataDictionary;C:\Libs\GDCM\Binary_13\Source\Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;opengl32.lib;glu32.lib;Winmm.lib;msimg32.lib;vtkmetaio.lib;vtkCommon.lib;vtkIO.lib;vtkDICOMParser.lib;vtkImaging.lib;vtkfreetype.lib;vtkFiltering.lib;vtkHybrid.lib;vtkWidgets.lib;vtkVolumeRendering.lib;vtksys.lib;vtkGraphics.lib;vtkRendering.lib;vtkjpeg.lib;vtktiff.lib;vtkpng.lib;vtkzlib.lib;vtkexpat.lib;vtkftgl.lib;gdcmexpat.lib;gdcmcharls.lib;gdcmMSFF.lib;gdcmjpeg8.lib;gdcmjpeg12.lib;gdcmjpeg16.lib;gdcmgetopt.lib;gdcmIOD.lib;gdcmMEXD.lib;gdcmDICT.lib;gdcmDSED.lib;gdcmopenjpeg.lib;gdcmzlib.lib;socketxx.lib;vtkgdcm.lib;gdcmCommon.lib;wsock32.lib;Msimg32.lib;Rpcrt4.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SubSystem>Windows</SubSystem>
+      <EntryPointSymbol>Main</EntryPointSymbol>
+      <AdditionalLibraryDirectories>C:\Libs\VTK\Bin\VTK5.10.1\VTK5101_64_13\bin\Release;C:\Libs\VTK\Bin\VTK5.10.1\VTK5101_64_08\bin\Release;C:\Libs\GDCM\GDCM_bin_64\bin\Release</AdditionalLibraryDirectories>
+      <ForceSymbolReferences>
+      </ForceSymbolReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\RRI_Libs\RRI_Slicer\doubledouble.cc" />
+    <ClCompile Include="..\..\RRI_Libs\RRI_Slicer\Fixed.cpp" />
+    <ClCompile Include="..\..\RRI_Libs\RRI_Slicer\geometry.cpp" />
+    <ClCompile Include="..\..\RRI_Libs\RRI_Slicer\LISBufferCompress.cpp" />
+    <ClCompile Include="..\..\RRI_Libs\RRI_Slicer\LISCrc32.cpp" />
+    <ClCompile Include="..\..\RRI_Libs\RRI_Slicer\math.cc" />
+    <ClCompile Include="..\..\RRI_Libs\RRI_Slicer\Measure.cpp" />
+    <ClCompile Include="..\..\RRI_Libs\RRI_Slicer\model.cpp" />
+    <ClCompile Include="..\..\RRI_Libs\RRI_Slicer\Observable.cpp" />
+    <ClCompile Include="..\..\RRI_Libs\RRI_Slicer\Observer.cpp" />
+    <ClCompile Include="..\..\RRI_Libs\RRI_Slicer\RRIEvent.cpp" />
+    <ClCompile Include="..\..\RRI_Libs\RRI_Slicer\RRIObservable.cpp" />
+    <ClCompile Include="..\..\RRI_Libs\RRI_Slicer\RRIObserver.cpp" />
+    <ClCompile Include="..\..\RRI_Libs\RRI_Slicer\RRI_Graphics.cpp" />
+    <ClCompile Include="..\..\RRI_Libs\RRI_Slicer\RRI_SlicerInterface.cpp" />
+    <ClCompile Include="..\..\RRI_Libs\RRI_Slicer\texture.cpp" />
+    <ClCompile Include="..\..\RRI_Libs\RRI_Slicer\TextureColour24.cpp" />
+    <ClCompile Include="..\..\RRI_Libs\RRI_Slicer\Texture_MIP.cpp" />
+    <ClCompile Include="..\..\RRI_Libs\RRI_Slicer\Visualizer.cpp" />
+    <ClCompile Include="..\..\RRI_Libs\RRI_Slicer\VolumeClass.cpp" />
+    <ClCompile Include="..\..\RRI_Libs\RRI_Slicer\Voxel.cpp" />
+    <ClCompile Include="..\..\RRI_Libs\RRI_Slicer\Voxel16.cpp" />
+    <ClCompile Include="..\..\RRI_Libs\RRI_Slicer\Voxel24.cpp" />
+    <ClCompile Include="..\..\RRI_Libs\RRI_Slicer\VoxelAXIAL.cpp" />
+    <ClCompile Include="..\..\RRI_Libs\RRI_Slicer\VoxelAXIAL24.cpp" />
+    <ClCompile Include="..\..\RRI_Libs\RRI_Slicer\VoxelFAN.cpp" />
+    <ClCompile Include="..\..\RRI_Libs\RRI_Slicer\VoxelFAN24.cpp" />
+    <ClCompile Include="..\..\RRI_Libs\RRI_Slicer\VoxelHybrid.cpp" />
+    <ClCompile Include="..\..\RRI_Libs\RRI_Slicer\VoxelHybrid24.cpp" />
+    <ClCompile Include="MainForm.cpp" />
+    <ClCompile Include="SlicerForm.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\RRI_Libs\RRI_Slicer\doubledouble.h" />
+    <ClInclude Include="..\..\RRI_Libs\RRI_Slicer\Fixed.h" />
+    <ClInclude Include="..\..\RRI_Libs\RRI_Slicer\geometry.h" />
+    <ClInclude Include="..\..\RRI_Libs\RRI_Slicer\inline.h" />
+    <ClInclude Include="..\..\RRI_Libs\RRI_Slicer\LISBufferCompress.h" />
+    <ClInclude Include="..\..\RRI_Libs\RRI_Slicer\LISCrc32.h" />
+    <ClInclude Include="..\..\RRI_Libs\RRI_Slicer\LISFileFormat.h" />
+    <ClInclude Include="..\..\RRI_Libs\RRI_Slicer\Measure.h" />
+    <ClInclude Include="..\..\RRI_Libs\RRI_Slicer\model.h" />
+    <ClInclude Include="..\..\RRI_Libs\RRI_Slicer\Observable.h" />
+    <ClInclude Include="..\..\RRI_Libs\RRI_Slicer\Observer.h" />
+    <ClInclude Include="..\..\RRI_Libs\RRI_Slicer\palettedefinitions.h" />
+    <ClInclude Include="..\..\RRI_Libs\RRI_Slicer\RRIEvent.h" />
+    <ClInclude Include="..\..\RRI_Libs\RRI_Slicer\RRIObservable.h" />
+    <ClInclude Include="..\..\RRI_Libs\RRI_Slicer\RRIObserver.h" />
+    <ClInclude Include="..\..\RRI_Libs\RRI_Slicer\RRI_Graphics.h" />
+    <ClInclude Include="..\..\RRI_Libs\RRI_Slicer\RRI_SlicerInterface.h" />
+    <ClInclude Include="..\..\RRI_Libs\RRI_Slicer\STLIncludes.h" />
+    <ClInclude Include="..\..\RRI_Libs\RRI_Slicer\texture.h" />
+    <ClInclude Include="..\..\RRI_Libs\RRI_Slicer\TextureColour24.h" />
+    <ClInclude Include="..\..\RRI_Libs\RRI_Slicer\Texture_MIP.h" />
+    <ClInclude Include="..\..\RRI_Libs\RRI_Slicer\VisLib.h" />
+    <ClInclude Include="..\..\RRI_Libs\RRI_Slicer\VisLibtEMP.h" />
+    <ClInclude Include="..\..\RRI_Libs\RRI_Slicer\Visualizer.h" />
+    <ClInclude Include="..\..\RRI_Libs\RRI_Slicer\VolumeClass.h" />
+    <ClInclude Include="..\..\RRI_Libs\RRI_Slicer\Voxel.h" />
+    <ClInclude Include="..\..\RRI_Libs\RRI_Slicer\Voxel16.h" />
+    <ClInclude Include="..\..\RRI_Libs\RRI_Slicer\Voxel24.h" />
+    <ClInclude Include="..\..\RRI_Libs\RRI_Slicer\VoxelAXIAL.h" />
+    <ClInclude Include="..\..\RRI_Libs\RRI_Slicer\VoxelAXIAL24.h" />
+    <ClInclude Include="..\..\RRI_Libs\RRI_Slicer\VoxelFAN.h" />
+    <ClInclude Include="..\..\RRI_Libs\RRI_Slicer\VoxelFAN24.h" />
+    <ClInclude Include="..\..\RRI_Libs\RRI_Slicer\VoxelHybrid.h" />
+    <ClInclude Include="..\..\RRI_Libs\RRI_Slicer\VoxelHybrid24.h" />
+    <ClInclude Include="..\..\RRI_Libs\RRI_Slicer\zconf.h" />
+    <ClInclude Include="..\..\RRI_Libs\RRI_Slicer\zlib.h" />
+    <ClInclude Include="MainForm.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="SlicerForm.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\RRI_Libs\RRI_Slicer\zlib.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="..\..\RRI_Libs\RRI_Slicer\zlib.lib" />
+    <Library Include="..\..\RRI_Libs\RRI_Slicer\zlib_debug.lib" />
+    <Library Include="..\..\RRI_Libs\RRI_Slicer\zlib_release.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SlicerForm.resx">
+      <DependentUpon>SlicerForm.h</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

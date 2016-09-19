@@ -1,0 +1,255 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="RRI_Slicer">
+      <UniqueIdentifier>{412b2046-a868-44fe-ac83-7ca47d427b81}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="MainForm.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\RRI_Libs\RRI_Slicer\doubledouble.cc">
+      <Filter>RRI_Slicer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\RRI_Libs\RRI_Slicer\Fixed.cpp">
+      <Filter>RRI_Slicer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\RRI_Libs\RRI_Slicer\geometry.cpp">
+      <Filter>RRI_Slicer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\RRI_Libs\RRI_Slicer\LISBufferCompress.cpp">
+      <Filter>RRI_Slicer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\RRI_Libs\RRI_Slicer\LISCrc32.cpp">
+      <Filter>RRI_Slicer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\RRI_Libs\RRI_Slicer\math.cc">
+      <Filter>RRI_Slicer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\RRI_Libs\RRI_Slicer\Measure.cpp">
+      <Filter>RRI_Slicer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\RRI_Libs\RRI_Slicer\model.cpp">
+      <Filter>RRI_Slicer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\RRI_Libs\RRI_Slicer\Observable.cpp">
+      <Filter>RRI_Slicer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\RRI_Libs\RRI_Slicer\Observer.cpp">
+      <Filter>RRI_Slicer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\RRI_Libs\RRI_Slicer\RRI_Graphics.cpp">
+      <Filter>RRI_Slicer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\RRI_Libs\RRI_Slicer\RRI_SlicerInterface.cpp">
+      <Filter>RRI_Slicer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\RRI_Libs\RRI_Slicer\RRIEvent.cpp">
+      <Filter>RRI_Slicer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\RRI_Libs\RRI_Slicer\RRIObservable.cpp">
+      <Filter>RRI_Slicer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\RRI_Libs\RRI_Slicer\RRIObserver.cpp">
+      <Filter>RRI_Slicer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\RRI_Libs\RRI_Slicer\texture.cpp">
+      <Filter>RRI_Slicer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\RRI_Libs\RRI_Slicer\Texture_MIP.cpp">
+      <Filter>RRI_Slicer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\RRI_Libs\RRI_Slicer\TextureColour24.cpp">
+      <Filter>RRI_Slicer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\RRI_Libs\RRI_Slicer\Visualizer.cpp">
+      <Filter>RRI_Slicer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\RRI_Libs\RRI_Slicer\VolumeClass.cpp">
+      <Filter>RRI_Slicer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\RRI_Libs\RRI_Slicer\Voxel.cpp">
+      <Filter>RRI_Slicer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\RRI_Libs\RRI_Slicer\Voxel16.cpp">
+      <Filter>RRI_Slicer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\RRI_Libs\RRI_Slicer\Voxel24.cpp">
+      <Filter>RRI_Slicer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\RRI_Libs\RRI_Slicer\VoxelAXIAL.cpp">
+      <Filter>RRI_Slicer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\RRI_Libs\RRI_Slicer\VoxelAXIAL24.cpp">
+      <Filter>RRI_Slicer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\RRI_Libs\RRI_Slicer\VoxelFAN.cpp">
+      <Filter>RRI_Slicer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\RRI_Libs\RRI_Slicer\VoxelFAN24.cpp">
+      <Filter>RRI_Slicer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\RRI_Libs\RRI_Slicer\VoxelHybrid.cpp">
+      <Filter>RRI_Slicer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\RRI_Libs\RRI_Slicer\VoxelHybrid24.cpp">
+      <Filter>RRI_Slicer</Filter>
+    </ClCompile>
+    <ClCompile Include="SlicerForm.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="MainForm.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\RRI_Libs\RRI_Slicer\doubledouble.h">
+      <Filter>RRI_Slicer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\RRI_Libs\RRI_Slicer\Fixed.h">
+      <Filter>RRI_Slicer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\RRI_Libs\RRI_Slicer\geometry.h">
+      <Filter>RRI_Slicer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\RRI_Libs\RRI_Slicer\inline.h">
+      <Filter>RRI_Slicer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\RRI_Libs\RRI_Slicer\LISBufferCompress.h">
+      <Filter>RRI_Slicer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\RRI_Libs\RRI_Slicer\LISCrc32.h">
+      <Filter>RRI_Slicer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\RRI_Libs\RRI_Slicer\LISFileFormat.h">
+      <Filter>RRI_Slicer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\RRI_Libs\RRI_Slicer\Measure.h">
+      <Filter>RRI_Slicer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\RRI_Libs\RRI_Slicer\model.h">
+      <Filter>RRI_Slicer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\RRI_Libs\RRI_Slicer\Observable.h">
+      <Filter>RRI_Slicer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\RRI_Libs\RRI_Slicer\Observer.h">
+      <Filter>RRI_Slicer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\RRI_Libs\RRI_Slicer\palettedefinitions.h">
+      <Filter>RRI_Slicer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\RRI_Libs\RRI_Slicer\RRI_Graphics.h">
+      <Filter>RRI_Slicer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\RRI_Libs\RRI_Slicer\RRI_SlicerInterface.h">
+      <Filter>RRI_Slicer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\RRI_Libs\RRI_Slicer\RRIEvent.h">
+      <Filter>RRI_Slicer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\RRI_Libs\RRI_Slicer\RRIObservable.h">
+      <Filter>RRI_Slicer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\RRI_Libs\RRI_Slicer\RRIObserver.h">
+      <Filter>RRI_Slicer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\RRI_Libs\RRI_Slicer\STLIncludes.h">
+      <Filter>RRI_Slicer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\RRI_Libs\RRI_Slicer\texture.h">
+      <Filter>RRI_Slicer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\RRI_Libs\RRI_Slicer\Texture_MIP.h">
+      <Filter>RRI_Slicer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\RRI_Libs\RRI_Slicer\TextureColour24.h">
+      <Filter>RRI_Slicer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\RRI_Libs\RRI_Slicer\VisLib.h">
+      <Filter>RRI_Slicer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\RRI_Libs\RRI_Slicer\VisLibtEMP.h">
+      <Filter>RRI_Slicer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\RRI_Libs\RRI_Slicer\Visualizer.h">
+      <Filter>RRI_Slicer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\RRI_Libs\RRI_Slicer\VolumeClass.h">
+      <Filter>RRI_Slicer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\RRI_Libs\RRI_Slicer\Voxel.h">
+      <Filter>RRI_Slicer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\RRI_Libs\RRI_Slicer\Voxel16.h">
+      <Filter>RRI_Slicer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\RRI_Libs\RRI_Slicer\Voxel24.h">
+      <Filter>RRI_Slicer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\RRI_Libs\RRI_Slicer\VoxelAXIAL.h">
+      <Filter>RRI_Slicer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\RRI_Libs\RRI_Slicer\VoxelAXIAL24.h">
+      <Filter>RRI_Slicer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\RRI_Libs\RRI_Slicer\VoxelFAN.h">
+      <Filter>RRI_Slicer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\RRI_Libs\RRI_Slicer\VoxelFAN24.h">
+      <Filter>RRI_Slicer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\RRI_Libs\RRI_Slicer\VoxelHybrid.h">
+      <Filter>RRI_Slicer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\RRI_Libs\RRI_Slicer\VoxelHybrid24.h">
+      <Filter>RRI_Slicer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\RRI_Libs\RRI_Slicer\zconf.h">
+      <Filter>RRI_Slicer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\RRI_Libs\RRI_Slicer\zlib.h">
+      <Filter>RRI_Slicer</Filter>
+    </ClInclude>
+    <ClInclude Include="SlicerForm.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\RRI_Libs\RRI_Slicer\zlib.dll">
+      <Filter>RRI_Slicer</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="..\..\RRI_Libs\RRI_Slicer\zlib.lib">
+      <Filter>RRI_Slicer</Filter>
+    </Library>
+    <Library Include="..\..\RRI_Libs\RRI_Slicer\zlib_debug.lib">
+      <Filter>RRI_Slicer</Filter>
+    </Library>
+    <Library Include="..\..\RRI_Libs\RRI_Slicer\zlib_release.lib">
+      <Filter>RRI_Slicer</Filter>
+    </Library>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MainForm.resx">
+      <Filter>Resource Files</Filter>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SlicerForm.resx">
+      <Filter>Resource Files</Filter>
+    </EmbeddedResource>
+  </ItemGroup>
+</Project>
