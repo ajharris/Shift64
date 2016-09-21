@@ -1,0 +1,106 @@
+  SHIFT64.AndrewControls.resources - Embedded, ContainedInManifestFile, 
+  SHIFT64.MainForm.resources - Embedded, ContainedInManifestFile, 
+  SHIFT64.SlicerForm.resources - Embedded, ContainedInManifestFile, 
+ImageRuntimeVersion: v4.0.30319
+Assembly SHIFT64, Version=0.0.*, Culture=Invariant Language (Invariant Country): 
+	hash=SHA1, flags=PublicKey
+Assembly mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a: 
+	hash=None, flags=None
+Assembly System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System.Xml, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Struct RRI_SlicerInterface: AutoLayout, AnsiClass, Class, Public, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+Struct RRI_SlicerInterface+<unnamed-type-measure>: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+Class SHIFT64.AndrewControls: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Windows.Forms.Form
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Int32 m_alphaBlendValue IsLong : Public, Static
+    Int32 m_controlWidth IsLong : Public, Static
+    Int32 m_controlHeight IsLong : Public, Static
+    Int32 m_controlPosX IsLong : Public, Static
+    Int32 m_controlPosY IsLong : Public, Static
+    Boolean m_sizeChanging : Public, Static
+    Boolean m_positionChanging : Public, Static
+  Events:
+    System.EventHandler OnAndrewControlsEvent: SpecialName
+  Methods:
+    add_OnAndrewControlsEvent(EventHandler): PrivateScope, Public, HideBySig, SpecialName
+    remove_OnAndrewControlsEvent(EventHandler): PrivateScope, Public, HideBySig, SpecialName
+    GetAlphaBlend(): PrivateScope, Public, HideBySig
+    SetFontSize(Single): PrivateScope, Public, HideBySig
+    SetNewSize(Int32, Int32): PrivateScope, Public, HideBySig
+    SetNewPos(Int32, Int32): PrivateScope, Public, HideBySig
+    UpdateGUI(): PrivateScope, Public, HideBySig
+    AndrewControls_Event(Object, EventArgs): PrivateScope, Public, HideBySig
+Class SHIFT64.SlicerForm: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Windows.Forms.Form
+    Void .ctor(Int32, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    RRI_SlicerInterface* m_slicer : Public
+    Boolean m_updateDisplay : Public
+    Int32 tempCount IsLong : Public
+  Events:
+    System.EventHandler OnSlicerEvent: SpecialName
+  Methods:
+    add_OnSlicerEvent(EventHandler): PrivateScope, Public, HideBySig, SpecialName
+    remove_OnSlicerEvent(EventHandler): PrivateScope, Public, HideBySig, SpecialName
+    SetSelected(Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig
+    SetMode(Int32 IsLong): PrivateScope, Public, HideBySig
+    IsSelected(): PrivateScope, Public, HideBySig
+    GetSlicer(): PrivateScope, Public, HideBySig
+    StartScan(): PrivateScope, Public, HideBySig
+    StopScan(): PrivateScope, Public, HideBySig
+    UpdateDisplay(): PrivateScope, Public, HideBySig
+    GenerateSurfaceFromUserPoints(): PrivateScope, Public, HideBySig
+    ImportDicomSingle(String): PrivateScope, Public, HideBySig
+    ImportDicom(String): PrivateScope, Public, HideBySig
+    ImportThermometry(String, Int32 IsLong, Vector3, Int32 IsLong): PrivateScope, Public, HideBySig
+    Slicer_Event(Object, EventArgs): PrivateScope, Public, HideBySig
+    SetDisplayText(String): PrivateScope, Public, HideBySig
+Class SHIFT64.MainForm: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Windows.Forms.Form
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    SHIFT64.AndrewControls m_mainControls : Public
+    SHIFT64.SlicerForm m_View1 : Public
+    SHIFT64.SlicerForm m_View2 : Public
+    SHIFT64.SlicerForm m_miniSlicer : Public
+    System.Windows.Forms.Timer m_monitorFolderTimer : Public
+  Methods:
+    InitializeView1(): PrivateScope, Public, HideBySig
+    InitializeView2(): PrivateScope, Public, HideBySig
+    Slicer_Event(Object, EventArgs): PrivateScope, Public, HideBySig
+    SelectWorkingFolder(): PrivateScope, Public, HideBySig
+    MonitorFolderEventProcessor(Object, EventArgs): PrivateScope, Public, HideBySig
+    MonitorForNewScans(): PrivateScope, Public, HideBySig
+    MonitorFolderForDicom(): PrivateScope, Public, HideBySig
+    AddRAWImage(String, String, Int32): PrivateScope, Public, HideBySig
+    AddMHAImage(String, String, Int32): PrivateScope, Public, HideBySig
+    AddDICOMImage(String, String, Int32): PrivateScope, Public, HideBySig
+    ConvertString(basic_string<char\,std::char_traits<char>\,std::allocator<char> >*, String): PrivateScope, Public, HideBySig
+    LoadSelectedImage(): PrivateScope, Public, HideBySig
+    ResetDefault(): PrivateScope, Public, HideBySig
+    StopFileMonitor(): PrivateScope, Public, HideBySig
+    StartFileMonitor(): PrivateScope, Public, HideBySig
+    ViewReset1(): PrivateScope, Public, HideBySig
+    ViewReset2(): PrivateScope, Public, HideBySig
+    ViewReset3(): PrivateScope, Public, HideBySig
+    AndrewControls_Event(Object, EventArgs): PrivateScope, Public, HideBySig
+    OnTransformPoints(): PrivateScope, Public, HideBySig
+    OnRegistrationEvent(): PrivateScope, Public, HideBySig
+    OnLinkCubesEvent(): PrivateScope, Public, HideBySig
+    LinkCubes(): PrivateScope, Public, HideBySig
+    GetDoubleValue(String, String): PrivateScope, Public, HideBySig
+    OnAlphaBlendChanged(): PrivateScope, Public, HideBySig
+    AlphaBlendImages(RRI_SlicerInterface*, RRI_SlicerInterface*): PrivateScope, Public, HideBySig
+    ConvertPoint(Vector3*, Vector3): PrivateScope, Public, HideBySig

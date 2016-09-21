@@ -15,6 +15,8 @@ public:
 	void SetVoxValue(long x, long y, long z, long n, unsigned char value);
 	virtual void GetVoxValue(long x, long y, long z, tVoxel& lower, tVoxel& upper);
 	virtual long GetVoxIndex(Vector3 point);
+    virtual tVoxel Voxel16::GetVoxValue(long x, long y, long z);
+
 
 
     virtual tVoxel	GetVoxRvalue(long x, long y, long z);

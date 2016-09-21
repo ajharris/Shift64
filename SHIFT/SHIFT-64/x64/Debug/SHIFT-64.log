@@ -1,0 +1,56 @@
+﻿Build started 2016-09-20 3:44:44 PM.
+     1>Project "E:\1-Projects_2013\0-SHIFT Workstation Projects\SHIFT-64\SHIFT\SHIFT-64\SHIFT-64.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\CL.exe /c /I..\..\RRI_Libs\RRI_Slicer\ /IC:\Libs\VTK\Source\VTK5.10.1_13\vtk5.10.1_13\Rendering /IC:\Libs\VTK\Source\VTK5.10.1_13\vtk5.10.1_13\IO /IC:\Libs\VTK\Source\VTK5.10.1_13\vtk5.10.1_13\Filtering /IC:\Libs\VTK\Source\VTK5.10.1_13\vtk5.10.1_13\Common /IC:\Libs\VTK\Source\VTK5.10.1_13\vtk5.10.1_13\Utilities /IC:\Libs\VTK\Source\VTK5.10.1_13\vtk5.10.1_13\Utilities\DICOMParser /IC:\Libs\VTK\Source\VTK5.10.1_13\vtk5.10.1_13\DICOMParser /IC:\Libs\VTK\Source\VTK5.10.1_13\vtk5.10.1_13\Imaging /IC:\Libs\VTK\Source\VTK5.10.1_13\vtk5.10.1_13\Graphics /IC:\Libs\VTK\Source\VTK5.10.1_13\vtk5.10.1_13\Hybrid /IC:\Libs\VTK\Source\VTK5.10.1_13\vtk5.10.1_13\Widgets /IC:\Libs\VTK\Source\VTK5.10.1_13\vtk5.10.1_13\VolumeRendering /IC:\Libs\VTK\Bin\VTK5.10.1\VTK5101_64_13 /IC:\Libs\VTK\Bin\VTK5.10.1\VTK5101_64_13\Common /IC:\Libs\VTK\Bin\VTK5.10.1\VTK5101_64_13\Rendering /IC:\Libs\VTK\Bin\VTK5.10.1\VTK5101_64_13\Utilities /IC:\Libs\GDCM\GDCM_VS1013\Source\Common /IC:\Libs\GDCM\GDCM_VS1013\Source\DataStructureAndEncodingDefinition /IC:\Libs\GDCM\GDCM_VS1013\Source\MediaStorageAndFileFormat /IC:\Libs\GDCM\GDCM_VS1013\Utilities\VTK /IC:\Libs\GDCM\GDCM_VS1013\Source\DataDictionary /IC:\Libs\GDCM\Binary_13\Source\Common /AI"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\\" /AI"C:\Program Files (x86)\Windows Kits\8.1\References\CommonConfiguration\Neutral" /AI"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\Facades\\" /Zi /clr /nologo /W3 /WX- /Od /D WIN32 /D _DEBUG /D _MBCS /EHa /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"x64\Debug\\" /Fd"x64\Debug\vc120.pdb" /TP /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\mscorlib.dll" /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Data.dll" /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.dll" /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Drawing.dll" /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Windows.Forms.dll" /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Xml.dll" /errorReport:prompt /clr:nostdlib AndrewControls.cpp MainForm.cpp
+         AndrewControls.cpp
+         MainForm.cpp
+     1>e:\1-projects_2013\0-shift workstation projects\shift-64\rri_libs\rri_slicer\Measure.h(224): warning C4267: 'return' : conversion from 'size_t' to 'long', possible loss of data
+     1>e:\1-projects_2013\0-shift workstation projects\shift-64\rri_libs\rri_slicer\Measure.h(230): warning C4267: 'argument' : conversion from 'size_t' to 'long', possible loss of data
+     1>e:\1-projects_2013\0-shift workstation projects\shift-64\rri_libs\rri_slicer\Measure.h(249): warning C4267: 'argument' : conversion from 'size_t' to 'long', possible loss of data
+     1>e:\1-projects_2013\0-shift workstation projects\shift-64\shift\shift-64\MainForm.h(1716): warning C4267: 'initializing' : conversion from 'size_t' to 'long', possible loss of data
+     1>e:\1-projects_2013\0-shift workstation projects\shift-64\shift\shift-64\MainForm.h(1962): warning C4101: 'pe' : unreferenced local variable
+         Generating Code...
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"E:\1-Projects_2013\0-SHIFT Workstation Projects\SHIFT-64\SHIFT\x64\Debug\SHIFT64.exe" /INCREMENTAL /NOLOGO /LIBPATH:C:\Libs\VTK\Bin\VTK5.10.1\VTK5101_64_13\bin\Debug /LIBPATH:C:\Libs\VTK\Bin\VTK5.10.1\VTK5101_64_08\bin\Debug /LIBPATH:C:\Libs\GDCM\GDCM_bin_64\bin\Debug kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib opengl32.lib glu32.lib Winmm.lib msimg32.lib vtkmetaio.lib vtkCommon.lib vtkIO.lib vtkDICOMParser.lib vtkImaging.lib vtkfreetype.lib vtkFiltering.lib vtkHybrid.lib vtkWidgets.lib vtkVolumeRendering.lib vtksys.lib vtkGraphics.lib vtkRendering.lib vtkjpeg.lib vtktiff.lib vtkpng.lib vtkzlib.lib vtkexpat.lib vtkftgl.lib gdcmexpat.lib gdcmcharls.lib gdcmMSFF.lib gdcmjpeg8.lib gdcmjpeg12.lib gdcmjpeg16.lib gdcmgetopt.lib gdcmIOD.lib gdcmMEXD.lib gdcmDICT.lib gdcmDSED.lib gdcmopenjpeg.lib gdcmzlib.lib socketxx.lib vtkgdcm.lib gdcmCommon.lib wsock32.lib Msimg32.lib Rpcrt4.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /ASSEMBLYRESOURCE:x64\Debug\SHIFT64.AndrewControls.resources /ASSEMBLYRESOURCE:x64\Debug\SHIFT64.MainForm.resources /ASSEMBLYRESOURCE:x64\Debug\SHIFT64.SlicerForm.resources /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"E:\1-Projects_2013\0-SHIFT Workstation Projects\SHIFT-64\SHIFT\x64\Debug\SHIFT64.pdb" /ASSEMBLYDEBUG /SUBSYSTEM:WINDOWS /TLBID:1 /ENTRY:"Main" /DYNAMICBASE /FIXED:NO /NXCOMPAT /MACHINE:X64 x64\Debug\doubledouble.obj
+         x64\Debug\Fixed.obj
+         x64\Debug\geometry.obj
+         x64\Debug\LISBufferCompress.obj
+         x64\Debug\LISCrc32.obj
+         x64\Debug\math.obj
+         x64\Debug\Measure.obj
+         x64\Debug\model.obj
+         x64\Debug\Observable.obj
+         x64\Debug\Observer.obj
+         x64\Debug\RRIEvent.obj
+         x64\Debug\RRIObservable.obj
+         x64\Debug\RRIObserver.obj
+         x64\Debug\RRI_Graphics.obj
+         x64\Debug\RRI_SlicerInterface.obj
+         x64\Debug\texture.obj
+         x64\Debug\TextureColour24.obj
+         x64\Debug\Texture_MIP.obj
+         x64\Debug\Visualizer.obj
+         x64\Debug\VolumeClass.obj
+         x64\Debug\Voxel.obj
+         x64\Debug\Voxel16.obj
+         x64\Debug\Voxel24.obj
+         x64\Debug\VoxelAXIAL.obj
+         x64\Debug\VoxelAXIAL24.obj
+         x64\Debug\VoxelFAN.obj
+         x64\Debug\VoxelFAN24.obj
+         x64\Debug\VoxelHybrid.obj
+         x64\Debug\VoxelHybrid24.obj
+         x64\Debug\AndrewControls.obj
+         x64\Debug\MainForm.obj
+         x64\Debug\SlicerForm.obj
+         "x64\Debug\.NETFramework,Version=v4.5.AssemblyAttributes.obj"
+         ..\..\RRI_Libs\RRI_Slicer\zlib.lib
+         ..\..\RRI_Libs\RRI_Slicer\zlib_debug.lib
+         ..\..\RRI_Libs\RRI_Slicer\zlib_release.lib
+     1>RRI_SlicerInterface.obj : warning LNK4248: unresolved typeref token (01000016) for 'vtkSource'; image may not run
+         SHIFT-64.vcxproj -> E:\1-Projects_2013\0-SHIFT Workstation Projects\SHIFT-64\SHIFT\x64\Debug\SHIFT64.exe
+     1>Done Building Project "E:\1-Projects_2013\0-SHIFT Workstation Projects\SHIFT-64\SHIFT\SHIFT-64\SHIFT-64.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:09.83

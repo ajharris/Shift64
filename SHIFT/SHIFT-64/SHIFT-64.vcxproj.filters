@@ -111,6 +111,9 @@
     <ClCompile Include="SlicerForm.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="AndrewControls.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainForm.h">
@@ -225,6 +228,12 @@
       <Filter>RRI_Slicer</Filter>
     </ClInclude>
     <ClInclude Include="SlicerForm.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AndrewControls.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CompileSwitches.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

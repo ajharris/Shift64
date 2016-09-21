@@ -224,6 +224,7 @@ long ImportThermometry(String^ folderPath, long baseLineIndex, Vector3 thermalRe
             this->BackColor = System::Drawing::SystemColors::ActiveCaptionText;
             this->ClientSize = System::Drawing::Size(500, 500);
             this->ControlBox = false;
+            this->Cursor = System::Windows::Forms::Cursors::Cross;
             this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::None;
             this->MaximizeBox = false;
             this->MinimizeBox = false;

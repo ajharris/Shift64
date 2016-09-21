@@ -1,11 +1,16 @@
 #pragma once
 
+#include "CompileSwitches.h"
 
 #define SLICER_AVAILABLE
 #ifdef SLICER_AVAILABLE
 #include "SlicerForm.h"
 #endif
 
+#define ANDREW_CONTROLS
+#ifdef ANDREW_CONTROLS
+    #include "AndrewControls.h"
+#endif
 
 namespace SHIFT64 {
 
@@ -28,6 +33,13 @@ namespace SHIFT64 {
 	/// </summary>
 	public ref class MainForm : public System::Windows::Forms::Form
 	{
+
+    //====================================================================================================
+    //Andrew Controls
+    #ifdef ANDREW_CONTROLS
+	public: AndrewControls^ m_mainControls;
+    #endif
+    //====================================================================================================
 
 
     //====================================================================================================
@@ -71,6 +83,9 @@ namespace SHIFT64 {
     private: System::Windows::Forms::ToolStripSeparator^  toolStripSeparator1;
     private: System::Windows::Forms::ToolStripSeparator^  toolStripSeparator2;
     private: System::Windows::Forms::ToolStripSeparator^  toolStripSeparator3;
+
+    private: System::Windows::Forms::ToolStripButton^  zoomIN;
+    private: System::Windows::Forms::ToolStripButton^  zoomOUT;
 
     private: System::Windows::Forms::ToolStripButton^  m_selectWorkingFolder;
     private: System::Windows::Forms::ToolStripButton^  Ruler;
@@ -130,6 +145,17 @@ namespace SHIFT64 {
 #endif
 //===================================================================================================================================
 
+
+#ifdef ANDREW_CONTROLS
+	        m_mainControls = gcnew AndrewControls();
+			m_mainControls->MdiParent = this;
+			m_mainControls->OnAndrewControlsEvent += gcnew EventHandler(this, &SHIFT64::MainForm::AndrewControls_Event); 
+			m_mainControls->Hide();
+			
+#endif
+
+
+
             this->m_folderBrowserDialog1 = (gcnew System::Windows::Forms::FolderBrowserDialog());
 			this->m_folderBrowserDialog1->Description = L"Select Working Folder";
 			this->m_folderBrowserDialog1->SelectedPath = L"c:\\Scans";
@@ -188,6 +214,8 @@ namespace SHIFT64 {
             this->ClearPoint = (gcnew System::Windows::Forms::ToolStripButton());
             this->toolStripSeparator3 = (gcnew System::Windows::Forms::ToolStripSeparator());
             this->Ruler = (gcnew System::Windows::Forms::ToolStripButton());
+            this->zoomIN = (gcnew System::Windows::Forms::ToolStripButton());
+            this->zoomOUT = (gcnew System::Windows::Forms::ToolStripButton());
             this->m_commonControls->SuspendLayout();
             this->SuspendLayout();
             // 
@@ -222,10 +250,10 @@ namespace SHIFT64 {
             this->m_commonControls->Font = (gcnew System::Drawing::Font(L"Segoe UI", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
                 static_cast<System::Byte>(0)));
             this->m_commonControls->ImageScalingSize = System::Drawing::Size(64, 64);
-            this->m_commonControls->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(11) {
+            this->m_commonControls->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(13) {
                 this->m_selectWorkingFolder,
                     this->toolStripSeparator2, this->Reset1, this->Reset2, this->Reset3, this->toolStripSeparator1, this->AddPoint, this->DeletePoint,
-                    this->ClearPoint, this->toolStripSeparator3, this->Ruler
+                    this->ClearPoint, this->toolStripSeparator3, this->Ruler, this->zoomIN, this->zoomOUT
             });
             this->m_commonControls->Location = System::Drawing::Point(279, 140);
             this->m_commonControls->Name = L"m_commonControls";
@@ -327,6 +355,31 @@ namespace SHIFT64 {
             this->Ruler->Size = System::Drawing::Size(51, 25);
             this->Ruler->Text = L"Ruler";
             this->Ruler->Click += gcnew System::EventHandler(this, &MainForm::Ruler_Click);
+
+            // 
+            // Zoom IN
+            // 
+            this->zoomIN->DisplayStyle = System::Windows::Forms::ToolStripItemDisplayStyle::Text;
+            this->zoomIN->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"zoomIN.Image")));
+            this->zoomIN->ImageTransparentColor = System::Drawing::Color::Magenta;
+            this->zoomIN->Name = L"ZoomIN";
+            this->zoomIN->Size = System::Drawing::Size(51, 25);
+            this->zoomIN->Text = L"Zoom IN";
+            this->zoomIN->Click += gcnew System::EventHandler(this, &MainForm::ZoomIN_Click);
+
+            // 
+            // Zoom OUT
+            // 
+            this->zoomOUT->DisplayStyle = System::Windows::Forms::ToolStripItemDisplayStyle::Text;
+            this->zoomOUT->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"zoomOUT.Image")));
+            this->zoomOUT->ImageTransparentColor = System::Drawing::Color::Magenta;
+            this->zoomOUT->Name = L"ZoomOUT";
+            this->zoomOUT->Size = System::Drawing::Size(51, 25);
+            this->zoomOUT->Text = L"Zoom OUT";
+            this->zoomOUT->Click += gcnew System::EventHandler(this, &MainForm::ZoomOUT_Click);
+
+
+
             // 
             // MainForm
             // 
@@ -359,8 +412,9 @@ private: void UpdateGUI()
     //1264 x 730
 	int defaultClientWidth = 1264.0;
 	int defaultClientHeight = 730.0;
-    
 
+    
+    //get dimensions of application
     long appWidth = clientSize.Width;
 	long appHeight = clientSize.Height;
 
@@ -372,6 +426,9 @@ private: void UpdateGUI()
 
     long maxBorder = 4;
     maxBorder *= scaleRatio;
+
+    appWidth -= (maxBorder*3);
+    appHeight -= (maxBorder*3);
 
     //calculate control dimensions
     int controlWidth = 240;
@@ -387,21 +444,24 @@ private: void UpdateGUI()
     //Slicer dimensions
     int slicerWidth = 460;// 440;
     slicerWidth *= scaleRatio;
-	int slicerHeight = 440;
-    slicerHeight *= scaleRatio;
+	int slicerHeight = appHeight-imageListHeight-toolBarHeight - (maxBorder*2);
 
-    slicerWidth = (appWidth-controlWidth-8)/2;
+
+    slicerWidth = (appWidth-controlWidth-(maxBorder*2))/2;
     slicerWidth &= 0xfffffffc;//must be a multiple of 4
-
-    
     int spaceBetweenSlicers = maxBorder;
     spaceBetweenSlicers *= scaleRatio;
 
-    
-	
-	
-    
+
     int slicerYOffset = imageListHeight + toolBarHeight + maxBorder*2;
+    //slicerYOffset *= scaleRatio;
+    
+
+    //control dimensions
+    long controlPosX = maxBorder;
+	long controlPosY = maxBorder;//slicerYOffset;
+	long controlHeight = appHeight - controlPosY - maxBorder;
+    
 
     //font size
     double maxFontSize = 10.0;
@@ -412,19 +472,20 @@ private: void UpdateGUI()
 //MainForm controls=========================================================================================
 
     //this is the image list control 
-	this->m_imageListView->Size = System::Drawing::Size(appWidth-controlWidth-maxBorder, imageListHeight-maxBorder);
-	this->m_imageListView->Location = System::Drawing::Point(controlWidth+2, 2);//upper left corner
+	this->m_imageListView->Size = System::Drawing::Size(appWidth-controlWidth-(maxBorder*2), imageListHeight-(maxBorder*2));
+	this->m_imageListView->Location = System::Drawing::Point(controlWidth + (maxBorder*2), maxBorder*2);//upper left corner
 	this->m_imageListView->Update();
 
-    this->m_commonControls->Size = System::Drawing::Size(appWidth-controlWidth-maxBorder, toolBarHeight);
-    this->m_commonControls->Location = System::Drawing::Point(controlWidth+2, imageListHeight + maxBorder);//upper left corner
+    this->m_commonControls->Size = System::Drawing::Size(appWidth-controlWidth-(maxBorder*2), toolBarHeight);
+    this->m_commonControls->Location = System::Drawing::Point(controlWidth+(maxBorder*2), imageListHeight+(maxBorder*2));//upper left corner
     this->m_commonControls->Font = gcnew System::Drawing::Font("Microsoft Sans Seri", newFontSize, FontStyle::Regular);
-//==========================================================================================================
+
 
 
 
 //==========================================================================================================
 #ifdef SLICER_AVAILABLE
+//==========================================================================================================
     long window1 = m_View1->GetSlicer()->GetWindow();
     long level1 =  m_View1->GetSlicer()->GetLevel();
     long window2 = m_View2->GetSlicer()->GetWindow();
@@ -434,7 +495,7 @@ private: void UpdateGUI()
     mvState* state2 = m_View2->GetSlicer()->GetVisualizer()->GetStateModelView();
 
     m_View1->ClientSize = System::Drawing::Size(slicerWidth, slicerHeight);
-	m_View1->Location = System::Drawing::Point(controlWidth, slicerYOffset);
+	m_View1->Location = System::Drawing::Point(controlWidth + (maxBorder*2), slicerYOffset);
 	m_View1->GetSlicer()->Initialize(slicerWidth, slicerHeight, "View1", false);
     m_View1->GetSlicer()->SetWindowLevel(window1, level1);
 	m_View1->SetSelected(true);
@@ -447,7 +508,7 @@ private: void UpdateGUI()
 	//long slicer2Width = appWidth-controlWidth-slicerWidth-spaceBetweenSlicers;
 	//slicer2Width &= 0xfffffffc;
 	m_View2->ClientSize = System::Drawing::Size(slicerWidth, slicerHeight);
-	m_View2->Location = System::Drawing::Point(controlWidth + slicerWidth + spaceBetweenSlicers, slicerYOffset);
+	m_View2->Location = System::Drawing::Point(controlWidth + slicerWidth + spaceBetweenSlicers + (maxBorder*2), slicerYOffset);
 	m_View2->GetSlicer()->Initialize(slicerWidth, slicerHeight, "View2", false);
     m_View2->GetSlicer()->SetWindowLevel(window2, level2);
 	m_View2->SetSelected(false);
@@ -458,10 +519,20 @@ private: void UpdateGUI()
     m_View2->UpdateDisplay();
     m_View1->UpdateDisplay();
 
-#endif//====================================================================================
+#endif
 
 
+//====================================================================================
+//Main controls
+//====================================================================================
 
+    {
+        m_mainControls->SetFontSize(newFontSize);
+        m_mainControls->SetNewSize(controlWidth - 4, controlHeight);
+        m_mainControls->SetNewPos(controlPosX, controlPosY);
+        m_mainControls->UpdateGUI();
+        m_mainControls->Show();
+    }
 
 }
 
@@ -537,7 +608,6 @@ public: void InitializeView2()
 
 private: System::Void MainForm_SizeChanged(System::Object^  sender, System::EventArgs^  e) 
 {
-
     UpdateGUI();
 }
 
@@ -983,7 +1053,7 @@ bool AddDICOMImage(String^ filePath, String^ fileName, int imageIndex)
 			if (0 == m_miniSlicer->ImportDicomSingle(folderPath) && fileCount >2)
 			{
 
-                MessageBox::Show(folderPath);
+                //MessageBox::Show(folderPath);
 				//------------------------------------------------------------------------------
 				//Slice into cube half way for display in image list
 				m_miniSlicer->GetSlicer()->SetModelView(-1, 0.001f, 0.001f, 0.001f, false);//don't reset zoom
@@ -1462,6 +1532,8 @@ void ViewReset3()
 //Toolbar Events
 //==============================================================================================
 
+
+
 private: System::Void m_imageListView_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e) 
 {
     LoadSelectedImage();
@@ -1536,6 +1608,7 @@ private: System::Void ClearPoint_Click(System::Object^  sender, System::EventArg
     }
 
 }
+
 private: System::Void Ruler_Click(System::Object^  sender, System::EventArgs^  e) 
 {
 	if (m_View1->IsSelected())
@@ -1554,7 +1627,1002 @@ private: System::Void Ruler_Click(System::Object^  sender, System::EventArgs^  e
 
 }
 
+private: System::Void ZoomIN_Click(System::Object^  sender, System::EventArgs^  e) 
+{
+	if (m_View1->IsSelected())
+	{
+		m_View1->GetSlicer()->Zoom(1.1);
+		m_View1->UpdateDisplay();
+
+	}
+	else
+	if (m_View2->IsSelected())
+	{
+		m_View2->GetSlicer()->Zoom(1.1);
+		m_View2->UpdateDisplay();
+	
+	}
+
+}
+
+private: System::Void ZoomOUT_Click(System::Object^  sender, System::EventArgs^  e) 
+{
+	if (m_View1->IsSelected())
+	{
+		m_View1->GetSlicer()->Zoom(0.9);
+		m_View1->UpdateDisplay();
+
+	}
+	else
+	if (m_View2->IsSelected())
+	{
+		m_View2->GetSlicer()->Zoom(0.9);
+		m_View2->UpdateDisplay();
+	
+	}
+
+}
+
+
+
 //==============================================================================================
+
+//Control Panel Events
+#ifdef ANDREW_CONTROLS
+public: void AndrewControls_Event(Object^ sender, EventArgs^ e)
+{
+    String^ code = (String^)sender;
+
+	if (code == "AlphaBlendChanged")
+	{
+        OnAlphaBlendChanged();
+	}
+    else
+    if (code == "RegistrationEvent")
+    {
+        OnRegistrationEvent();
+    }
+    else
+    if (code == "LinkCubesEvent")
+    {
+        OnLinkCubesEvent();
+    }
+    else
+    if (code == "TransformPoints")
+    {
+        OnTransformPoints();
+    }
+    else
+    if (code == "LoadTransform")
+    {
+       // LoadTransformApplyToSelectedView();
+        DoLandmarkRegistration();
+    }
+
+}
+#endif
+
+
+
+void OnTransformPoints()
+{
+    RRI_SlicerInterface* source = 0;
+    RRI_SlicerInterface* target = 0;
+
+    if (m_View1->IsSelected())
+    {
+        source = m_View1->GetSlicer();
+        target = m_View2->GetSlicer();
+    }
+    else
+    {
+        target = m_View1->GetSlicer();
+        source = m_View2->GetSlicer();
+    }
+
+    Vector3Vec targetPoints = source->GetUserTargets();
+    long size = targetPoints.size();
+
+    for (int i=0; i<size; i++)
+    {
+        Vector3 point = targetPoints.at(i);
+        Vector3 convertedPoint = ConvertPoint(point);
+        target->AddTarget(convertedPoint);
+    }   
+
+    m_View1->UpdateDisplay();
+    m_View2->UpdateDisplay();
+
+
+}
+
+void OnRegistrationEvent()
+{
+    vtkMatrix4x4* matrix = vtkMatrix4x4::New();
+    m_View1->GetSlicer()->SetDicomMatrix(matrix);
+    m_View2->GetSlicer()->SetDicomMatrix(matrix);
+
+    matrix->Delete();
+
+}
+
+void OnLinkCubesEvent()
+{
+    
+    LinkCubes();
+    
+
+}
+
+bool LinkCubes()
+{
+
+	Vector3 p1,p2,p3;
+    std::string view1RegistrationLabel = m_View1->GetSlicer()->GetRegistrationLabel();
+    std::string view2RegistrationLabel = m_View2->GetSlicer()->GetRegistrationLabel();
+    std::string view1VolumeLabel = m_View1->GetSlicer()->GetVolumeLabel();
+    std::string view2VolumeLabel = m_View2->GetSlicer()->GetVolumeLabel();
+
+    RRI_SlicerInterface* source = 0;
+    RRI_SlicerInterface* target = 0;
+
+    if (m_View1->IsSelected())
+    {
+        source = m_View1->GetSlicer();
+        target = m_View2->GetSlicer();
+    }
+    else//assume View2 is selected
+    {
+        target = m_View1->GetSlicer();
+        source = m_View2->GetSlicer();
+    }
+
+    bool isRegistered = false;
+
+
+    //get three arbitrary points on the View1 active face
+    long screenWidth = source->GetWidth();
+    long screenHeight = source->GetHeight();
+    long midWidth = screenWidth / 2;
+    long midHeight = screenHeight / 2;
+    p1 = source->ScreenToModel(midWidth, midHeight);//m_View2->GetSlicer()->GetP1();
+    p2 = source->ScreenToModel(midWidth+10, midHeight);//m_View2->GetSlicer()->GetP2();
+    p3 = source->ScreenToModel(midWidth+10, midHeight+10);//m_View2->GetSlicer()->GetP3();
+    
+
+    Vector3 convertedP1 = ConvertPoint(p1);
+    Vector3 convertedP2 = ConvertPoint(p2);
+    Vector3 convertedP3 = ConvertPoint(p3);
+
+
+    if (source->IsManuallyRegistered() && target->IsManuallyRegistered())
+    {
+        isRegistered = true;
+
+    }
+    else
+    if (source->IsDicomMatrixSet() || target->IsDicomMatrixSet())
+    {
+
+        isRegistered = true;
+    }
+    else
+    {
+        MessageBox::Show("These two volumes are not registered");
+        isRegistered = false;
+    }                   
+
+
+
+    if (isRegistered)
+    {
+        //reset cube, slice in a bit to get an active face (6)
+        target->ResetCube(1);
+        target->Slice(0, -0.5);
+        //align face to the normal of the three converted points
+
+        String^ parameterFilePath = m_folderToMonitor + "RegistrationSettings.txt";
+        long reverseNormal = (long)GetDoubleValue(m_folderToMonitor + "RegistrationSettings.txt", "ReverseNormal");
+
+        if (reverseNormal == 0)
+            target->GetVisualizer()->AlignFaceToScrn(convertedP1, convertedP2, convertedP3);
+        else
+            target->GetVisualizer()->AlignFaceToScrn(convertedP3, convertedP2, convertedP1);
+   
+               
+        Vector3 normal = Vector3(0, 0, -1);//normal to screen
+
+        //NEW way
+        Vector3 centerPoint = Vector3(0, 0, 0);
+        Vector3 verticalPoint = Vector3(0, 0, -30);
+
+        Vector3 centerPointToScreen = target->GetVolumeToScreen(centerPoint);
+        Vector3 otherPointToScreen = target->GetVolumeToScreen(verticalPoint);
+
+        //given two points, calculate angle of virtual needle relative to needle guide
+        //NOTE: this is projected to the screen using GetVolumeToScreen above
+        float lengthX = (float)(otherPointToScreen.x-centerPointToScreen.x);
+        float lengthY = (float)(otherPointToScreen.y-centerPointToScreen.y);
+        float lengthOfLine = sqrt(lengthX*lengthX + lengthY*lengthY);
+        float angle = (asin((float)lengthX/(float)lengthOfLine)*180.0/PI);
+
+        
+
+#ifdef DO_PURE_ROTATE
+
+    target->GetVisualizer()->PureRotate(normal, angle);
+
+        //correct for 180 degree flip 
+        centerPointToScreen = target->GetVolumeToScreen(centerPoint);
+        otherPointToScreen = target->GetVolumeToScreen(verticalPoint);
+
+        //given two points, calculate angle of virtual needle relative to needle guide
+        //NOTE: this is projected to the screen using GetVolumeToScreen above
+        lengthX = (float)(otherPointToScreen.x-centerPointToScreen.x);
+        lengthY = (float)(otherPointToScreen.y-centerPointToScreen.y);
+        lengthOfLine = sqrt(lengthX*lengthX + lengthY*lengthY);
+        angle = (asin((float)lengthX/(float)lengthOfLine)*180.0/PI);
+        target->GetVisualizer()->PureRotate(normal, angle);
+#endif
+        //zoom target cube to fit on the screen
+        {
+                    
+            target->GetVisualizer()->Zoom(0.7);
+        }
+
+        //move the cube to the center of the screen
+        {
+           
+            Vector3 cubeCenter = target->ModelToScreen(Vector3(0,0,0));
+            float screenCenterX = target->GetWidth()/2;//width of screen
+            float screenCenterY = target->GetHeight()/2;//height of screen
+			long diffX = cubeCenter.x - screenCenterX;
+			long diffY = cubeCenter.y - screenCenterY;
+			target->DoPan(-diffX, -diffY);
+        }
+            
+		m_View1->UpdateDisplay();
+		m_View2->UpdateDisplay();
+
+    }
+
+    return true;
+}
+
+public: double GetDoubleValue(String^ filePath, String^ parameter)
+{
+
+	double parameterValue;
+	bool parametersFound = false;
+
+	String^ currentElement = "";
+
+	try
+	{
+		XmlTextReader^ rdr = gcnew XmlTextReader(filePath);
+
+		while (rdr->Read())
+		{
+
+			// do something with the data
+			switch (rdr->NodeType)
+			{
+			case XmlNodeType::Element:
+
+				if (rdr->Name->Contains("BINGSettings"))
+				{
+					parametersFound = true;
+				}
+
+				else
+				{
+					if (parametersFound)
+					{
+						currentElement = rdr->Name;
+					}
+				}
+
+
+
+				break;
+
+			case XmlNodeType::EndElement:
+			{
+				if (rdr->Name->Contains("BINGSettings"))
+				{
+					//store current calibration
+
+					parametersFound = false;//invalidate for next one
+				}
+			}
+			//Console::WriteLine(L"-> End element node, name={0}", rdr->Name);
+			break;
+
+
+			case XmlNodeType::Text:
+			{
+				if (currentElement->Contains(parameter))
+				{
+							
+					String^ value = rdr->Value;
+					bool success = Double::TryParse(value, parameterValue);
+
+					if (success)
+					{
+
+					}
+					else
+					{
+                        parameterValue = -1;//invalidate
+						//AddMessage("Error parsing Encoder counts per unit move: " + encoderCounts);
+					}
+				}
+			}
+			break;
+
+			default:
+				Console::WriteLine(L"** Unknown node type");
+				break;
+			}
+
+		}
+	}
+	catch (Exception^ pe)
+	{
+		bool done = true;
+	}
+
+	return parameterValue;
+}
+
+
+void OnAlphaBlendChanged()
+{
+    long alphaBlend = m_mainControls->GetAlphaBlend();
+    
+
+   
+
+#ifdef OLD_ALPHA_BLEND
+
+    if (m_View2->IsSelected())
+    {
+        m_View2->GetSlicer()->SetAlphaBlend(alphaBlend);
+        m_View1->GetSlicer()->SetAlphaBlend(0);
+        AlphaBlendView1WithView2();
+            
+    }
+    else
+    {
+        m_View1->GetSlicer()->SetAlphaBlend(alphaBlend);
+        m_View2->GetSlicer()->SetAlphaBlend(0);
+        AlphaBlendView2WithView1();
+           
+    }
+#endif
+
+#ifdef NEW_ALPHA_BLEND
+
+    RRI_SlicerInterface* source = 0;
+    RRI_SlicerInterface* target = 0;
+
+    if (m_View1->IsSelected())
+    {
+        //blending from View2 to View1
+        source = m_View2->GetSlicer();//get pixels from here
+        target = m_View1->GetSlicer();//blend pixels to here
+        
+    }
+    else
+    if (m_View2->IsSelected())
+    {
+        //blending from View1 to View2
+        source = m_View1->GetSlicer();//get pixels from here
+        target = m_View2->GetSlicer();//blend pixels to here
+    }
+
+    target->SetAlphaBlend(alphaBlend);
+    source->SetAlphaBlend(0);
+    AlphaBlendImages(source, target);
+    
+#endif
+
+    m_View2->UpdateDisplay();
+    m_View1->UpdateDisplay();
+
+}
+
+
+#ifdef OLD_ALPHA_BLEND
+void AlphaBlendView1WithView2()
+{
+//    if (m_View2->GetSlicer()->GetAlphaBlend() == 0) 
+//		return;
+
+    long width = m_View2->GetSlicer()->GetWidth();
+    long height =  m_View2->GetSlicer()->GetHeight();
+
+    unsigned char* overlayBuffer = m_View2->GetSlicer()->GetOverlayBits();//destination
+	unsigned char* screenBuffer = m_View1->GetSlicer()->GetBitmapBits();//source
+
+    AlphaBlendImages(overlayBuffer, screenBuffer, width, height);
+}
+
+void AlphaBlendView2WithView1()
+{
+    
+//	if (m_View1->GetSlicer()->GetAlphaBlend() == 0) 
+//		return;
+
+			
+	long width = m_View1->GetSlicer()->GetWidth();
+	long height =  m_View1->GetSlicer()->GetHeight();
+	long imageSize = width*height;
+
+    unsigned char* overlayBuffer = m_View1->GetSlicer()->GetOverlayBits();//destination
+	unsigned char* screenBuffer = m_View2->GetSlicer()->GetBitmapBits();//source
+
+    AlphaBlendImages(overlayBuffer, screenBuffer, width, height);
+
+}
+#endif
+
+#ifdef NEW_ALPHA_BLEND
+
+//View2 has the overlay buffer
+void AlphaBlendImages(RRI_SlicerInterface* source, RRI_SlicerInterface* target)//unsigned char* overlayBuffer, unsigned char* screenBuffer, long width, long height)
+{
+
+    //here, we want to take each screen coordinate
+    //check to see if inside the cube.
+    //in inside, find the corresponding voxel in the source volume
+    //paint corresponding voxel from the source volume into the overlay buffer in the target volume			
+    long width = target->GetWidth();
+    long height = target->GetHeight();
+    
+
+    unsigned char* overlayBuffer = target->GetOverlayBits();//blend to target view
+
+	long imageSize = width*height;
+
+    //for each point in the source, find the pixel value in the target
+	bool done2 = false;
+	long index = 0;
+	long imageIndex = 0;
+	while (!done2)
+	{
+		long y = index/width;
+		long x = index%width;
+		
+        bool insideCube = target->InsideCube(x, y);
+
+        float voxelX = target->GetVoxelX();
+        float voxelY = target->GetVoxelY();
+        float voxelZ = target->GetVoxelZ();
+
+            
+		if (insideCube)
+		{
+            Vector3 screenPoint = Vector3(x, y, 0);
+
+            //convert screen point to volume point in View 1
+            Vector3 viewPoint = target->ScreenToModel(x, y);
+            
+            Vector3 convertedViewPoint = ConvertPoint(viewPoint);//convert from source to target
+
+            //convert to array coordinates
+            Vector3 arrayCoordinate;
+            Vector3 cubeSize = source->GetVisualizer()->GetCubeSize();
+            arrayCoordinate.x = (convertedViewPoint.x + cubeSize.x/2.0)/voxelX;
+            arrayCoordinate.y = (convertedViewPoint.y + cubeSize.y/2.0)/voxelY;
+            arrayCoordinate.z = (convertedViewPoint.z + cubeSize.z/2.0)/voxelZ;
+
+
+            unsigned char voxelValue = source->GetVisualizer()->GetVoxValue(arrayCoordinate.x, arrayCoordinate.y, arrayCoordinate.z);//get voxel value from source
+
+            if (voxelValue != 0)
+            {
+                long test = 0;
+            }
+                
+			//paint into target overlay buffer
+			long bufferIndex = (long)screenPoint.y * width * 3 + (long)screenPoint.x * 3;
+			if (bufferIndex >=0 && bufferIndex<width*height*3)
+			{
+				unsigned char value1 = voxelValue;//(unsigned char)screenBuffer[bufferIndex+0];
+				unsigned char value2 = voxelValue;//(unsigned char)screenBuffer[bufferIndex+1];
+				unsigned char value3 = voxelValue;//(unsigned char)screenBuffer[bufferIndex+2];
+				//paint onto control view screen
+				//and put put into view 2 overlay buffer
+				//if (value1 == value2 == value3)
+
+                //filter out non greyscale pixels, NOTE: this may not work in the new paradigm
+                if (abs(value1 - value2) > 50)
+                {
+
+                    overlayBuffer[imageIndex+0] = 0;
+					overlayBuffer[imageIndex+1] = 0;
+					overlayBuffer[imageIndex+2] = 0;
+                }
+                else
+				{	
+							
+					overlayBuffer[imageIndex+0] = value1;
+					overlayBuffer[imageIndex+1] = value2;
+					overlayBuffer[imageIndex+2] = value3;
+						
+				}
+			}
+						
+		}
+		else
+		{
+			overlayBuffer[imageIndex+0] = 0;
+			overlayBuffer[imageIndex+1] = 0;
+			overlayBuffer[imageIndex+2] = 0;
+		}
+					
+
+		
+
+		index++;
+		imageIndex += 3;
+		if (index >= imageSize)
+		{					
+			done2 = true;
+		}
+
+	}
+
+    //MessageBox::Show("done");
+}
+
+#endif
+
+
+#ifdef OLD_ALPHA_BLEND
+//View2 has the overlay buffer
+void AlphaBlendImages(unsigned char* overlayBuffer, unsigned char* screenBuffer, long width, long height)
+{
+
+	//here we want to take each point from the linked image and map it back to the control image
+	//for each screen coordinate in the control view, find the corresponding voxel value in the linked view and paint into overlay
+			
+	
+	long imageSize = width*height;
+
+   
+	bool done2 = false;
+	long index = 0;
+	long imageIndex = 0;
+	while (!done2)
+	{
+		long y = index/width;
+		long x = index%width;
+		{
+            bool insideCube = false;
+		    //for each pixel in the view 2 screen
+            if (m_View1->IsSelected())
+            {
+                insideCube = m_View1->GetSlicer()->InsideCube(x, y);
+
+            }
+            else
+            {
+                insideCube = m_View2->GetSlicer()->InsideCube(x, y);
+            }
+
+
+			if (insideCube)
+			{
+                Vector3 screenPoint = Vector3(x, y, 0);
+
+                //if cubes are linked, transform, then alphablend, otherwise, alphablend view 1 and view 2 directly without linking
+                if (m_View1->IsSelected())
+                {
+                    //convert screen point to volume point in View 1
+                    Vector3 viewPoint = m_View1->GetSlicer()->ScreenToModel(x, y);
+
+                    Vector3 convertedViewPoint = ConvertPoint(viewPoint);//convert to View 1 coordinate system
+                    //convert this point back to screen coordinates from view 2
+                    screenPoint = m_View2->GetSlicer()->GetVolumeToScreen(convertedViewPoint);//get screen coordinate from view 1
+
+                }
+                else
+                if (m_View2->IsSelected())
+                {
+                    //convert screen point to volume point in View 1
+                    Vector3 viewPoint = m_View2->GetSlicer()->ScreenToModel(x, y);
+
+                    Vector3 convertedViewPoint = ConvertPoint(viewPoint);//convert to View 1 coordinate system
+                    //convert this point back to screen coordinates from view 2
+                    screenPoint = m_View1->GetSlicer()->GetVolumeToScreen(convertedViewPoint);//get screen coordinate from view 1
+
+                }
+                
+                
+				//get screen pixel value from view 1 
+				long bufferIndex = (long)screenPoint.y * width * 3 + (long)screenPoint.x * 3;
+				if (bufferIndex >=0 && bufferIndex<width*height*3)
+				{
+					unsigned char value1 = (unsigned char)screenBuffer[bufferIndex+0];
+					unsigned char value2 = (unsigned char)screenBuffer[bufferIndex+1];
+					unsigned char value3 = (unsigned char)screenBuffer[bufferIndex+2];
+					//paint onto control view screen
+					//and put put into view 2 overlay buffer
+					//if (value1 == value2 == value3)
+
+                    if (abs(value1 - value2) > 50)
+                    {
+
+                        overlayBuffer[imageIndex+0] = 0;
+						overlayBuffer[imageIndex+1] = 0;
+						overlayBuffer[imageIndex+2] = 0;
+                    }
+                    else
+					{	
+							
+						overlayBuffer[imageIndex+0] = value1;
+						overlayBuffer[imageIndex+1] = value2;
+						overlayBuffer[imageIndex+2] = value3;
+						
+					}
+				}
+						
+			}
+			else
+			{
+				overlayBuffer[imageIndex+0] = 0;
+				overlayBuffer[imageIndex+1] = 0;
+				overlayBuffer[imageIndex+2] = 0;
+			}
+					
+
+		}
+
+		index++;
+		imageIndex += 3;
+		if (index >= imageSize)
+		{					
+			done2 = true;
+		}
+
+	}
+}
+#endif
+
+
+//convert point using either manual registration or the dicom transforms
+Vector3 ConvertPoint(Vector3 point)
+{
+    Vector3 convertedPoint = point;
+    Vector3 view1Point, view2Point;
+
+    std::string view1RegistrationLabel = m_View1->GetSlicer()->GetRegistrationLabel();
+    std::string view2RegistrationLabel = m_View2->GetSlicer()->GetRegistrationLabel();
+    std::string view1VolumeLabel = m_View1->GetSlicer()->GetVolumeLabel();
+    std::string view2VolumeLabel = m_View2->GetSlicer()->GetVolumeLabel();
+
+    //convert from view 2 to view 1
+    if (m_View2->IsSelected())
+    {
+		if (m_View2->GetSlicer()->IsManuallyRegistered())
+		{
+            
+            //check to see if volume 2 is registered to volume 1
+            //if (-1 != view2RegistrationLabel.find(view1VolumeLabel))
+            { 
+                vtkMatrix4x4* matrix = vtkMatrix4x4::New();
+                m_View2->GetSlicer()->GetRegMatrix(matrix);
+                convertedPoint = m_View1->GetSlicer()->HelperTransformPointLinear(matrix, point);
+                matrix->Delete();
+            }
+            //else
+            {
+                //MessageBox::Show("These volumes are not registered with each other.");
+                
+            }
+		}
+		else
+		{
+				view1Point = m_View2->GetSlicer()->TransformPointDICOM(point);
+				convertedPoint = m_View1->GetSlicer()->TransformPointDICOMInverse(view1Point);
+		}
+    }
+    else//m_View1 is selected, convert from view 1 to view 2
+    if (m_View1->IsSelected())
+    {
+            
+		if (m_View1->GetSlicer()->IsManuallyRegistered())
+		{
+            
+            //check to see if volume 2 is registered to volume 1
+            //if (-1 != view1RegistrationLabel.find(view2VolumeLabel))
+            { 
+                vtkMatrix4x4* matrix = vtkMatrix4x4::New();
+                m_View1->GetSlicer()->GetRegMatrix(matrix);
+                convertedPoint = m_View2->GetSlicer()->HelperTransformPointLinear(matrix, point);
+                matrix->Delete();
+            }
+
+		}
+		else
+        if (m_View1->GetSlicer()->IsDicomMatrixSet() && m_View2->GetSlicer()->IsDicomMatrixSet())
+		{
+				view1Point = m_View1->GetSlicer()->TransformPointDICOM(point);
+				convertedPoint = m_View2->GetSlicer()->TransformPointDICOMInverse(view1Point);
+		}
+    }
+
+    return convertedPoint;
+}
+
+//given the raw data file, replace .raw with .tfm b
+void ImportTransformFile(std::string filePath)
+{
+    String^ convertedString = gcnew String(filePath.c_str());
+    if (!File::Exists(convertedString))
+    {
+        return;
+    }
+
+    vtkMatrix4x4* matrix = vtkMatrix4x4::New();
+    vtkMatrix4x4* matrixIdentity = vtkMatrix4x4::New();
+
+    //String^ convertedTransformFileName = gcnew String(filePath.c_str());
+    HelperParseTransformFileSingle(filePath, matrix);//load original transforms from BING system
+
+    if (m_View1->IsSelected())
+	{
+        m_View1->GetSlicer()->SetDicomMatrix(matrix);//this does a deep copy
+        m_View1->GetSlicer()->SetRegistrationLabel(m_View2->GetSlicer()->GetVolumeLabel());
+    
+    }
+    else
+    {
+        m_View2->GetSlicer()->SetDicomMatrix(matrix);//this does a deep copy
+        m_View2->GetSlicer()->SetRegistrationLabel(m_View1->GetSlicer()->GetVolumeLabel());
+    }
+
+    matrix->Delete();
+    matrixIdentity->Delete();
+
+}
+
+
+String^ HelperSelectFile(String^ directory)
+{
+
+    String^ filePath = "";
+
+
+    OpenFileDialog^ openFileDialog1 = gcnew OpenFileDialog;
+
+    openFileDialog1->InitialDirectory = directory;
+    //openFileDialog1->Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
+    openFileDialog1->FilterIndex = 2;
+    openFileDialog1->RestoreDirectory = true;
+
+    if ( openFileDialog1->ShowDialog() == System::Windows::Forms::DialogResult::OK )
+    {
+        filePath = openFileDialog1->FileName;
+        
+       
+    }
+    else
+    {
+        
+    }
+
+
+    return filePath;
+}
+
+void LoadTransformApplyToSelectedView()
+{
+    String^ selectedFile = HelperSelectFile(m_folderToMonitor);
+    std::string selectedFile_STD = ConvertString(selectedFile);
+
+    MessageBox::Show(selectedFile);
+
+    if (selectedFile == "")
+    {
+        return;
+    }
+
+    vtkMatrix4x4* matrix = vtkMatrix4x4::New();
+    vtkMatrix4x4* matrixIdentity = vtkMatrix4x4::New();
+    HelperParseTransformFileSingle(selectedFile_STD, matrix);
+
+
+   //vtkTransform* transform = vtkTransform::New();
+   //transform->PostMultiply();
+
+    if (m_View1->IsSelected())
+    {
+        m_View2->GetSlicer()->SetRegMatrix(matrixIdentity);//set view 2 as identity
+        m_View1->GetSlicer()->SetRegMatrix(matrix);
+
+    }
+    else
+    {
+        m_View1->GetSlicer()->SetRegMatrix(matrixIdentity);//set view 1 as identity
+        m_View2->GetSlicer()->SetRegMatrix(matrix);
+    }
+
+    m_View1->GetSlicer()->SetRegistrationLabel(m_View2->GetSlicer()->GetVolumeLabel());
+    m_View2->GetSlicer()->SetRegistrationLabel(m_View1->GetSlicer()->GetVolumeLabel());
+
+    
+    //transform->SetMatrix(matrix);
+
+
+    
+    matrix->Delete();
+    matrixIdentity->Delete();
+    //transform->Delete();
+
+}
+
+bool HelperParseTransformFileSingle(std::string filePath, vtkMatrix4x4* matrix1)
+{
+   // IntPtr ptrToNativeString1 = Marshal::StringToHGlobalAnsi(filePath);
+	//std::string convertedFilePath = static_cast<char*>(ptrToNativeString1.ToPointer());
+
+    StringList stringVec;
+    //=====================================================
+    //load  transform from file
+    //=====================================================
+    std::ifstream t;
+    t.open(filePath);
+    std::string buffer;
+    std::string line;
+    while(t)
+    {
+        std::getline(t, line);
+
+        stringVec.push_back(line);
+    }
+    t.close();
+
+//=====================================================
+//extract  transform 
+//=====================================================
+
+    std::string temp;
+    float a1,b1,c1,d1;
+    float a2,b2,c2,d2;
+    float a3,b3,c3,d3;
+    float a4,b4,c4,d4;
+
+//video to world
+
+    long size = stringVec.size();
+    
+    temp = stringVec.at(1);//tracker transform line a
+    sscanf(temp.c_str(), "%f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f", &a1,&b1,&c1,&d1, &a2,&b2,&c2,&d2,  &a3,&b3,&c3,&d3,  &a4,&b4,&c4,&d4);
+    matrix1->SetElement(0,0,a1);
+    matrix1->SetElement(0,1,b1);
+    matrix1->SetElement(0,2,c1);
+    matrix1->SetElement(0,3,d1);
+
+    matrix1->SetElement(1,0,a2);
+    matrix1->SetElement(1,1,b2);
+    matrix1->SetElement(1,2,c2);
+    matrix1->SetElement(1,3,d2);
+
+    matrix1->SetElement(2,0,a3);
+    matrix1->SetElement(2,1,b3);
+    matrix1->SetElement(2,2,c3);
+    matrix1->SetElement(2,3,d3);
+
+    matrix1->SetElement(3,0,a4);
+    matrix1->SetElement(3,1,b4);
+    matrix1->SetElement(3,2,c4);
+    matrix1->SetElement(3,3,d4);
+
+
+    return true;
+
+}
+
+
+//note: source volume is the one that will be transformed
+//      target volume is the volume the registration is going to match
+bool DoLandmarkRegistration()
+{
+	Vector3Vec targetUserPoints = m_View2->GetSlicer()->GetUserTargets();
+    Vector3Vec sourceUserPoints = m_View1->GetSlicer()->GetUserTargets();
+
+	//check to see if the source and target user point sizes are the same
+    if (targetUserPoints.size() != sourceUserPoints.size())
+    {
+        MessageBox::Show("Number of Target Points do not match number of Source Points");
+        return false;
+    }
+
+	 if (targetUserPoints.size() == 0)
+    {
+        MessageBox::Show("Left volume does not have any landmark points to use for registration");
+        return false;
+    }
+
+    if (sourceUserPoints.size() == 0)
+    {
+        MessageBox::Show("Right volume does not have any landmark points to use for registration");
+        return false;
+    }
+
+	vtkPoints*  sourcePoints = vtkPoints::New();
+	vtkPoints*  targetPoints = vtkPoints::New();
+
+
+	//get source user points
+    {
+        for (int i=0; i<sourceUserPoints.size(); i++)
+        {
+            Vector3 point = sourceUserPoints.at(i);
+            sourcePoints->InsertNextPoint(point.x, point.y, point.z);//MRI
+        }
+    }
+
+    //get target user points
+    {
+        for (int i=0; i<targetUserPoints.size(); i++)
+        {
+            Vector3 point = targetUserPoints.at(i);
+            targetPoints->InsertNextPoint(point.x, point.y, point.z);//US
+        }
+    }
+
+
+	//generate landmark transform
+    vtkLandmarkTransform* imageTransform = vtkLandmarkTransform::New();
+	imageTransform->SetSourceLandmarks(sourcePoints);	
+	imageTransform->SetTargetLandmarks(targetPoints);
+	imageTransform->SetModeToRigidBody();
+	imageTransform->Update();
+
+  
+    vtkMatrix4x4* registrationMatrix = vtkMatrix4x4::New();
+
+	//get image matrix from image transform so we can transform our triangles
+    imageTransform->GetMatrix(registrationMatrix);
+
+	std::string view1Label = m_View1->GetSlicer()->GetVolumeLabel();
+	std::string view2Label = m_View2->GetSlicer()->GetVolumeLabel();
+
+	IntPtr ptrToNativeString = Marshal::StringToHGlobalAnsi(m_defaultFolder);
+	std::string folderToMonitor = static_cast<char*>(ptrToNativeString.ToPointer());
+	std::string matrixFilePath = folderToMonitor + view1Label + "_2_" + view2Label + ".txt";
+	//m_View2->GetSlicer()->ExportMatrixToFile(matrixFilePath, registrationMatrix);
+
+
+	m_View1->GetSlicer()->SetRegMatrix(registrationMatrix);//store new matrix in m_View2 for future use
+    registrationMatrix->Invert();
+    m_View2->GetSlicer()->SetRegMatrix(registrationMatrix);//store inverted matrix in m_View1 for future use
+
+    //set labels for registered volumes
+    m_View1->GetSlicer()->SetRegistrationLabel(m_View2->GetSlicer()->GetVolumeLabel());
+    m_View2->GetSlicer()->SetRegistrationLabel(m_View1->GetSlicer()->GetVolumeLabel());
+
+
+	sourcePoints->Delete();
+	targetPoints->Delete();
+	imageTransform->Delete();
+    registrationMatrix->Delete(); 
+
+	m_View1->GetSlicer()->ClearTargets();
+    m_View1->GetSlicer()->ClearTargetSurfaces();
+	m_View2->GetSlicer()->ClearTargets();
+    m_View2->GetSlicer()->ClearTargetSurfaces();
+
+//	UpdateSurfaceList();
+
+	return true;
+
+}
+
 
 };
 }
