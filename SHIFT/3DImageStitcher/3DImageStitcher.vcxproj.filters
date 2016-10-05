@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Shift64\Shift64\SHIFT\3DImageStitcher\3DImageStitcher.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Shift64\Shift64\SHIFT\3DImageStitcher\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{6CEAE3EC-AF7C-3B0D-B8C4-33F5B1B5644A}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

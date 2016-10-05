@@ -1,0 +1,3 @@
+C:/Shift64/Shift64/SHIFT/3DImageStitcher/CMakeFiles/3DImageStitcher.dir
+C:/Shift64/Shift64/SHIFT/3DImageStitcher/CMakeFiles/ALL_BUILD.dir
+C:/Shift64/Shift64/SHIFT/3DImageStitcher/CMakeFiles/ZERO_CHECK.dir

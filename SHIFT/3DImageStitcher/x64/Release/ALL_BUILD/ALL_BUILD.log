@@ -1,0 +1,10 @@
+﻿Build started 10/5/2016 10:32:28 AM.
+     1>Project "C:\Shift64\Shift64\SHIFT\3DImageStitcher\ALL_BUILD.vcxproj" on node 2 (Build target(s)).
+     1>CustomBuild:
+         Building Custom Rule C:/Shift64/Shift64/SHIFT/3DImageStitcher/CMakeLists.txt
+         CMake does not need to re-run because C:\Shift64\Shift64\SHIFT\3DImageStitcher\CMakeFiles\generate.stamp is up-to-date.
+     1>Done Building Project "C:\Shift64\Shift64\SHIFT\3DImageStitcher\ALL_BUILD.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:00.16

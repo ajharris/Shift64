@@ -1,5 +1,5 @@
 #pragma once
-
+#include "3DImageStitcher.h"
 #include "CompileSwitches.h"
 
 #define SLICER_AVAILABLE
@@ -1738,7 +1738,12 @@ void OnTransformPoints()
 
 void OnRegistrationEvent()
 {
-    vtkMatrix4x4* matrix = vtkMatrix4x4::New();
+     
+	Correlator3D correlator;
+
+
+	
+	vtkMatrix4x4* matrix = vtkMatrix4x4::New();
     m_View1->GetSlicer()->SetDicomMatrix(matrix);
     m_View2->GetSlicer()->SetDicomMatrix(matrix);
 
