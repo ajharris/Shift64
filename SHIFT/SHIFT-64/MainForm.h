@@ -1739,15 +1739,46 @@ void OnTransformPoints()
 void OnRegistrationEvent()
 {
      
-	Correlator3D correlator;
-
-
 	
-	vtkMatrix4x4* matrix = vtkMatrix4x4::New();
-    m_View1->GetSlicer()->SetDicomMatrix(matrix);
-    m_View2->GetSlicer()->SetDicomMatrix(matrix);
 
-    matrix->Delete();
+	unsigned char *fixedImage = m_View1->GetSlicer()->GetBuffer();
+	int fixedImageSize[] = { m_View1->GetSlicer()->GetVolumeWidth() , m_View1->GetSlicer()->GetVolumeHeight(), m_View1->GetSlicer()->GetVolumeDepth() };
+	double fixedImageSpacing[] = { m_View1->GetSlicer()->GetVoxelX(), m_View1->GetSlicer()->GetVoxelY(), m_View1->GetSlicer()->GetVoxelZ() };
+	double fixedOrigin[] = { 0, 0, 0 };
+
+	unsigned char *movingImage = m_View2->GetSlicer()->GetBuffer();
+	int movingImageSize[] = { m_View2->GetSlicer()->GetVolumeWidth(), m_View2->GetSlicer()->GetVolumeHeight(), m_View2->GetSlicer()->GetVolumeDepth() };
+	double movingImageSpacing[] = { m_View2->GetSlicer()->GetVoxelX(), m_View2->GetSlicer()->GetVoxelY(), m_View2->GetSlicer()->GetVoxelZ() };
+	double movingOrigin[] = { 0, 0, 0 };
+
+	Correlator3D correlator3D;
+	correlator3D.Initialize( fixedImage,  fixedImageSize,  fixedImageSpacing,  fixedOrigin, movingImage,  movingImageSize,  movingImageSpacing,  movingOrigin);
+	
+	//Correlator3D correlator3D(fixedImage, fixedImageSize, fixedImageSpacing, fixedOrigin, movingImage, movingImageSize, movingImageSpacing, movingOrigin);
+
+	double transform_Fixed[16];
+	double result_new[16];
+
+	/*correlator.ImageCorrelation(transform_Fixed, result_new);
+
+	vtkMatrix4x4* matrix = vtkMatrix4x4::New();
+	matrix->Identity();
+	long count = 0;
+	for (int j = 0; j < 4; j++)
+	{
+		for (int i = 0; i < 4; i++)
+		{
+			matrix->SetElement(i, j, result_new[count]);
+			count++;
+		}
+
+	}
+
+	matrix->Transpose();
+
+    m_View2->GetSlicer()->SetDicomMatrix(matrix);*/
+
+
 
 }
 
