@@ -1256,6 +1256,13 @@ void LoadSelectedImage()
                 //m_View1->GetSlicer()->SetTargetSurfaceRadius(m_View1->GetSlicer()->GetVoxelX()*12);
                 //ImportDefaultSurfaces();//from this view
 
+			   vtkMatrix4x4* matrix = vtkMatrix4x4::New();
+			   matrix->Identity();
+
+			   slicer->SetDicomMatrix(matrix);
+
+			   matrix->Delete();
+				
             }
 
 #ifdef SHARED_CONTROLS_EVENT_HANDLER
@@ -1759,27 +1766,75 @@ void OnRegistrationEvent()
 	double transform_Fixed[16];
 	double result_new[16];
 
-	/*correlator.ImageCorrelation(transform_Fixed, result_new);
+	correlator3D.ImageCorrelation(transform_Fixed, result_new);
 
 	vtkMatrix4x4* matrix = vtkMatrix4x4::New();
 	matrix->Identity();
 	long count = 0;
-	for (int j = 0; j < 4; j++)
+	for (int row = 0; row < 4; row++)
 	{
-		for (int i = 0; i < 4; i++)
+		for (int column = 0; column < 4; column++)
 		{
-			matrix->SetElement(i, j, result_new[count]);
+			matrix->SetElement(row, column, result_new[count]);
 			count++;
 		}
 
 	}
 
+
 	matrix->Transpose();
 
-    m_View2->GetSlicer()->SetDicomMatrix(matrix);*/
+	std::string volumeString = m_View1->GetSlicer()->GetVolumeLabel();
+
+	IntPtr p1 = Marshal::StringToHGlobalAnsi(m_folderToMonitor);
+	std::string convertedFolderPath = static_cast<char*>(p1.ToPointer());
+	convertedFolderPath += "/" + volumeString + "_ResultMatrix.txt";
+
+	char outstring[200];
+	fstream tFile = fstream(convertedFolderPath.c_str(), ios::out | ios::binary);
+
+	sprintf(outstring,"%3.6f %3.6f %3.6f %3.6f %3.6f %3.6f %3.6f %3.6f %3.6f %3.6f %3.6f %3.6f %3.6f %3.6f %3.6f %3.6f \n\n",
+	    matrix->GetElement(0,0),
+	    matrix->GetElement(0,1),
+	    matrix->GetElement(0,2),
+	    matrix->GetElement(0,3),
+
+	    matrix->GetElement(1,0),
+	    matrix->GetElement(1,1),
+	    matrix->GetElement(1,2),
+	    matrix->GetElement(1,3),
+
+	    matrix->GetElement(2,0),
+	    matrix->GetElement(2,1),
+	    matrix->GetElement(2,2),
+	    matrix->GetElement(2,3),
+
+	    matrix->GetElement(3,0),
+	    matrix->GetElement(3,1),
+	    matrix->GetElement(3,2),
+	    matrix->GetElement(3,3));
+
+	tFile.write(outstring, strlen(outstring));
+
+	tFile.close();
+
+
+	m_View1->GetSlicer()->SetRegMatrix(matrix);
+	matrix->Invert();
+	m_View2->GetSlicer()->SetRegMatrix(matrix);
+	
+	//set labels for registered volumes
+	m_View1->GetSlicer()->SetRegistrationLabel(m_View2->GetSlicer()->GetVolumeLabel());
+	m_View2->GetSlicer()->SetRegistrationLabel(m_View1->GetSlicer()->GetVolumeLabel());
+	
+	LinkCubes();
+	m_View1->UpdateDisplay();
+	m_View2->UpdateDisplay();
 
 
 
+	matrix->Delete();
+	
 }
 
 void OnLinkCubesEvent()

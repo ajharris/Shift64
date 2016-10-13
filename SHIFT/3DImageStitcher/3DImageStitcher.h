@@ -26,7 +26,7 @@
 #include "itkResampleImageFilter.h"
 #include "itkNearestNeighborInterpolateImageFunction.h"
 #include "itkBinomialBlurImageFilter.h"
-
+#include "itkSimilarity3DTransform.h"
 // compile switch definitions
 #define v4
 
@@ -36,6 +36,7 @@ typedef itk::Image<unsigned char, Dimension>													CharImageType;
 typedef itk::Image<float, Dimension>															FloatImageType;
 typedef itk::ImportImageFilter< unsigned char, Dimension >										ImportFilterType;
 typedef itk::VersorRigid3DTransform<double>														TransformType;
+//typedef itk::Similarity3DTransform<double>														TransformType;
 typedef itk::CenteredTransformInitializer<TransformType, FloatImageType, FloatImageType>		TransformInitializerType;
 typedef TransformType::VersorType																VersorType;
 typedef VersorType::VectorType																	VectorType;

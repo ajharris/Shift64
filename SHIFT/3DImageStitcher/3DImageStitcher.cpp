@@ -183,7 +183,7 @@ void Correlator3D::ConvertBufferToImage(unsigned char *volumeBuffer, int *imageS
 	catch (itk::ExceptionObject &err){
 		std::cerr << err << std::endl;
 	}
-	int repititions = 10;
+	int repititions = 5;
 	BinomialBlurFilterType::Pointer blurFilter = BinomialBlurFilterType::New();
 	blurFilter->SetInput(resampledImage);
 	blurFilter->SetRepetitions(repititions);
@@ -331,7 +331,7 @@ void Correlator3D::ImageCorrelation(double *transformFixed, double *transformMov
 	OptimizerType::BoundValueType upperBound(numParameters);
 	OptimizerType::BoundValueType lowerBound(numParameters);
 	boundSelect.Fill(OptimizerType::UNBOUNDED);
-	upperBound.Fill(0.0);
+	upperBound.Fill(100.0);
 	lowerBound.Fill(0.0);
 	optimizer->SetBoundSelection(boundSelect);
 	optimizer->SetUpperBound(upperBound);
@@ -389,18 +389,18 @@ void Correlator3D::ImageCorrelation(double *transformFixed, double *transformMov
 void Correlator3D::GenerateTransformMatrix(TransformType::MatrixType &Q, TransformType::TranslationType &translation, double *transform){
 
 	//distribute elements according to http://fabiensanglard.net/doom3_documentation/37726-293748.pdf
-	for (int i = 0; i < 4; i++)
+	for (int row= 0; row< 4; row++)
 	{
-		for (int j = 0; j < 4; j++)
+		for (int column = 0; column < 4; column++)
 		{
-			if (i < 3 && j < 3)
-				transform[4 * i + j] = Q(i, j); // Rotation submatrix
-			else if (i < 3 && j == 3)
-				transform[4 * i + j] = 0; // zeros on right
-			else if (i == 3 && j < 3)
-				transform[4 * i + j] = translation.GetElement(j); // translation vector
+			if (row< 3 && column < 3)
+				transform[4 * row+ column] = Q(column, row); // Rotation submatrix
+			else if (row< 3 && column == 3)
+				transform[4 * row+ column] = 0; // zeros on right
+			else if (row == 3 && column< 3)
+				transform[4 * row + column] = translation.GetElement(column); // translation vector
 			else
-				transform[4 * i + j] = 1; // trailing 1 in lower right hand corner
+				transform[4 * row+ column] = 1; // trailing 1 in lower right hand corner
 		}
 	}
 

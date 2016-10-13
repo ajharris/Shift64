@@ -102,5 +102,12 @@ Class SHIFT64.MainForm: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
     LinkCubes(): PrivateScope, Public, HideBySig
     GetDoubleValue(String, String): PrivateScope, Public, HideBySig
     OnAlphaBlendChanged(): PrivateScope, Public, HideBySig
-    AlphaBlendImages(RRI_SlicerInterface*, RRI_SlicerInterface*): PrivateScope, Public, HideBySig
+    AlphaBlendView1WithView2(): PrivateScope, Public, HideBySig
+    AlphaBlendView2WithView1(): PrivateScope, Public, HideBySig
+    AlphaBlendImages(Byte*, Byte*, Int32 IsLong, Int32 IsLong): PrivateScope, Public, HideBySig
     ConvertPoint(Vector3*, Vector3): PrivateScope, Public, HideBySig
+    ImportTransformFile(basic_string<char\,std::char_traits<char>\,std::allocator<char> >*): PrivateScope, Public, HideBySig
+    HelperSelectFile(String): PrivateScope, Public, HideBySig
+    LoadTransformApplyToSelectedView(): PrivateScope, Public, HideBySig
+    HelperParseTransformFileSingle(basic_string<char\,std::char_traits<char>\,std::allocator<char> >*, vtkMatrix4x4*): PrivateScope, Public, HideBySig
+    DoLandmarkRegistration(): PrivateScope, Public, HideBySig
