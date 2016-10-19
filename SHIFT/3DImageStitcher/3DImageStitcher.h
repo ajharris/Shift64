@@ -27,6 +27,9 @@
 #include "itkNearestNeighborInterpolateImageFunction.h"
 #include "itkBinomialBlurImageFilter.h"
 #include "itkSimilarity3DTransform.h"
+#include "itkImageFileWriter.h"
+#include "itkSpatialObjectToImageFilter.h"
+#include "itkCannyEdgeDetectionImageFilter.h"
 // compile switch definitions
 #define v4
 
@@ -48,6 +51,10 @@ typedef itk::RescaleIntensityImageFilter<CharImageType, CharImageType>							Res
 typedef itk::ResampleImageFilter<CharImageType, CharImageType>									ResampleFilterType;
 typedef itk::NearestNeighborInterpolateImageFunction<CharImageType, double>						InterpolatorType;
 typedef itk::BinomialBlurImageFilter<CharImageType, CharImageType>								BinomialBlurFilterType;
+typedef itk::SpatialObjectToImageFilter<MaskType, FloatImageType>								MaskToImageType;
+typedef itk::CannyEdgeDetectionImageFilter<FloatImageType, FloatImageType>						CannyEdgeDetectionFilterType;
+typedef itk::ImageFileWriter<FloatImageType>													WriterType;
+typedef itk::CastImageFilter<FloatImageType, CharImageType>										CastToCharImageType;
 
 #ifdef v4
 typedef itk::ImageRegistrationMethodv4<FloatImageType, FloatImageType, TransformType>			RegistrationType;

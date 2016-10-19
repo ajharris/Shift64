@@ -101,7 +101,7 @@ void Correlator3D::Initialize(unsigned char *fixedImage, int *fixedImageSize, do
 	fixedMask = MaskType::New();
 	movingMask = MaskType::New();
 	bool crop = false;
-	int threshold = 100;
+	int threshold = 40;
 	ConvertBufferToImage(fixedImage, fixedImageSize, fixedImageSpacing, fixedOrigin, false, objectFixedCharImage, fixedCastFilter, threshold, fixedMask, fixedSize);
 	ConvertBufferToImage(movingImage, movingImageSize, movingImageSpacing, movingOrigin, crop, objectMovingCharImage, movingCastFilter, threshold, movingMask, movingSize);
 }
@@ -142,7 +142,8 @@ void Correlator3D::ConvertBufferToImage(unsigned char *volumeBuffer, int *imageS
 	size[0] = imageSize[0];
 	size[1] = imageSize[1];
 	size[2] = imageSize[2];
-	objectSize = size;
+	objectSize= size;
+
 
 	ImportFilterType::SpacingType spacing;
 	spacing[0] = imageSpacing[0];
@@ -174,6 +175,8 @@ void Correlator3D::ConvertBufferToImage(unsigned char *volumeBuffer, int *imageS
 	image->SetOrigin(origin);
 
 	image = importFilter->GetOutput();
+	
+
 
 	CharImageType::Pointer resampledImage = ResampleImage(image, objectSize);
 
@@ -184,9 +187,9 @@ void Correlator3D::ConvertBufferToImage(unsigned char *volumeBuffer, int *imageS
 		std::cerr << err << std::endl;
 	}
 	int repititions = 5;
-	BinomialBlurFilterType::Pointer blurFilter = BinomialBlurFilterType::New();
-	blurFilter->SetInput(resampledImage);
-	blurFilter->SetRepetitions(repititions);
+	//BinomialBlurFilterType::Pointer blurFilter = BinomialBlurFilterType::New();
+	//blurFilter->SetInput(resampledImage);
+	//blurFilter->SetRepetitions(repititions);
 
 	if (crop){
 		// Code below will crop image to 1/4 of the original image size, centered around the origin
@@ -206,7 +209,8 @@ void Correlator3D::ConvertBufferToImage(unsigned char *volumeBuffer, int *imageS
 		desiredRegion.SetIndex(roiStart);
 
 		ROIFilterType::Pointer roi = ROIFilterType::New();
-		roi->SetInput(blurFilter->GetOutput());
+		//roi->SetInput(blurFilter->GetOutput());
+		roi->SetInput(resampledImage);
 		roi->SetRegionOfInterest(desiredRegion);
 
 		castFilter->SetInput(roi->GetOutput());
@@ -232,10 +236,12 @@ void Correlator3D::ConvertBufferToImage(unsigned char *volumeBuffer, int *imageS
 		rescaleFilter->SetOutputMinimum(0);
 		rescaleFilter->SetOutputMaximum(255);
 
-		castFilter->SetInput(blurFilter->GetOutput());
+		//castFilter->SetInput(blurFilter->GetOutput());
 
-		//GenerateThresholdMask(threshold, resampledImage, mask);
+		GenerateThresholdMask(threshold, resampledImage, mask);
 
+		//castFilter->SetInput(mask->GetImage());
+		castFilter->SetInput(mask->GetImage());
 		try
 		{
 			castFilter->Update();
@@ -245,7 +251,54 @@ void Correlator3D::ConvertBufferToImage(unsigned char *volumeBuffer, int *imageS
 			std::cerr << err << std::endl;
 		}
 
+		
+	}
+	CannyEdgeDetectionFilterType::Pointer cannyFilter = CannyEdgeDetectionFilterType::New();
+	cannyFilter->SetInput(castFilter->GetOutput());
 
+	float variance = 0.5;
+	float upperThreshold = 0.0;
+	float lowerThreshold = 0.0;
+
+	cannyFilter->SetVariance(variance);
+	cannyFilter->SetUpperThreshold(upperThreshold);
+	cannyFilter->SetLowerThreshold(lowerThreshold);
+
+	try{
+		cannyFilter->Update();
+	}
+	catch (itk::ExceptionObject &err){
+		std::cerr << err << std::endl;
+	}
+	WriterType::Pointer writer = WriterType::New();
+	writer->SetFileName("C:/Scans/canny.nrrd");
+	writer->SetInput(cannyFilter->GetOutput());
+	try{
+		writer->Update();
+	}
+	catch (itk::ExceptionObject &err){
+		std::cerr << err << std::endl;
+	}
+
+	CastToCharImageType::Pointer castToCharFilter = CastToCharImageType::New();
+	castToCharFilter->SetInput(cannyFilter->GetOutput());
+
+	try{
+		castToCharFilter->Update();
+	}
+	catch (itk::ExceptionObject &err){
+		std::cerr << err << std::endl;
+	}
+
+	castFilter->SetInput(castToCharFilter->GetOutput());
+
+	try
+	{
+		castFilter->Update();
+	}
+	catch (itk::ExceptionObject &err)
+	{
+		std::cerr << err << std::endl;
 	}
 }
 
@@ -278,6 +331,26 @@ void Correlator3D::GenerateThresholdMask(float upperThreshold, CharImageType::Po
 	catch (itk::ExceptionObject &err){
 		std::cerr << err << std::endl;
 	}
+
+	
+	MaskToImageType::Pointer maskWriter = MaskToImageType::New();
+	maskWriter->SetInput(mask);
+	try{
+		maskWriter->Update();
+	}
+	catch (itk::ExceptionObject &err){
+		std::cerr << err << std::endl;
+	}
+	WriterType::Pointer writer = WriterType::New();
+	writer->SetFileName("C:/Scans/mask.nrrd");
+	writer->SetInput(maskWriter->GetOutput());
+	try{
+		writer->Update();
+	}
+	catch (itk::ExceptionObject &err){
+		std::cerr << err << std::endl;
+	}
+	
 }
 
 void Correlator3D::ImageCorrelation(double *transformFixed, double *transformMoving){
