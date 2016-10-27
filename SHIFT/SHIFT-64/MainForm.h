@@ -1745,8 +1745,8 @@ void OnTransformPoints()
 
 void OnRegistrationEvent()
 {
-     
-	
+	Vector3Vec targetUserPoints = m_View2->GetSlicer()->GetUserTargets();
+	Vector3Vec sourceUserPoints = m_View1->GetSlicer()->GetUserTargets();
 
 	unsigned char *fixedImage = m_View1->GetSlicer()->GetBuffer();
 	int fixedImageSize[] = { m_View1->GetSlicer()->GetVolumeWidth() , m_View1->GetSlicer()->GetVolumeHeight(), m_View1->GetSlicer()->GetVolumeDepth() };
@@ -1760,8 +1760,9 @@ void OnRegistrationEvent()
 
 	Correlator3D correlator3D;
 	correlator3D.Initialize( fixedImage,  fixedImageSize,  fixedImageSpacing,  fixedOrigin, movingImage,  movingImageSize,  movingImageSpacing,  movingOrigin);
-	
-	//Correlator3D correlator3D(fixedImage, fixedImageSize, fixedImageSpacing, fixedOrigin, movingImage, movingImageSize, movingImageSpacing, movingOrigin);
+
+	if (correlator3D.SetROISource(0)) // Selector to allow different sources for ROI, currently only main image set up
+		correlator3D.SetROI(targetUserPoints, sourceUserPoints);
 
 	double transform_Fixed[16];
 	double result_new[16];

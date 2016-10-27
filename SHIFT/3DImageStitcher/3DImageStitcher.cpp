@@ -56,6 +56,7 @@ public:
 Correlator3D::Correlator3D(unsigned char *fixedImage, int *fixedImageSize, double *fixedImageSpacing, double fixedOrigin[Dimension],
 	unsigned char *movingImage, int *movingImageSize, double *movingImageSpacing, double movingOrigin[Dimension])
 {
+	errorFile.open("errorFile.txt");
 	objectFixedCharImage = CharImageType::New();
 	objectMovingCharImage = CharImageType::New();
 	fixedCastFilter = CastFilterType::New();
@@ -64,8 +65,8 @@ Correlator3D::Correlator3D(unsigned char *fixedImage, int *fixedImageSize, doubl
 	movingMask = MaskType::New();
 	bool crop = false;
 	int threshold = 40;
-	ConvertBufferToImage(fixedImage, fixedImageSize, fixedImageSpacing, fixedOrigin, false, objectFixedCharImage, fixedCastFilter, threshold, fixedMask, fixedSize);
-	ConvertBufferToImage(movingImage, movingImageSize, movingImageSpacing, movingOrigin, crop, objectMovingCharImage, movingCastFilter, threshold, movingMask, movingSize);
+	ConvertBufferToImage(fixedImage, fixedImageSize, fixedImageSpacing, fixedOrigin, false, objectFixedCharImage, fixedCastFilter, threshold, fixedMask, fixedSize, fixedSpacing);
+	ConvertBufferToImage(movingImage, movingImageSize, movingImageSpacing, movingOrigin, crop, objectMovingCharImage, movingCastFilter, threshold, movingMask, movingSize, movingSpacing);
 }
 
 Correlator3D::Correlator3D()
@@ -74,6 +75,7 @@ Correlator3D::Correlator3D()
 
 Correlator3D::~Correlator3D()
 {
+	errorFile.close();
 }
 
 void Correlator3D::Initialize(unsigned char *fixedImage, int *fixedImageSize, double *fixedImageSpacing, double fixedOrigin[Dimension],
@@ -89,21 +91,19 @@ void Correlator3D::Initialize(unsigned char *fixedImage, int *fixedImageSize, do
 	//		}
 	//	}
 	//	if (count > 100) break;
-
-	//	//else if (count > 100) break;
-	//}
-
-	//std::cin >> count;
+	errorFile.open("errorFile.txt");
 	objectFixedCharImage = CharImageType::New();
 	objectMovingCharImage = CharImageType::New();
 	fixedCastFilter = CastFilterType::New();
 	movingCastFilter = CastFilterType::New();
 	fixedMask = MaskType::New();
 	movingMask = MaskType::New();
+	fixedROI = ROIFilterType::New();
+	movingROI = ROIFilterType::New();
 	bool crop = false;
 	int threshold = 40;
-	ConvertBufferToImage(fixedImage, fixedImageSize, fixedImageSpacing, fixedOrigin, false, objectFixedCharImage, fixedCastFilter, threshold, fixedMask, fixedSize);
-	ConvertBufferToImage(movingImage, movingImageSize, movingImageSpacing, movingOrigin, crop, objectMovingCharImage, movingCastFilter, threshold, movingMask, movingSize);
+	ConvertBufferToImage(fixedImage, fixedImageSize, fixedImageSpacing, fixedOrigin, false, objectFixedCharImage, fixedCastFilter, threshold, fixedMask, fixedSize, fixedSpacing);
+	ConvertBufferToImage(movingImage, movingImageSize, movingImageSpacing, movingOrigin, crop, objectMovingCharImage, movingCastFilter, threshold, movingMask, movingSize, movingSpacing);
 }
 /*
 void Correlator3D::Initialize(ImageReader fixedImageReader, ImageReader movingImageReader){
@@ -131,12 +131,14 @@ void Correlator3D::Initialize(ImageReader fixedImageReader, ImageReader movingIm
 */
 #define useCastFilter
 #ifdef useCastFilter
-void Correlator3D::ConvertBufferToImage(unsigned char *volumeBuffer, int *imageSize, double *imageSpacing, double origin[3], bool crop, CharImageType::Pointer &image, CastFilterType::Pointer &castFilter, int threshold, MaskType::Pointer &mask, CharImageType::SizeType &objectSize)
+void Correlator3D::ConvertBufferToImage(unsigned char *volumeBuffer, int *imageSize, double *imageSpacing, double origin[3], bool crop, CharImageType::Pointer &image, CastFilterType::Pointer &castFilter, int threshold, MaskType::Pointer &mask, CharImageType::SizeType &objectSize, CharImageType::SpacingType &objectSpacing)
 {
 	//method will convert array of unsigned char into itk::Image instance indicated using output
 
 	//first the size and spacing of the image represented by the buffer is defined
 	int count = 0;
+
+	CharWriterType::Pointer charWriter = CharWriterType::New();
 
 	ImportFilterType::SizeType size;
 	size[0] = imageSize[0];
@@ -152,7 +154,7 @@ void Correlator3D::ConvertBufferToImage(unsigned char *volumeBuffer, int *imageS
 	ImportFilterType::IndexType start;
 	ImportFilterType::IndexType::IndexValueType value;
 	start.Fill(0);
-
+	objectSpacing = spacing;
 
 	ImportFilterType::RegionType region;
 	region.SetSize(size);
@@ -176,83 +178,36 @@ void Correlator3D::ConvertBufferToImage(unsigned char *volumeBuffer, int *imageS
 
 	image = importFilter->GetOutput();
 	
-
-
-	CharImageType::Pointer resampledImage = ResampleImage(image, objectSize);
+	charWriter->SetInput(image);
+	charWriter->SetFileName("C:/Scans/charImage.nrrd");
 
 	try{
+		charWriter->Update();
+	}
+	catch (itk::ExceptionObject &err){
+		errorFile << err << std::endl;
+	}
+
+	//CharImageType::Pointer resampledImage = ResampleImage(image, objectSize);
+
+	/*try{
 		resampledImage->Update();
 	}
 	catch (itk::ExceptionObject &err){
-		std::cerr << err << std::endl;
+		errorFile << err << std::endl;
+	}*/
+
+
+	castFilter->SetInput(image);
+	try
+	{
+		castFilter->Update();
 	}
-	int repititions = 5;
-	//BinomialBlurFilterType::Pointer blurFilter = BinomialBlurFilterType::New();
-	//blurFilter->SetInput(resampledImage);
-	//blurFilter->SetRepetitions(repititions);
-
-	if (crop){
-		// Code below will crop image to 1/4 of the original image size, centered around the origin
-
-		CharImageType::IndexType roiStart;
-		roiStart[0] = size[0] / 4;
-		roiStart[1] = size[1] / 4;
-		roiStart[2] = size[2] / 4;
-
-		CharImageType::SizeType roiSize;
-		roiSize[0] = size[0] / 2;
-		roiSize[1] = size[1] / 2;
-		roiSize[2] = size[2] / 2;
-
-		CharImageType::RegionType desiredRegion;
-		desiredRegion.SetSize(roiSize);
-		desiredRegion.SetIndex(roiStart);
-
-		ROIFilterType::Pointer roi = ROIFilterType::New();
-		//roi->SetInput(blurFilter->GetOutput());
-		roi->SetInput(resampledImage);
-		roi->SetRegionOfInterest(desiredRegion);
-
-		castFilter->SetInput(roi->GetOutput());
-
-		CharImageType::Pointer roiImage = roi->GetOutput();
-
-
-		try{
-			castFilter->Update();
-		}
-		catch (itk::ExceptionObject &err){
-			std::cerr << err << std::endl;
-		}
-
-		GenerateThresholdMask(threshold, roiImage, mask);
-
+	catch (itk::ExceptionObject &err)
+	{
+		errorFile << err << std::endl;
 	}
-	else{
-
-
-		RescaleFilterType::Pointer rescaleFilter = RescaleFilterType::New();
-		rescaleFilter->SetInput(resampledImage);
-		rescaleFilter->SetOutputMinimum(0);
-		rescaleFilter->SetOutputMaximum(255);
-
-		//castFilter->SetInput(blurFilter->GetOutput());
-
-		GenerateThresholdMask(threshold, resampledImage, mask);
-
-		//castFilter->SetInput(mask->GetImage());
-		castFilter->SetInput(mask->GetImage());
-		try
-		{
-			castFilter->Update();
-		}
-		catch (itk::ExceptionObject &err)
-		{
-			std::cerr << err << std::endl;
-		}
-
-		
-	}
+	
 	CannyEdgeDetectionFilterType::Pointer cannyFilter = CannyEdgeDetectionFilterType::New();
 	cannyFilter->SetInput(castFilter->GetOutput());
 
@@ -268,7 +223,7 @@ void Correlator3D::ConvertBufferToImage(unsigned char *volumeBuffer, int *imageS
 		cannyFilter->Update();
 	}
 	catch (itk::ExceptionObject &err){
-		std::cerr << err << std::endl;
+		errorFile << err << std::endl;
 	}
 	WriterType::Pointer writer = WriterType::New();
 	writer->SetFileName("C:/Scans/canny.nrrd");
@@ -277,7 +232,7 @@ void Correlator3D::ConvertBufferToImage(unsigned char *volumeBuffer, int *imageS
 		writer->Update();
 	}
 	catch (itk::ExceptionObject &err){
-		std::cerr << err << std::endl;
+		errorFile << err << std::endl;
 	}
 
 	CastToCharImageType::Pointer castToCharFilter = CastToCharImageType::New();
@@ -287,18 +242,18 @@ void Correlator3D::ConvertBufferToImage(unsigned char *volumeBuffer, int *imageS
 		castToCharFilter->Update();
 	}
 	catch (itk::ExceptionObject &err){
-		std::cerr << err << std::endl;
+		errorFile << err << std::endl;
 	}
-
-	castFilter->SetInput(castToCharFilter->GetOutput());
+	CastFilterType::Pointer castFilterBack = CastFilterType::New();
+	castFilterBack->SetInput(castToCharFilter->GetOutput());
 
 	try
 	{
-		castFilter->Update();
+		castFilterBack->Update();
 	}
 	catch (itk::ExceptionObject &err)
 	{
-		std::cerr << err << std::endl;
+		errorFile << err << std::endl;
 	}
 }
 
@@ -306,6 +261,7 @@ void Correlator3D::GenerateThresholdMask(float upperThreshold, CharImageType::Po
 	// will mask out any values below the threshold amount so they won't be considered in correlation
 	ThresholdFilterType::Pointer thresholdFilter = ThresholdFilterType::New();
 	RescaleFilterType::Pointer rescaleFilter = RescaleFilterType::New();
+	
 	rescaleFilter->SetInput(charImage);
 	rescaleFilter->SetOutputMinimum(0);
 	rescaleFilter->SetOutputMaximum(255);
@@ -313,15 +269,17 @@ void Correlator3D::GenerateThresholdMask(float upperThreshold, CharImageType::Po
 		rescaleFilter->Update();
 	}
 	catch (itk::ExceptionObject &err){
-		std::cerr << err;
+		errorFile << err;
 	}
 	thresholdFilter->SetInput(rescaleFilter->GetOutput());
+	thresholdFilter->SetOutsideValue(0);
 	thresholdFilter->ThresholdBelow(upperThreshold);
+	
 	try{
 		thresholdFilter->Update();
 	}
 	catch (itk::ExceptionObject &err){
-		std::cerr << err;
+		errorFile << err;
 	}
 
 	mask->SetImage(thresholdFilter->GetOutput());
@@ -329,7 +287,7 @@ void Correlator3D::GenerateThresholdMask(float upperThreshold, CharImageType::Po
 		mask->Update();
 	}
 	catch (itk::ExceptionObject &err){
-		std::cerr << err << std::endl;
+		errorFile << err << std::endl;
 	}
 
 	
@@ -339,7 +297,7 @@ void Correlator3D::GenerateThresholdMask(float upperThreshold, CharImageType::Po
 		maskWriter->Update();
 	}
 	catch (itk::ExceptionObject &err){
-		std::cerr << err << std::endl;
+		errorFile << err << std::endl;
 	}
 	WriterType::Pointer writer = WriterType::New();
 	writer->SetFileName("C:/Scans/mask.nrrd");
@@ -348,7 +306,7 @@ void Correlator3D::GenerateThresholdMask(float upperThreshold, CharImageType::Po
 		writer->Update();
 	}
 	catch (itk::ExceptionObject &err){
-		std::cerr << err << std::endl;
+		errorFile << err << std::endl;
 	}
 	
 }
@@ -381,8 +339,8 @@ void Correlator3D::ImageCorrelation(double *transformFixed, double *transformMov
 	initialTransform->SetRotation(rotation);
 	//initialTransform->SetIdentity();  // not sure if this is going to do anything, copying from 2D Deformable registration example
 
-	registration->SetFixedImage(fixedCastFilter->GetOutput());
-	registration->SetMovingImage(movingCastFilter->GetOutput());
+	registration->SetFixedImage(fixedROI->GetOutput());
+	registration->SetMovingImage(movingROI->GetOutput());
 
 #ifdef v4
 	registration->SetInitialTransform(initialTransform);
@@ -496,9 +454,9 @@ CharImageType::Pointer Correlator3D::ResampleImage(CharImageType::Pointer &image
 	CharImageType::SpacingType newSpacing;
 	CharImageType::SpacingType spacing;
 	spacing = image->GetSpacing();
-	newSpacing[0] = spacing[0] / reductionFactor;
-	newSpacing[1] = spacing[1] / reductionFactor;
-	newSpacing[2] = spacing[2] / reductionFactor;
+	newSpacing[0] = spacing[0] * reductionFactor;
+	newSpacing[1] = spacing[1] * reductionFactor;
+	newSpacing[2] = spacing[2] * reductionFactor;
 	filter->SetOutputSpacing(newSpacing);
 	spacing = newSpacing;
 
@@ -517,5 +475,166 @@ CharImageType::Pointer Correlator3D::ResampleImage(CharImageType::Pointer &image
 	filter->SetInput(image);
 	filter->Update();
 
+	CharWriterType::Pointer charWriter = CharWriterType::New();
+	charWriter->SetInput(filter->GetOutput());
+	charWriter->SetFileName("C:/Scans/resampledImage.nrrd");
+
+	try{
+		charWriter->Update();
+	}
+	catch (itk::ExceptionObject &err)
+	{
+		errorFile << err << std::endl;
+	}
+
 	return filter->GetOutput();
+}
+
+
+bool TestValidPoints(Vector3Vec &fixedPoints, Vector3Vec &movingPoints);
+void FindExtrema(Vector3 &minimum, Vector3 &maximum, Vector3Vec &list, CharImageType::SizeType &imageSize, CharImageType::SpacingType &imageSpacing, std::ofstream &errorFile);
+void SetBounds(Vector3 &minimum, Vector3 &maximum, ROIFilterType::Pointer &ROIFilter, std::ofstream &errorFile);
+
+void Correlator3D::SetROI(Vector3Vec &fixedPoints, Vector3Vec &movingPoints){
+
+	
+	if (TestValidPoints(fixedPoints, movingPoints)){
+		Vector3 fixedMinimum;
+		Vector3 fixedMaximum;
+		Vector3 movingMinimum;
+		Vector3 movingMaximum;
+
+		FindExtrema(fixedMinimum, fixedMaximum, fixedPoints, fixedSize, fixedSpacing, errorFile);
+		FindExtrema(movingMinimum, movingMaximum, movingPoints, movingSize, movingSpacing, errorFile);
+
+		fixedROI->SetInput(fixedCastFilter->GetOutput());
+		movingROI->SetInput(movingCastFilter->GetOutput());
+
+		SetBounds(fixedMinimum, fixedMaximum, fixedROI, errorFile);
+		SetBounds(movingMinimum, movingMaximum, movingROI, errorFile);
+
+		WriterType::Pointer writer = WriterType::New();
+		
+		writer->SetInput(fixedCastFilter->GetOutput());
+
+
+		writer->SetFileName("C:/Scans/fixedCastFilter.nrrd");
+		try{
+			writer->Update();
+		}
+		catch (itk::ExceptionObject &err)
+		{
+			errorFile << err << std::endl;
+		}
+
+		writer->SetInput(movingROI->GetOutput());
+		writer->SetFileName("C:/Scans/movingROI.nrrd");
+		try{
+			writer->Update();
+		}
+		catch (itk::ExceptionObject &err)
+		{
+			errorFile << err << std::endl;
+		}
+
+		
+	}
+
+}
+bool TestValidPoints(Vector3Vec &fixedPoints, Vector3Vec &movingPoints){
+	
+	if (movingPoints.size() < 4)
+	{
+		//MessageBox::Show("Left volume does not have any landmark points to use for registration");
+		return false;
+	}
+
+	if (fixedPoints.size() < 4)
+	{
+		//MessageBox::Show("Right volume does not have any landmark points to use for registration");
+		return false;
+	}
+	return true;
+}
+void FindExtrema(Vector3 &minimum, Vector3 &maximum, Vector3Vec &list, CharImageType::SizeType &imageSize, CharImageType::SpacingType &imageSpacing, std::ofstream &errorFile){
+	minimum.x = list.at(0).x;
+	minimum.y = list.at(0).y;
+	minimum.z = list.at(0).z;
+	maximum.x = list.at(0).x;
+	maximum.y = list.at(0).y;
+	maximum.z = list.at(0).z;
+
+	for (Vector3 vector : list){
+		if (minimum.x > vector.x)
+			minimum.x = vector.x;
+		if (minimum.y > vector.y)
+			minimum.y = vector.y;
+		if (minimum.z > vector.z)
+			minimum.z = vector.z;
+		if (maximum.x < vector.x)
+			maximum.x = vector.x;
+		if (maximum.y < vector.y)
+			maximum.y = vector.y;
+		if (maximum.z < vector.z)
+			maximum.z = vector.z;
+	}
+
+
+
+	//errorFile << minimum.x << "\t" << minimum.y << "\t" << minimum.z << std::endl;
+	//errorFile << maximum.x << "\t" << maximum.y << "\t" << maximum.z << std::endl;
+
+	// convert from origin at cube center to origin at bottom left corner and from mm to voxels
+	minimum.x = (minimum.x / imageSpacing[0] + imageSize[0] / 2);
+	minimum.y = (minimum.y / imageSpacing[1] + imageSize[1] / 2);
+	minimum.z = (minimum.z / imageSpacing[2] + imageSize[2] / 2);
+
+	maximum.x = (maximum.x / imageSpacing[0] + imageSize[0] / 2);
+	maximum.y = (maximum.y / imageSpacing[1] + imageSize[1] / 2);
+	maximum.z = (maximum.z / imageSpacing[2] + imageSize[2] / 2);
+
+	errorFile << minimum.x << "\t" << minimum.y << "\t" << minimum.z << std::endl;
+	errorFile << maximum.x << "\t" << maximum.y << "\t" << maximum.z << std::endl;
+}
+void SetBounds(Vector3 &minimum, Vector3 &maximum, ROIFilterType::Pointer &ROIFilter, std::ofstream &errorFile){
+	
+	FloatImageType::IndexType start;
+	start[0] = minimum.x;
+	start[1] = minimum.y;
+	start[2] = minimum.z;
+
+	FloatImageType::SizeType size;
+	size[0] = maximum.x - minimum.x;
+	size[1] = maximum.y - minimum.y;
+	size[2] = maximum.z - minimum.z;
+	
+	FloatImageType::RegionType regionOfInterest;
+	regionOfInterest.SetSize(size);
+	regionOfInterest.SetIndex(start);
+
+	ROIFilter->SetRegionOfInterest(regionOfInterest);
+	
+	try{
+		ROIFilter->Update();
+	}
+	catch (itk::ExceptionObject &err)
+	{
+		errorFile << err << std::endl;
+	}
+
+	
+}
+
+bool Correlator3D::SetROISource(int source){
+	switch (source){
+	case MAIN:
+		fixedROI->SetInput(fixedCastFilter->GetOutput());
+		movingROI->SetInput(movingCastFilter->GetOutput());
+		return true;
+	case CANNY:
+		
+		return false;
+	}
+
+	return false;
 }

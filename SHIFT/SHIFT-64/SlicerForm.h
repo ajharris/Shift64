@@ -118,9 +118,9 @@ namespace SHIFT64 {
 void UpdateDisplay()
 {
 	m_slicer->UpdateDisplay();
-#ifndef _DEBUG
+//#ifndef _DEBUG
 	this->Refresh();
-#endif
+//#endif
 }
 
 #ifdef VTK_AVAILABLE

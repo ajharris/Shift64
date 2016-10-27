@@ -30,8 +30,13 @@
 #include "itkImageFileWriter.h"
 #include "itkSpatialObjectToImageFilter.h"
 #include "itkCannyEdgeDetectionImageFilter.h"
+#include "VisLib.h"
+
 // compile switch definitions
 #define v4
+#define STL std
+
+
 
 typedef float PixelType;
 const unsigned int Dimension = 3;
@@ -44,7 +49,7 @@ typedef itk::CenteredTransformInitializer<TransformType, FloatImageType, FloatIm
 typedef TransformType::VersorType																VersorType;
 typedef VersorType::VectorType																	VectorType;
 typedef itk::CastImageFilter< CharImageType, FloatImageType >									CastFilterType;
-typedef itk::RegionOfInterestImageFilter<CharImageType, CharImageType>							ROIFilterType;
+typedef itk::RegionOfInterestImageFilter<FloatImageType, FloatImageType>						ROIFilterType;
 typedef itk::ThresholdImageFilter<CharImageType>												ThresholdFilterType;
 typedef itk::ImageMaskSpatialObject<Dimension>													MaskType;
 typedef itk::RescaleIntensityImageFilter<CharImageType, CharImageType>							RescaleFilterType;
@@ -54,7 +59,10 @@ typedef itk::BinomialBlurImageFilter<CharImageType, CharImageType>								Binomi
 typedef itk::SpatialObjectToImageFilter<MaskType, FloatImageType>								MaskToImageType;
 typedef itk::CannyEdgeDetectionImageFilter<FloatImageType, FloatImageType>						CannyEdgeDetectionFilterType;
 typedef itk::ImageFileWriter<FloatImageType>													WriterType;
+typedef itk::ImageFileWriter<CharImageType>														CharWriterType;
 typedef itk::CastImageFilter<FloatImageType, CharImageType>										CastToCharImageType;
+typedef STL::vector<Vector3>																	Vector3Vec;
+
 
 #ifdef v4
 typedef itk::ImageRegistrationMethodv4<FloatImageType, FloatImageType, TransformType>			RegistrationType;
@@ -89,23 +97,32 @@ public:
 
 	~Correlator3D();
 	//void Correlator3D::Initialize(ImageReader fixedImageReader, ImageReader movingImageReader);
-	void Correlator3D::ConvertBufferToImage(unsigned char *volumeBuffer, int *imageSize, double *imageSpacing, double origin[3], bool crop, CharImageType::Pointer &image, CastFilterType::Pointer &castFilter, int threshold, MaskType::Pointer &mask, CharImageType::SizeType &objectSize);
+	void Correlator3D::ConvertBufferToImage(unsigned char *volumeBuffer, int *imageSize, double *imageSpacing, double origin[3], bool crop, CharImageType::Pointer &image, CastFilterType::Pointer &castFilter, int threshold, MaskType::Pointer &mask, CharImageType::SizeType &objectSize, CharImageType::SpacingType &objectSpacing);
 	void Correlator3D::GenerateThresholdMask(float threshold, CharImageType::Pointer &charImage, MaskType::Pointer &mask);
 	void Correlator3D::ConvertBufferToImage(unsigned char *volumeBuffer, int *imageSize, double *imageSpacing, CharImageType::Pointer &image, FloatImageType::Pointer &floatImage);
 	void Correlator3D::ImageCorrelation(double *transformFixed, double *transformMoving);
 	void Correlator3D::Initialize(unsigned char *fixedImage, int *fixedImageSize, double *fixedImageSpacing, double fixedOrigin[Dimension],
 		unsigned char *movingImage, int *movingImageSize, double *movingImageSpacing, double movingOrigin[Dimension]);
+	void Correlator3D::SetROI(Vector3Vec &fixedPoints, Vector3Vec &movingPoints);
+	bool Correlator3D::SetROISource(int source);
 
 private:
 	CharImageType::Pointer objectFixedCharImage;
 	CharImageType::Pointer objectMovingCharImage;
 	CharImageType::SizeType fixedSize;
 	CharImageType::SizeType movingSize;
+	CharImageType::SpacingType fixedSpacing;
+	CharImageType::SpacingType movingSpacing;
 	CastFilterType::Pointer fixedCastFilter;
 	CastFilterType::Pointer movingCastFilter;
 	MaskType::Pointer fixedMask;
 	MaskType::Pointer movingMask;
+	ROIFilterType::Pointer fixedROI;
+	ROIFilterType::Pointer movingROI;
 	void Correlator3D::CastImageToFloat(CharImageType::Pointer &image, FloatImageType::Pointer &floatImage, CharImageType::SizeType &objectSize);
 	void Correlator3D::GenerateTransformMatrix(TransformType::MatrixType &matrix, TransformType::OffsetType &offset, double *transform);
 	CharImageType::Pointer Correlator3D::ResampleImage(CharImageType::Pointer &image, CharImageType::SizeType &size);
+	std::ofstream errorFile;
+	enum sourceName { MAIN, CANNY };
 };
+
