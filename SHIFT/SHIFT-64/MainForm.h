@@ -1769,6 +1769,14 @@ void OnRegistrationEvent()
 
 	correlator3D.ImageCorrelation(transform_Fixed, result_new);
 
+	UpdateFromTransform(result_new);
+
+	correlator3D.DeformableRegistration(result_new);
+	
+	
+}
+
+void UpdateFromTransform(double *result_new){
 	vtkMatrix4x4* matrix = vtkMatrix4x4::New();
 	matrix->Identity();
 	long count = 0;
@@ -1789,31 +1797,31 @@ void OnRegistrationEvent()
 
 	IntPtr p1 = Marshal::StringToHGlobalAnsi(m_folderToMonitor);
 	std::string convertedFolderPath = static_cast<char*>(p1.ToPointer());
-	convertedFolderPath += "/" + volumeString + "_ResultMatrix.txt";
+	convertedFolderPath += "/" + volumeString + "_ResultMatrix" + ".txt";
 
 	char outstring[200];
 	fstream tFile = fstream(convertedFolderPath.c_str(), ios::out | ios::binary);
 
-	sprintf(outstring,"%3.6f %3.6f %3.6f %3.6f %3.6f %3.6f %3.6f %3.6f %3.6f %3.6f %3.6f %3.6f %3.6f %3.6f %3.6f %3.6f \n\n",
-	    matrix->GetElement(0,0),
-	    matrix->GetElement(0,1),
-	    matrix->GetElement(0,2),
-	    matrix->GetElement(0,3),
+	sprintf(outstring, "%3.6f %3.6f %3.6f %3.6f %3.6f %3.6f %3.6f %3.6f %3.6f %3.6f %3.6f %3.6f %3.6f %3.6f %3.6f %3.6f \n\n",
+		matrix->GetElement(0, 0),
+		matrix->GetElement(0, 1),
+		matrix->GetElement(0, 2),
+		matrix->GetElement(0, 3),
 
-	    matrix->GetElement(1,0),
-	    matrix->GetElement(1,1),
-	    matrix->GetElement(1,2),
-	    matrix->GetElement(1,3),
+		matrix->GetElement(1, 0),
+		matrix->GetElement(1, 1),
+		matrix->GetElement(1, 2),
+		matrix->GetElement(1, 3),
 
-	    matrix->GetElement(2,0),
-	    matrix->GetElement(2,1),
-	    matrix->GetElement(2,2),
-	    matrix->GetElement(2,3),
+		matrix->GetElement(2, 0),
+		matrix->GetElement(2, 1),
+		matrix->GetElement(2, 2),
+		matrix->GetElement(2, 3),
 
-	    matrix->GetElement(3,0),
-	    matrix->GetElement(3,1),
-	    matrix->GetElement(3,2),
-	    matrix->GetElement(3,3));
+		matrix->GetElement(3, 0),
+		matrix->GetElement(3, 1),
+		matrix->GetElement(3, 2),
+		matrix->GetElement(3, 3));
 
 	tFile.write(outstring, strlen(outstring));
 
@@ -1823,11 +1831,11 @@ void OnRegistrationEvent()
 	m_View1->GetSlicer()->SetRegMatrix(matrix);
 	matrix->Invert();
 	m_View2->GetSlicer()->SetRegMatrix(matrix);
-	
+
 	//set labels for registered volumes
 	m_View1->GetSlicer()->SetRegistrationLabel(m_View2->GetSlicer()->GetVolumeLabel());
 	m_View2->GetSlicer()->SetRegistrationLabel(m_View1->GetSlicer()->GetVolumeLabel());
-	
+
 	LinkCubes();
 	m_View1->UpdateDisplay();
 	m_View2->UpdateDisplay();
@@ -1835,7 +1843,6 @@ void OnRegistrationEvent()
 
 
 	matrix->Delete();
-	
 }
 
 void OnLinkCubesEvent()

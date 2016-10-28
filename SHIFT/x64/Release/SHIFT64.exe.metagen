@@ -98,6 +98,7 @@ Class SHIFT64.MainForm: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
     AndrewControls_Event(Object, EventArgs): PrivateScope, Public, HideBySig
     OnTransformPoints(): PrivateScope, Public, HideBySig
     OnRegistrationEvent(): PrivateScope, Public, HideBySig
+    UpdateFromTransform(Double*): PrivateScope, Public, HideBySig
     OnLinkCubesEvent(): PrivateScope, Public, HideBySig
     LinkCubes(): PrivateScope, Public, HideBySig
     GetDoubleValue(String, String): PrivateScope, Public, HideBySig

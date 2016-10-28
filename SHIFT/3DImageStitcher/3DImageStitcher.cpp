@@ -61,6 +61,7 @@ Correlator3D::Correlator3D(unsigned char *fixedImage, int *fixedImageSize, doubl
 	objectMovingCharImage = CharImageType::New();
 	fixedCastFilter = CastFilterType::New();
 	movingCastFilter = CastFilterType::New();
+	movingTransform1 = FloatImageType::New();
 	fixedMask = MaskType::New();
 	movingMask = MaskType::New();
 	bool crop = false;
@@ -414,6 +415,26 @@ void Correlator3D::ImageCorrelation(double *transformFixed, double *transformMov
 	TransformType::MatrixType matrix = finalTransform->GetMatrix();
 	TransformType::TranslationType translation = finalTransform->GetTranslation();
 	GenerateTransformMatrix(matrix, translation, transformMoving);
+	FloatResampleFilterType::Pointer resampler = FloatResampleFilterType::New();
+
+	resampler->SetInput(movingCastFilter->GetOutput());
+	resampler->SetTransform(registration->GetOutput()->Get());
+
+
+	resampler->SetSize(fixedCastFilter->GetOutput()->GetLargestPossibleRegion().GetSize());
+	resampler->SetOutputOrigin(fixedCastFilter->GetOutput()->GetOrigin());
+	resampler->SetOutputSpacing(fixedCastFilter->GetOutput()->GetSpacing());
+	resampler->SetOutputDirection(fixedCastFilter->GetOutput()->GetDirection());
+	resampler->SetDefaultPixelValue(0);
+
+	movingTransform1 = resampler->GetOutput();
+	
+	try{
+		movingTransform1->Update();
+	}
+	catch (itk::ExceptionObject &err){
+		errorFile << err << std::endl;
+	}
 
 }
 //reassigning matrix to Q to fit notation in documentation
@@ -637,4 +658,8 @@ bool Correlator3D::SetROISource(int source){
 	}
 
 	return false;
+}
+
+void Correlator3D::DeformableRegistration(double *transformMoving){
+	
 }

@@ -31,6 +31,7 @@
 #include "itkSpatialObjectToImageFilter.h"
 #include "itkCannyEdgeDetectionImageFilter.h"
 #include "VisLib.h"
+#include "itkBSplineDeformableTransform.h"
 
 // compile switch definitions
 #define v4
@@ -54,6 +55,7 @@ typedef itk::ThresholdImageFilter<CharImageType>												ThresholdFilterType;
 typedef itk::ImageMaskSpatialObject<Dimension>													MaskType;
 typedef itk::RescaleIntensityImageFilter<CharImageType, CharImageType>							RescaleFilterType;
 typedef itk::ResampleImageFilter<CharImageType, CharImageType>									ResampleFilterType;
+typedef itk::ResampleImageFilter<FloatImageType, FloatImageType>								FloatResampleFilterType;
 typedef itk::NearestNeighborInterpolateImageFunction<CharImageType, double>						InterpolatorType;
 typedef itk::BinomialBlurImageFilter<CharImageType, CharImageType>								BinomialBlurFilterType;
 typedef itk::SpatialObjectToImageFilter<MaskType, FloatImageType>								MaskToImageType;
@@ -74,6 +76,7 @@ typedef itk::LBFGSBOptimizerv4																	OptimizerType;
 //typedef itk::PowellOptimizerv4<double>															OptimizerType;
 typedef itk::CorrelationImageToImageMetricv4<FloatImageType, FloatImageType>					MetricType;
 typedef OptimizerType::ScalesType																OptimizerScalesType;
+typedef itk::BSplineDeformableTransform<double, Dimension, 3>									DeformableTransformType;
 #endif
 
 #ifndef v4
@@ -105,6 +108,7 @@ public:
 		unsigned char *movingImage, int *movingImageSize, double *movingImageSpacing, double movingOrigin[Dimension]);
 	void Correlator3D::SetROI(Vector3Vec &fixedPoints, Vector3Vec &movingPoints);
 	bool Correlator3D::SetROISource(int source);
+	void Correlator3D::DeformableRegistration(double *transformMoving);
 
 private:
 	CharImageType::Pointer objectFixedCharImage;
@@ -122,7 +126,11 @@ private:
 	void Correlator3D::CastImageToFloat(CharImageType::Pointer &image, FloatImageType::Pointer &floatImage, CharImageType::SizeType &objectSize);
 	void Correlator3D::GenerateTransformMatrix(TransformType::MatrixType &matrix, TransformType::OffsetType &offset, double *transform);
 	CharImageType::Pointer Correlator3D::ResampleImage(CharImageType::Pointer &image, CharImageType::SizeType &size);
+	FloatImageType::Pointer movingTransform1 = FloatImageType::New();
+
 	std::ofstream errorFile;
 	enum sourceName { MAIN, CANNY };
+
+
 };
 
