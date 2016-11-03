@@ -31,12 +31,12 @@
 #include "itkSpatialObjectToImageFilter.h"
 #include "itkCannyEdgeDetectionImageFilter.h"
 #include "VisLib.h"
-#include "itkBSplineDeformableTransform.h"
+
 
 // compile switch definitions
 #define v4
 #define STL std
-
+#define BSpline
 
 
 typedef float PixelType;
@@ -66,6 +66,8 @@ typedef itk::CastImageFilter<FloatImageType, CharImageType>										CastToCharI
 typedef STL::vector<Vector3>																	Vector3Vec;
 
 
+
+
 #ifdef v4
 typedef itk::ImageRegistrationMethodv4<FloatImageType, FloatImageType, TransformType>			RegistrationType;
 //#define RegularStepGradientDescent
@@ -76,13 +78,33 @@ typedef itk::LBFGSBOptimizerv4																	OptimizerType;
 //typedef itk::PowellOptimizerv4<double>															OptimizerType;
 typedef itk::CorrelationImageToImageMetricv4<FloatImageType, FloatImageType>					MetricType;
 typedef OptimizerType::ScalesType																OptimizerScalesType;
-typedef itk::BSplineDeformableTransform<double, Dimension, 3>									DeformableTransformType;
+
 #endif
 
 #ifndef v4
 typedef itk::ImageRegistrationMethod<FloatImageType, FloatImageType>							RegistrationType;
 typedef itk::PowellOptimizer																	OptimizerType;
 typedef itk::NormalizedCorrelationImageToImageMetric<FloatImageType, FloatImageType>			MetricType;
+
+
+#endif
+
+#ifdef BSpline
+#include "itkBSplineTransformInitializer.h"
+#include "itkTransformToDisplacementFieldFilter.h"
+#include "itkBSplineTransform.h"
+const    unsigned int    ImageDimension = 3;
+typedef  float           PixelType;
+
+const unsigned int SpaceDimension = ImageDimension;
+const unsigned int SplineOrder = 3;
+typedef double CoordinateRepType;
+
+typedef itk::BSplineTransform<CoordinateRepType,SpaceDimension,SplineOrder >					BSplineTransformType;
+typedef itk::BSplineTransformInitializer<BSplineTransformType, FloatImageType>					InitializerType;
+typedef itk::RegistrationParameterScalesFromPhysicalShift<MetricType>							ScalesEstimatorType;
+
+
 
 
 #endif
@@ -107,6 +129,7 @@ public:
 	void Correlator3D::Initialize(unsigned char *fixedImage, int *fixedImageSize, double *fixedImageSpacing, double fixedOrigin[Dimension],
 		unsigned char *movingImage, int *movingImageSize, double *movingImageSpacing, double movingOrigin[Dimension]);
 	void Correlator3D::SetROI(Vector3Vec &fixedPoints, Vector3Vec &movingPoints);
+	void Correlator3D::SetROI(Vector3 &max, Vector3 &min);
 	bool Correlator3D::SetROISource(int source);
 	void Correlator3D::DeformableRegistration(double *transformMoving);
 
@@ -127,7 +150,8 @@ private:
 	void Correlator3D::GenerateTransformMatrix(TransformType::MatrixType &matrix, TransformType::OffsetType &offset, double *transform);
 	CharImageType::Pointer Correlator3D::ResampleImage(CharImageType::Pointer &image, CharImageType::SizeType &size);
 	FloatImageType::Pointer movingTransform1 = FloatImageType::New();
-
+	Vector3 transformMax;
+	Vector3 transformMin;
 	std::ofstream errorFile;
 	enum sourceName { MAIN, CANNY };
 

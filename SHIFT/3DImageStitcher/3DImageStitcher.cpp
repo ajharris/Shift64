@@ -362,9 +362,19 @@ void Correlator3D::ImageCorrelation(double *transformFixed, double *transformMov
 	OptimizerType::BoundSelectionType boundSelect(numParameters);
 	OptimizerType::BoundValueType upperBound(numParameters);
 	OptimizerType::BoundValueType lowerBound(numParameters);
-	boundSelect.Fill(OptimizerType::UNBOUNDED);
-	upperBound.Fill(100.0);
-	lowerBound.Fill(0.0);
+	boundSelect.Fill(OptimizerType::BOTHBOUNDED);
+	upperBound[0] = 0.03;
+	lowerBound[0] = 0.0;
+	upperBound[1] = 0.03;
+	lowerBound[1] = 0.0;
+	upperBound[2] = 0.03;
+	lowerBound[2] = 0.0;
+	upperBound[3] =10.0;
+	lowerBound[3] =0.0;
+	upperBound[4] =10.0;
+	lowerBound[4] =0.0;
+	upperBound[5] =10.0;
+	lowerBound[5] =0.0;
 	optimizer->SetBoundSelection(boundSelect);
 	optimizer->SetUpperBound(upperBound);
 	optimizer->SetLowerBound(lowerBound);
@@ -529,9 +539,9 @@ void Correlator3D::SetROI(Vector3Vec &fixedPoints, Vector3Vec &movingPoints){
 		FindExtrema(movingMinimum, movingMaximum, movingPoints, movingSize, movingSpacing, errorFile);
 
 		fixedROI->SetInput(fixedCastFilter->GetOutput());
-		movingROI->SetInput(movingCastFilter->GetOutput());
-
 		SetBounds(fixedMinimum, fixedMaximum, fixedROI, errorFile);
+
+		movingROI->SetInput(movingCastFilter->GetOutput());
 		SetBounds(movingMinimum, movingMaximum, movingROI, errorFile);
 
 		WriterType::Pointer writer = WriterType::New();
@@ -557,10 +567,15 @@ void Correlator3D::SetROI(Vector3Vec &fixedPoints, Vector3Vec &movingPoints){
 		{
 			errorFile << err << std::endl;
 		}
-
+		transformMax = movingMinimum;
+		transformMin = movingMaximum;
 		
 	}
 
+}
+void Correlator3D::SetROI(Vector3 &max, Vector3 &min){
+	movingROI->SetInput(movingTransform1);
+	SetBounds(min, max, movingROI, errorFile);
 }
 bool TestValidPoints(Vector3Vec &fixedPoints, Vector3Vec &movingPoints){
 	
@@ -661,5 +676,83 @@ bool Correlator3D::SetROISource(int source){
 }
 
 void Correlator3D::DeformableRegistration(double *transformMoving){
+	SetROI(transformMin, transformMax);
 	
+	MetricType::Pointer         metric = MetricType::New();
+	OptimizerType::Pointer      optimizer = OptimizerType::New();
+	RegistrationType::Pointer   registration = RegistrationType::New();
+	registration->SetMetric(metric);
+	registration->SetOptimizer(optimizer);
+
+	BSplineTransformType::Pointer    transform = BSplineTransformType::New();
+
+	InitializerType::Pointer transformInitializer = InitializerType::New();
+
+	unsigned int numberOfGridNodesInOneDimension = 8;
+	BSplineTransformType::MeshSizeType meshSize;
+	meshSize.Fill(numberOfGridNodesInOneDimension - SplineOrder);
+
+	transformInitializer->SetTransform(transform);
+	transformInitializer->SetImage(fixedCastFilter->GetOutput());
+	transformInitializer->SetTransformDomainMeshSize(meshSize);
+	transformInitializer->InitializeTransform();
+
+	transform->SetIdentity();
+
+	registration->SetInitialTransform(transform);
+	registration->InPlaceOn();
+
+	registration->SetFixedImage(fixedROI->GetOutput());
+	registration->SetMovingImage(movingROI->GetOutput());
+
+	ScalesEstimatorType::Pointer scalesEstimator = ScalesEstimatorType::New();
+	scalesEstimator->SetMetric(metric);
+	scalesEstimator->SetTransformForward(true);
+	scalesEstimator->SetSmallParameterVariation(1.0);
+
+	const unsigned int numParameters = transform->GetNumberOfParameters();
+	optimizer->SetGradientConvergenceTolerance(5e-2);
+	//optimizer->SetLineSearchAccuracy(1.2);
+	//optimizer->SetDefaultStepLength(1.5);
+	optimizer->TraceOn();
+	optimizer->SetMaximumNumberOfFunctionEvaluations(1000);
+	optimizer->SetScalesEstimator(scalesEstimator);
+	OptimizerType::BoundSelectionType boundSelect(numParameters);
+	OptimizerType::BoundValueType upperBound(numParameters);
+	OptimizerType::BoundValueType lowerBound(numParameters);
+	boundSelect.Fill(OptimizerType::UNBOUNDED);
+	upperBound.Fill(0.0);
+	lowerBound.Fill(0.0);
+	optimizer->SetBoundSelection(boundSelect);
+	optimizer->SetUpperBound(upperBound);
+	optimizer->SetLowerBound(lowerBound);
+
+	const unsigned int numberOfLevels = 1;
+
+	RegistrationType::ShrinkFactorsArrayType shrinkFactorsPerLevel;
+	shrinkFactorsPerLevel.SetSize(1);
+	shrinkFactorsPerLevel[0] = 1;
+	RegistrationType::SmoothingSigmasArrayType smoothingSigmasPerLevel;
+	smoothingSigmasPerLevel.SetSize(1);
+	smoothingSigmasPerLevel[0] = 0;
+	registration->SetNumberOfLevels(numberOfLevels);
+	registration->SetSmoothingSigmasPerLevel(smoothingSigmasPerLevel);
+	registration->SetShrinkFactorsPerLevel(shrinkFactorsPerLevel);
+
+	try
+	{
+		
+		registration->Update();
+		
+		errorFile << "Optimizer stop condition = "
+			<< registration->GetOptimizer()->GetStopConditionDescription()
+			<< std::endl;
+	}
+	catch (itk::ExceptionObject & err)
+	{
+		errorFile << "ExceptionObject caught !" << std::endl;
+		errorFile << err << std::endl;
+	}
+	// Report the time and memory taken by the registration
+
 }

@@ -99,6 +99,7 @@ Class SHIFT64.MainForm: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
     OnTransformPoints(): PrivateScope, Public, HideBySig
     OnRegistrationEvent(): PrivateScope, Public, HideBySig
     UpdateFromTransform(Double*): PrivateScope, Public, HideBySig
+    OutputTransformToFile(basic_string<char\,std::char_traits<char>\,std::allocator<char> >*, vtkMatrix4x4*): PrivateScope, Public, HideBySig
     OnLinkCubesEvent(): PrivateScope, Public, HideBySig
     LinkCubes(): PrivateScope, Public, HideBySig
     GetDoubleValue(String, String): PrivateScope, Public, HideBySig
@@ -109,6 +110,11 @@ Class SHIFT64.MainForm: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
     ConvertPoint(Vector3*, Vector3): PrivateScope, Public, HideBySig
     ImportTransformFile(basic_string<char\,std::char_traits<char>\,std::allocator<char> >*): PrivateScope, Public, HideBySig
     HelperSelectFile(String): PrivateScope, Public, HideBySig
+    LoadTransformApply(): PrivateScope, Public, HideBySig
     LoadTransformApplyToSelectedView(): PrivateScope, Public, HideBySig
+    LoadFiducials(): PrivateScope, Public, HideBySig
+    GetPoint(Vector3*, basic_ifstream<char\,std::char_traits<char> >* IsImplicitlyDereferenced): PrivateScope, Public, HideBySig
+    split(vector<std::basic_string<char\,std::char_traits<char>\,std::allocator<char> >\,std::allocator<std::basic_string<char\,std::char_traits<char>\,std::allocator<char> > > >*, basic_string<char\,std::char_traits<char>\,std::allocator<char> >* IsImplicitlyDereferenced, SByte IsSignUnspecifiedByte): PrivateScope, Public, HideBySig
+    split(basic_string<char\,std::char_traits<char>\,std::allocator<char> >* IsImplicitlyDereferenced, SByte IsSignUnspecifiedByte, vector<std::basic_string<char\,std::char_traits<char>\,std::allocator<char> >\,std::allocator<std::basic_string<char\,std::char_traits<char>\,std::allocator<char> > > >* IsImplicitlyDereferenced): PrivateScope, Public, HideBySig
     HelperParseTransformFileSingle(basic_string<char\,std::char_traits<char>\,std::allocator<char> >*, vtkMatrix4x4*): PrivateScope, Public, HideBySig
     DoLandmarkRegistration(): PrivateScope, Public, HideBySig

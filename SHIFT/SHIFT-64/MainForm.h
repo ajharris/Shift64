@@ -1,6 +1,8 @@
 #pragma once
 #include "3DImageStitcher.h"
 #include "CompileSwitches.h"
+#include <regex>
+
 
 #define SLICER_AVAILABLE
 #ifdef SLICER_AVAILABLE
@@ -105,6 +107,7 @@ namespace SHIFT64 {
      //flags
      static bool m_monitorIsRunning = false;
 
+
      //counters
       static int m_imageCount = 0;//count number of images added to image list
      //====================================================================================================
@@ -198,208 +201,201 @@ namespace SHIFT64 {
 		/// </summary>
 		void InitializeComponent(void)
 		{
-            this->components = (gcnew System::ComponentModel::Container());
-            System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(MainForm::typeid));
-            this->m_imageList = (gcnew System::Windows::Forms::ImageList(this->components));
-            this->m_imageListView = (gcnew System::Windows::Forms::ListView());
-            this->m_commonControls = (gcnew System::Windows::Forms::ToolStrip());
-            this->m_selectWorkingFolder = (gcnew System::Windows::Forms::ToolStripButton());
-            this->toolStripSeparator2 = (gcnew System::Windows::Forms::ToolStripSeparator());
-            this->Reset1 = (gcnew System::Windows::Forms::ToolStripButton());
-            this->Reset2 = (gcnew System::Windows::Forms::ToolStripButton());
-            this->Reset3 = (gcnew System::Windows::Forms::ToolStripButton());
-            this->toolStripSeparator1 = (gcnew System::Windows::Forms::ToolStripSeparator());
-            this->AddPoint = (gcnew System::Windows::Forms::ToolStripButton());
-            this->DeletePoint = (gcnew System::Windows::Forms::ToolStripButton());
-            this->ClearPoint = (gcnew System::Windows::Forms::ToolStripButton());
-            this->toolStripSeparator3 = (gcnew System::Windows::Forms::ToolStripSeparator());
-            this->Ruler = (gcnew System::Windows::Forms::ToolStripButton());
-            this->zoomIN = (gcnew System::Windows::Forms::ToolStripButton());
-            this->zoomOUT = (gcnew System::Windows::Forms::ToolStripButton());
-            this->m_commonControls->SuspendLayout();
-            this->SuspendLayout();
-            // 
-            // m_imageList
-            // 
-            this->m_imageList->ColorDepth = System::Windows::Forms::ColorDepth::Depth8Bit;
-            this->m_imageList->ImageSize = System::Drawing::Size(100, 100);
-            this->m_imageList->TransparentColor = System::Drawing::Color::Transparent;
-            // 
-            // m_imageListView
-            // 
-            this->m_imageListView->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(42)), static_cast<System::Int32>(static_cast<System::Byte>(42)),
-                static_cast<System::Int32>(static_cast<System::Byte>(42)));
-            this->m_imageListView->BorderStyle = System::Windows::Forms::BorderStyle::None;
-            this->m_imageListView->CausesValidation = false;
-            this->m_imageListView->Font = (gcnew System::Drawing::Font(L"Lucida Bright", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-                static_cast<System::Byte>(0)));
-            this->m_imageListView->ForeColor = System::Drawing::SystemColors::HotTrack;
-            this->m_imageListView->HideSelection = false;
-            this->m_imageListView->LargeImageList = this->m_imageList;
-            this->m_imageListView->Location = System::Drawing::Point(264, 1);
-            this->m_imageListView->MultiSelect = false;
-            this->m_imageListView->Name = L"m_imageListView";
-            this->m_imageListView->Size = System::Drawing::Size(732, 136);
-            this->m_imageListView->TabIndex = 0;
-            this->m_imageListView->UseCompatibleStateImageBehavior = false;
-            this->m_imageListView->SelectedIndexChanged += gcnew System::EventHandler(this, &MainForm::m_imageListView_SelectedIndexChanged);
-            // 
-            // m_commonControls
-            // 
-            this->m_commonControls->Dock = System::Windows::Forms::DockStyle::None;
-            this->m_commonControls->Font = (gcnew System::Drawing::Font(L"Segoe UI", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-                static_cast<System::Byte>(0)));
-            this->m_commonControls->ImageScalingSize = System::Drawing::Size(64, 64);
-            this->m_commonControls->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(13) {
-                this->m_selectWorkingFolder,
-                    this->toolStripSeparator2, this->Reset1, this->Reset2, this->Reset3, this->toolStripSeparator1, this->AddPoint, this->DeletePoint,
-                    this->ClearPoint, this->toolStripSeparator3, this->Ruler, this->zoomIN, this->zoomOUT
-            });
-            this->m_commonControls->Location = System::Drawing::Point(279, 140);
-            this->m_commonControls->Name = L"m_commonControls";
-            this->m_commonControls->Size = System::Drawing::Size(472, 28);
-            this->m_commonControls->TabIndex = 3;
-            this->m_commonControls->Text = L"Tools";
-            // 
-            // m_selectWorkingFolder
-            // 
-            this->m_selectWorkingFolder->DisplayStyle = System::Windows::Forms::ToolStripItemDisplayStyle::Text;
-            this->m_selectWorkingFolder->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"m_selectWorkingFolder.Image")));
-            this->m_selectWorkingFolder->ImageTransparentColor = System::Drawing::Color::Magenta;
-            this->m_selectWorkingFolder->Name = L"m_selectWorkingFolder";
-            this->m_selectWorkingFolder->Size = System::Drawing::Size(58, 25);
-            this->m_selectWorkingFolder->Text = L"Folder";
-            this->m_selectWorkingFolder->Click += gcnew System::EventHandler(this, &MainForm::SelectWorkingFolder_Click);
-            // 
-            // toolStripSeparator2
-            // 
-            this->toolStripSeparator2->Name = L"toolStripSeparator2";
-            this->toolStripSeparator2->Size = System::Drawing::Size(6, 28);
-            // 
-            // Reset1
-            // 
-            this->Reset1->DisplayStyle = System::Windows::Forms::ToolStripItemDisplayStyle::Text;
-            this->Reset1->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"Reset1.Image")));
-            this->Reset1->ImageTransparentColor = System::Drawing::Color::Magenta;
-            this->Reset1->Name = L"Reset1";
-            this->Reset1->Size = System::Drawing::Size(61, 25);
-            this->Reset1->Text = L"Reset1";
-            this->Reset1->Click += gcnew System::EventHandler(this, &MainForm::Reset1_Click);
-            // 
-            // Reset2
-            // 
-            this->Reset2->DisplayStyle = System::Windows::Forms::ToolStripItemDisplayStyle::Text;
-            this->Reset2->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"Reset2.Image")));
-            this->Reset2->ImageTransparentColor = System::Drawing::Color::Magenta;
-            this->Reset2->Name = L"Reset2";
-            this->Reset2->Size = System::Drawing::Size(61, 25);
-            this->Reset2->Text = L"Reset2";
-            this->Reset2->Click += gcnew System::EventHandler(this, &MainForm::Reset2_Click);
-            // 
-            // Reset3
-            // 
-            this->Reset3->DisplayStyle = System::Windows::Forms::ToolStripItemDisplayStyle::Text;
-            this->Reset3->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"Reset3.Image")));
-            this->Reset3->ImageTransparentColor = System::Drawing::Color::Magenta;
-            this->Reset3->Name = L"Reset3";
-            this->Reset3->Size = System::Drawing::Size(61, 25);
-            this->Reset3->Text = L"Reset3";
-            this->Reset3->Click += gcnew System::EventHandler(this, &MainForm::Reset3_Click);
-            // 
-            // toolStripSeparator1
-            // 
-            this->toolStripSeparator1->Name = L"toolStripSeparator1";
-            this->toolStripSeparator1->Size = System::Drawing::Size(6, 28);
-            // 
-            // AddPoint
-            // 
-            this->AddPoint->DisplayStyle = System::Windows::Forms::ToolStripItemDisplayStyle::Text;
-            this->AddPoint->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"AddPoint.Image")));
-            this->AddPoint->ImageTransparentColor = System::Drawing::Color::Magenta;
-            this->AddPoint->Name = L"AddPoint";
-            this->AddPoint->Size = System::Drawing::Size(42, 25);
-            this->AddPoint->Text = L"Add";
-            this->AddPoint->Click += gcnew System::EventHandler(this, &MainForm::AddPoint_Click);
-            // 
-            // DeletePoint
-            // 
-            this->DeletePoint->DisplayStyle = System::Windows::Forms::ToolStripItemDisplayStyle::Text;
-            this->DeletePoint->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"DeletePoint.Image")));
-            this->DeletePoint->ImageTransparentColor = System::Drawing::Color::Magenta;
-            this->DeletePoint->Name = L"DeletePoint";
-            this->DeletePoint->Size = System::Drawing::Size(58, 25);
-            this->DeletePoint->Text = L"Delete";
-            this->DeletePoint->Click += gcnew System::EventHandler(this, &MainForm::DeletePoint_Click);
-            // 
-            // ClearPoint
-            // 
-            this->ClearPoint->DisplayStyle = System::Windows::Forms::ToolStripItemDisplayStyle::Text;
-            this->ClearPoint->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"ClearPoint.Image")));
-            this->ClearPoint->ImageTransparentColor = System::Drawing::Color::Magenta;
-            this->ClearPoint->Name = L"ClearPoint";
-            this->ClearPoint->Size = System::Drawing::Size(50, 25);
-            this->ClearPoint->Text = L"Clear";
-            this->ClearPoint->Click += gcnew System::EventHandler(this, &MainForm::ClearPoint_Click);
-            // 
-            // toolStripSeparator3
-            // 
-            this->toolStripSeparator3->Name = L"toolStripSeparator3";
-            this->toolStripSeparator3->Size = System::Drawing::Size(6, 28);
-            // 
-            // Ruler
-            // 
-            this->Ruler->DisplayStyle = System::Windows::Forms::ToolStripItemDisplayStyle::Text;
-            this->Ruler->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"Ruler.Image")));
-            this->Ruler->ImageTransparentColor = System::Drawing::Color::Magenta;
-            this->Ruler->Name = L"Ruler";
-            this->Ruler->Size = System::Drawing::Size(51, 25);
-            this->Ruler->Text = L"Ruler";
-            this->Ruler->Click += gcnew System::EventHandler(this, &MainForm::Ruler_Click);
+			this->components = (gcnew System::ComponentModel::Container());
+			System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(MainForm::typeid));
+			this->m_imageList = (gcnew System::Windows::Forms::ImageList(this->components));
+			this->m_imageListView = (gcnew System::Windows::Forms::ListView());
+			this->m_commonControls = (gcnew System::Windows::Forms::ToolStrip());
+			this->m_selectWorkingFolder = (gcnew System::Windows::Forms::ToolStripButton());
+			this->toolStripSeparator2 = (gcnew System::Windows::Forms::ToolStripSeparator());
+			this->Reset1 = (gcnew System::Windows::Forms::ToolStripButton());
+			this->Reset2 = (gcnew System::Windows::Forms::ToolStripButton());
+			this->Reset3 = (gcnew System::Windows::Forms::ToolStripButton());
+			this->toolStripSeparator1 = (gcnew System::Windows::Forms::ToolStripSeparator());
+			this->AddPoint = (gcnew System::Windows::Forms::ToolStripButton());
+			this->DeletePoint = (gcnew System::Windows::Forms::ToolStripButton());
+			this->ClearPoint = (gcnew System::Windows::Forms::ToolStripButton());
+			this->toolStripSeparator3 = (gcnew System::Windows::Forms::ToolStripSeparator());
+			this->Ruler = (gcnew System::Windows::Forms::ToolStripButton());
+			this->zoomIN = (gcnew System::Windows::Forms::ToolStripButton());
+			this->zoomOUT = (gcnew System::Windows::Forms::ToolStripButton());
+			this->m_commonControls->SuspendLayout();
+			this->SuspendLayout();
+			// 
+			// m_imageList
+			// 
+			this->m_imageList->ColorDepth = System::Windows::Forms::ColorDepth::Depth8Bit;
+			this->m_imageList->ImageSize = System::Drawing::Size(100, 100);
+			this->m_imageList->TransparentColor = System::Drawing::Color::Transparent;
+			// 
+			// m_imageListView
+			// 
+			this->m_imageListView->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(42)), static_cast<System::Int32>(static_cast<System::Byte>(42)),
+				static_cast<System::Int32>(static_cast<System::Byte>(42)));
+			this->m_imageListView->BorderStyle = System::Windows::Forms::BorderStyle::None;
+			this->m_imageListView->CausesValidation = false;
+			this->m_imageListView->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->m_imageListView->ForeColor = System::Drawing::SystemColors::HotTrack;
+			this->m_imageListView->HideSelection = false;
+			this->m_imageListView->LargeImageList = this->m_imageList;
+			this->m_imageListView->Location = System::Drawing::Point(264, 1);
+			this->m_imageListView->MultiSelect = false;
+			this->m_imageListView->Name = L"m_imageListView";
+			this->m_imageListView->Size = System::Drawing::Size(732, 136);
+			this->m_imageListView->TabIndex = 0;
+			this->m_imageListView->UseCompatibleStateImageBehavior = false;
+			this->m_imageListView->SelectedIndexChanged += gcnew System::EventHandler(this, &MainForm::m_imageListView_SelectedIndexChanged);
+			// 
+			// m_commonControls
+			// 
+			this->m_commonControls->Dock = System::Windows::Forms::DockStyle::None;
+			this->m_commonControls->Font = (gcnew System::Drawing::Font(L"Segoe UI", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->m_commonControls->ImageScalingSize = System::Drawing::Size(64, 64);
+			this->m_commonControls->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(13) {
+				this->m_selectWorkingFolder,
+					this->toolStripSeparator2, this->Reset1, this->Reset2, this->Reset3, this->toolStripSeparator1, this->AddPoint, this->DeletePoint,
+					this->ClearPoint, this->toolStripSeparator3, this->Ruler, this->zoomIN, this->zoomOUT
+			});
+			this->m_commonControls->Location = System::Drawing::Point(279, 140);
+			this->m_commonControls->Name = L"m_commonControls";
+			this->m_commonControls->Size = System::Drawing::Size(668, 28);
+			this->m_commonControls->TabIndex = 3;
+			this->m_commonControls->Text = L"Tools";
+			// 
+			// m_selectWorkingFolder
+			// 
+			this->m_selectWorkingFolder->DisplayStyle = System::Windows::Forms::ToolStripItemDisplayStyle::Text;
+			this->m_selectWorkingFolder->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"m_selectWorkingFolder.Image")));
+			this->m_selectWorkingFolder->ImageTransparentColor = System::Drawing::Color::Magenta;
+			this->m_selectWorkingFolder->Name = L"m_selectWorkingFolder";
+			this->m_selectWorkingFolder->Size = System::Drawing::Size(58, 25);
+			this->m_selectWorkingFolder->Text = L"Folder";
+			this->m_selectWorkingFolder->Click += gcnew System::EventHandler(this, &MainForm::SelectWorkingFolder_Click);
+			// 
+			// toolStripSeparator2
+			// 
+			this->toolStripSeparator2->Name = L"toolStripSeparator2";
+			this->toolStripSeparator2->Size = System::Drawing::Size(6, 28);
+			// 
+			// Reset1
+			// 
+			this->Reset1->DisplayStyle = System::Windows::Forms::ToolStripItemDisplayStyle::Text;
+			this->Reset1->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"Reset1.Image")));
+			this->Reset1->ImageTransparentColor = System::Drawing::Color::Magenta;
+			this->Reset1->Name = L"Reset1";
+			this->Reset1->Size = System::Drawing::Size(61, 25);
+			this->Reset1->Text = L"Reset1";
+			this->Reset1->Click += gcnew System::EventHandler(this, &MainForm::Reset1_Click);
+			// 
+			// Reset2
+			// 
+			this->Reset2->DisplayStyle = System::Windows::Forms::ToolStripItemDisplayStyle::Text;
+			this->Reset2->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"Reset2.Image")));
+			this->Reset2->ImageTransparentColor = System::Drawing::Color::Magenta;
+			this->Reset2->Name = L"Reset2";
+			this->Reset2->Size = System::Drawing::Size(61, 25);
+			this->Reset2->Text = L"Reset2";
+			this->Reset2->Click += gcnew System::EventHandler(this, &MainForm::Reset2_Click);
+			// 
+			// Reset3
+			// 
+			this->Reset3->DisplayStyle = System::Windows::Forms::ToolStripItemDisplayStyle::Text;
+			this->Reset3->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"Reset3.Image")));
+			this->Reset3->ImageTransparentColor = System::Drawing::Color::Magenta;
+			this->Reset3->Name = L"Reset3";
+			this->Reset3->Size = System::Drawing::Size(61, 25);
+			this->Reset3->Text = L"Reset3";
+			this->Reset3->Click += gcnew System::EventHandler(this, &MainForm::Reset3_Click);
+			// 
+			// toolStripSeparator1
+			// 
+			this->toolStripSeparator1->Name = L"toolStripSeparator1";
+			this->toolStripSeparator1->Size = System::Drawing::Size(6, 28);
+			// 
+			// AddPoint
+			// 
+			this->AddPoint->DisplayStyle = System::Windows::Forms::ToolStripItemDisplayStyle::Text;
+			this->AddPoint->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"AddPoint.Image")));
+			this->AddPoint->ImageTransparentColor = System::Drawing::Color::Magenta;
+			this->AddPoint->Name = L"AddPoint";
+			this->AddPoint->Size = System::Drawing::Size(42, 25);
+			this->AddPoint->Text = L"Add";
+			this->AddPoint->Click += gcnew System::EventHandler(this, &MainForm::AddPoint_Click);
+			// 
+			// DeletePoint
+			// 
+			this->DeletePoint->DisplayStyle = System::Windows::Forms::ToolStripItemDisplayStyle::Text;
+			this->DeletePoint->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"DeletePoint.Image")));
+			this->DeletePoint->ImageTransparentColor = System::Drawing::Color::Magenta;
+			this->DeletePoint->Name = L"DeletePoint";
+			this->DeletePoint->Size = System::Drawing::Size(58, 25);
+			this->DeletePoint->Text = L"Delete";
+			this->DeletePoint->Click += gcnew System::EventHandler(this, &MainForm::DeletePoint_Click);
+			// 
+			// ClearPoint
+			// 
+			this->ClearPoint->DisplayStyle = System::Windows::Forms::ToolStripItemDisplayStyle::Text;
+			this->ClearPoint->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"ClearPoint.Image")));
+			this->ClearPoint->ImageTransparentColor = System::Drawing::Color::Magenta;
+			this->ClearPoint->Name = L"ClearPoint";
+			this->ClearPoint->Size = System::Drawing::Size(50, 25);
+			this->ClearPoint->Text = L"Clear";
+			this->ClearPoint->Click += gcnew System::EventHandler(this, &MainForm::ClearPoint_Click);
+			// 
+			// toolStripSeparator3
+			// 
+			this->toolStripSeparator3->Name = L"toolStripSeparator3";
+			this->toolStripSeparator3->Size = System::Drawing::Size(6, 28);
+			// 
+			// Ruler
+			// 
+			this->Ruler->DisplayStyle = System::Windows::Forms::ToolStripItemDisplayStyle::Text;
+			this->Ruler->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"Ruler.Image")));
+			this->Ruler->ImageTransparentColor = System::Drawing::Color::Magenta;
+			this->Ruler->Name = L"Ruler";
+			this->Ruler->Size = System::Drawing::Size(51, 25);
+			this->Ruler->Text = L"Ruler";
+			this->Ruler->Click += gcnew System::EventHandler(this, &MainForm::Ruler_Click);
+			// 
+			// zoomIN
+			// 
+			this->zoomIN->DisplayStyle = System::Windows::Forms::ToolStripItemDisplayStyle::Text;
+			this->zoomIN->ImageTransparentColor = System::Drawing::Color::Magenta;
+			this->zoomIN->Name = L"zoomIN";
+			this->zoomIN->Size = System::Drawing::Size(75, 25);
+			this->zoomIN->Text = L"Zoom IN";
+			this->zoomIN->Click += gcnew System::EventHandler(this, &MainForm::ZoomIN_Click);
+			// 
+			// zoomOUT
+			// 
+			this->zoomOUT->DisplayStyle = System::Windows::Forms::ToolStripItemDisplayStyle::Text;
+			this->zoomOUT->ImageTransparentColor = System::Drawing::Color::Magenta;
+			this->zoomOUT->Name = L"zoomOUT";
+			this->zoomOUT->Size = System::Drawing::Size(90, 25);
+			this->zoomOUT->Text = L"Zoom OUT";
+			this->zoomOUT->Click += gcnew System::EventHandler(this, &MainForm::ZoomOUT_Click);
+			// 
+			// MainForm
+			// 
+			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::None;
+			this->ClientSize = System::Drawing::Size(1248, 691);
+			this->Controls->Add(this->m_commonControls);
+			this->Controls->Add(this->m_imageListView);
+			this->DoubleBuffered = true;
+			this->IsMdiContainer = true;
+			this->Name = L"MainForm";
+			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
+			this->Text = L"SHIFT-64";
+			this->WindowState = System::Windows::Forms::FormWindowState::Maximized;
+			this->SizeChanged += gcnew System::EventHandler(this, &MainForm::MainForm_SizeChanged);
+			this->m_commonControls->ResumeLayout(false);
+			this->m_commonControls->PerformLayout();
+			this->ResumeLayout(false);
+			this->PerformLayout();
 
-            // 
-            // Zoom IN
-            // 
-            this->zoomIN->DisplayStyle = System::Windows::Forms::ToolStripItemDisplayStyle::Text;
-            this->zoomIN->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"zoomIN.Image")));
-            this->zoomIN->ImageTransparentColor = System::Drawing::Color::Magenta;
-            this->zoomIN->Name = L"ZoomIN";
-            this->zoomIN->Size = System::Drawing::Size(51, 25);
-            this->zoomIN->Text = L"Zoom IN";
-            this->zoomIN->Click += gcnew System::EventHandler(this, &MainForm::ZoomIN_Click);
-
-            // 
-            // Zoom OUT
-            // 
-            this->zoomOUT->DisplayStyle = System::Windows::Forms::ToolStripItemDisplayStyle::Text;
-            this->zoomOUT->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"zoomOUT.Image")));
-            this->zoomOUT->ImageTransparentColor = System::Drawing::Color::Magenta;
-            this->zoomOUT->Name = L"ZoomOUT";
-            this->zoomOUT->Size = System::Drawing::Size(51, 25);
-            this->zoomOUT->Text = L"Zoom OUT";
-            this->zoomOUT->Click += gcnew System::EventHandler(this, &MainForm::ZoomOUT_Click);
-
-
-
-            // 
-            // MainForm
-            // 
-            this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::None;
-            this->ClientSize = System::Drawing::Size(1248, 691);
-            this->Controls->Add(this->m_commonControls);
-            this->Controls->Add(this->m_imageListView);
-            this->DoubleBuffered = true;
-            this->IsMdiContainer = true;
-            this->Name = L"MainForm";
-            this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
-            this->Text = L"SHIFT-64";
-            this->WindowState = System::Windows::Forms::FormWindowState::Maximized;
-            this->SizeChanged += gcnew System::EventHandler(this, &MainForm::MainForm_SizeChanged);
-            this->m_commonControls->ResumeLayout(false);
-            this->m_commonControls->PerformLayout();
-            this->ResumeLayout(false);
-            this->PerformLayout();
-
-        }
+		}
 #pragma endregion
 
 private: void UpdateGUI()
@@ -1700,11 +1696,17 @@ public: void AndrewControls_Event(Object^ sender, EventArgs^ e)
         OnTransformPoints();
     }
     else
-    if (code == "LoadTransform")
+    if (code == "LandmarkTransform")
     {
        // LoadTransformApplyToSelectedView();
         DoLandmarkRegistration();
     }
+	else
+	if (code == "LoadTransform")
+	{
+		LoadTransformApply();
+
+	}
 
 }
 #endif
@@ -1758,8 +1760,25 @@ void OnRegistrationEvent()
 	double movingImageSpacing[] = { m_View2->GetSlicer()->GetVoxelX(), m_View2->GetSlicer()->GetVoxelY(), m_View2->GetSlicer()->GetVoxelZ() };
 	double movingOrigin[] = { 0, 0, 0 };
 
+	unsigned char *fixedInvertedImage = NULL;
+	fixedInvertedImage = new unsigned char[fixedImageSize[0] * fixedImageSize[1] * fixedImageSize[2]];
+	unsigned char *movingInvertedImage = NULL;
+	movingInvertedImage = new unsigned char[movingImageSize[0] * movingImageSize[1] * movingImageSize[2]];
+
+
+	memcpy(fixedInvertedImage, fixedImage, fixedImageSize[0] * fixedImageSize[1] * fixedImageSize[2]);
+	memcpy(movingInvertedImage, movingImage, movingImageSize[0] * movingImageSize[1] * movingImageSize[2]);
+
+	//for (int i = 0; i < fixedImageSize[0] * fixedImageSize[1] * fixedImageSize[2]; i++){
+	//	if (!fixedInvertedImage[i] == 0) fixedInvertedImage[i] = 255 - fixedInvertedImage[i];
+	//}
+
+	//for (int i = 0; i < movingImageSize[0] * movingImageSize[1] * movingImageSize[2]; i++){
+	//	if (!movingInvertedImage[i] == 0) movingInvertedImage[i] = 255 - movingInvertedImage[i];
+	//}
+
 	Correlator3D correlator3D;
-	correlator3D.Initialize( fixedImage,  fixedImageSize,  fixedImageSpacing,  fixedOrigin, movingImage,  movingImageSize,  movingImageSpacing,  movingOrigin);
+	correlator3D.Initialize( fixedInvertedImage,  fixedImageSize,  fixedImageSpacing,  fixedOrigin, movingInvertedImage,  movingImageSize,  movingImageSpacing,  movingOrigin);
 
 	if (correlator3D.SetROISource(0)) // Selector to allow different sources for ROI, currently only main image set up
 		correlator3D.SetROI(targetUserPoints, sourceUserPoints);
@@ -1768,15 +1787,18 @@ void OnRegistrationEvent()
 	double result_new[16];
 
 	correlator3D.ImageCorrelation(transform_Fixed, result_new);
+	vtkMatrix4x4* matrix = vtkMatrix4x4::New();
 
-	UpdateFromTransform(result_new);
-
-	correlator3D.DeformableRegistration(result_new);
-	
-	
+	matrix = UpdateFromTransform(result_new);
+	OutputTransformToFile("NCC", matrix); //method is normalized cross correlation
+	//correlator3D.DeformableRegistration(result_new);
+	//
+	//UpdateFromTransform(result_new);
 }
 
-void UpdateFromTransform(double *result_new){
+
+
+vtkMatrix4x4 * UpdateFromTransform(double *result_new){
 	vtkMatrix4x4* matrix = vtkMatrix4x4::New();
 	matrix->Identity();
 	long count = 0;
@@ -1793,11 +1815,31 @@ void UpdateFromTransform(double *result_new){
 
 	matrix->Transpose();
 
-	std::string volumeString = m_View1->GetSlicer()->GetVolumeLabel();
+
+	m_View1->GetSlicer()->SetRegMatrix(matrix);
+	matrix->Invert();
+	m_View2->GetSlicer()->SetRegMatrix(matrix);
+
+	//set labels for registered volumes
+	m_View1->GetSlicer()->SetRegistrationLabel(m_View2->GetSlicer()->GetVolumeLabel());
+	m_View2->GetSlicer()->SetRegistrationLabel(m_View1->GetSlicer()->GetVolumeLabel());
+
+	LinkCubes();
+	m_View1->UpdateDisplay();
+	m_View2->UpdateDisplay();
+
+	return matrix;
+
+	matrix->Delete();
+}
+
+void OutputTransformToFile(std::string method, vtkMatrix4x4 *matrix){
+	std::string volumeString1 = m_View1->GetSlicer()->GetVolumeLabel();
+	std::string volumeString2 = m_View2->GetSlicer()->GetVolumeLabel();
 
 	IntPtr p1 = Marshal::StringToHGlobalAnsi(m_folderToMonitor);
 	std::string convertedFolderPath = static_cast<char*>(p1.ToPointer());
-	convertedFolderPath += "/" + volumeString + "_ResultMatrix" + ".txt";
+	convertedFolderPath += "/" + volumeString1 + volumeString2 + "_ResultMatrix_" + method + ".txt";
 
 	char outstring[200];
 	fstream tFile = fstream(convertedFolderPath.c_str(), ios::out | ios::binary);
@@ -1825,24 +1867,31 @@ void UpdateFromTransform(double *result_new){
 
 	tFile.write(outstring, strlen(outstring));
 
+	Vector3Vec view1 = m_View1->GetSlicer()->GetUserTargets();
+	Vector3Vec view2 = m_View2->GetSlicer()->GetUserTargets();
+
+
+	IntPtr p2 = Marshal::StringToHGlobalAnsi(m_folderToMonitor);
+	std::string convertedFolderPath2 = static_cast<char*>(p2.ToPointer());
+	convertedFolderPath2 += "/" + volumeString1 + method + "_Fiducials.txt";
+	ofstream tFile2 = ofstream(convertedFolderPath2.c_str());
+	for (Vector3 vector : view1){
+		sprintf(outstring, "%3.6f %3.6f %3.6f", vector.x, vector.y, vector.z);
+		tFile2 << outstring << std::endl;
+	}
+
+	IntPtr p3 = Marshal::StringToHGlobalAnsi(m_folderToMonitor);
+	std::string convertedFolderPath3 = static_cast<char*>(p3.ToPointer());
+	convertedFolderPath3 += "/" + volumeString2 + method + "_Fiducials.txt";
+	ofstream tFile3 = ofstream(convertedFolderPath3.c_str());
+	for (Vector3 vector : view1){
+		sprintf(outstring, "%3.6f %3.6f %3.6f\n\n", vector.x, vector.y, vector.z);
+		tFile3 << outstring << std::endl;
+	}
+
 	tFile.close();
-
-
-	m_View1->GetSlicer()->SetRegMatrix(matrix);
-	matrix->Invert();
-	m_View2->GetSlicer()->SetRegMatrix(matrix);
-
-	//set labels for registered volumes
-	m_View1->GetSlicer()->SetRegistrationLabel(m_View2->GetSlicer()->GetVolumeLabel());
-	m_View2->GetSlicer()->SetRegistrationLabel(m_View1->GetSlicer()->GetVolumeLabel());
-
-	LinkCubes();
-	m_View1->UpdateDisplay();
-	m_View2->UpdateDisplay();
-
-
-
-	matrix->Delete();
+	tFile2.close();
+	tFile3.close();
 }
 
 void OnLinkCubesEvent()
@@ -2517,6 +2566,27 @@ String^ HelperSelectFile(String^ directory)
     return filePath;
 }
 
+void LoadTransformApply(){
+	String^ selectedFile = HelperSelectFile(m_folderToMonitor);
+	std::string selectedFile_STD = ConvertString(selectedFile);
+
+	MessageBox::Show(selectedFile);
+
+	if (selectedFile == "")
+	{
+		return;
+	}
+
+	vtkMatrix4x4* matrix = vtkMatrix4x4::New();
+	HelperParseTransformFileSingle(selectedFile_STD, matrix);
+
+	m_View1->GetSlicer()->SetRegMatrix(matrix);
+	matrix->Invert();
+	m_View2->GetSlicer()->SetRegMatrix(matrix);
+
+	LoadFiducials();
+}
+
 void LoadTransformApplyToSelectedView()
 {
     String^ selectedFile = HelperSelectFile(m_folderToMonitor);
@@ -2532,6 +2602,8 @@ void LoadTransformApplyToSelectedView()
     vtkMatrix4x4* matrix = vtkMatrix4x4::New();
     vtkMatrix4x4* matrixIdentity = vtkMatrix4x4::New();
     HelperParseTransformFileSingle(selectedFile_STD, matrix);
+
+
 
 
    //vtkTransform* transform = vtkTransform::New();
@@ -2562,6 +2634,52 @@ void LoadTransformApplyToSelectedView()
     //transform->Delete();
 
 }
+
+void LoadFiducials(){
+	std::string file1 = m_View1->GetSlicer()->GetVolumeFilePath() + m_View1->GetSlicer()->GetVolumeLabel() + "_Fiducials.txt";
+	std::string file2 = m_View2->GetSlicer()->GetVolumeFilePath() + m_View2->GetSlicer()->GetVolumeLabel() + "_Fiducials.txt";
+
+	std::ifstream stream1;
+	stream1.open(file1);
+
+	Vector3 point;
+	while (stream1){
+		point = GetPoint(stream1);
+		m_View1->GetSlicer()->AddTarget(point);
+	}
+	std::ifstream stream2;
+	stream2.open(file2);
+	while (stream2){
+		point = GetPoint(stream2);
+		m_View1->GetSlicer()->AddTarget(point);
+	}
+
+		
+}
+
+Vector3 GetPoint(std::ifstream &stream){
+	std::string line;
+	std::getline(stream, line);
+	std::vector<std::string> elements = split(line, ' ');
+	Vector3 point = { stof(elements[0]), stof(elements[1]), stof(elements[2]) };
+	return point;
+}
+
+void split(const std::string &s, char delim, std::vector<std::string> &elems) {
+	std::stringstream ss;
+	ss.str(s);
+	std::string item;
+	while (std::getline(ss, item, delim)) {
+		elems.push_back(item);
+	}
+}
+
+std::vector<std::string> split(const std::string &s, char delim) {
+	std::vector<std::string> elems;
+	split(s, delim, elems);
+	return elems;
+}
+
 
 bool HelperParseTransformFileSingle(std::string filePath, vtkMatrix4x4* matrix1)
 {
@@ -2705,22 +2823,28 @@ bool DoLandmarkRegistration()
     m_View1->GetSlicer()->SetRegistrationLabel(m_View2->GetSlicer()->GetVolumeLabel());
     m_View2->GetSlicer()->SetRegistrationLabel(m_View1->GetSlicer()->GetVolumeLabel());
 
+	OutputTransformToFile("Landmark", imageTransform->GetMatrix());
 
 	sourcePoints->Delete();
 	targetPoints->Delete();
 	imageTransform->Delete();
     registrationMatrix->Delete(); 
-
+/*
 	m_View1->GetSlicer()->ClearTargets();
     m_View1->GetSlicer()->ClearTargetSurfaces();
 	m_View2->GetSlicer()->ClearTargets();
-    m_View2->GetSlicer()->ClearTargetSurfaces();
+    m_View2->GetSlicer()->ClearTargetSurfaces();*/
 
 //	UpdateSurfaceList();
+
+
 
 	return true;
 
 }
+
+
+
 
 
 };

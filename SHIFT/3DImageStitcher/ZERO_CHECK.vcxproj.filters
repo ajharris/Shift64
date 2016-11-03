@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <CustomBuild Include="C:\Shift64\Shift64\SHIFT\3DImageStitcher\CMakeFiles\a72c93fac1c79b47a34a869047ce7b43\generate.stamp.rule">
@@ -9,5 +9,8 @@
     <Filter Include="CMake Rules">
       <UniqueIdentifier>{3873AEB3-1117-36D2-BEAC-45998F97A424}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>
